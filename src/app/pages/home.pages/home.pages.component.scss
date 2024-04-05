@@ -1,0 +1,10 @@
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90%; /* Ajustar la altura según necesites */
+}
+
+.centered .areas_block_one{
+  width: 80%;
+}

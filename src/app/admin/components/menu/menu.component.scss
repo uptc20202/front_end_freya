@@ -1,0 +1,39 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px; /* Ajusta el espaciado según sea necesario */
+}
+
+.left img {
+  margin-right: 20px; /* Margen adecuado al lado izquierdo */
+}
+
+.center {
+  display: flex;
+  align-items: center; /* Alinea verticalmente el texto dentro de los elementos span */
+}
+
+.center span {
+  margin-right: 30px; /* Espacio entre cada elemento del menú */
+  font-family: 'Ubuntu', sans-serif; /* Aplica la fuente Ubuntu */
+  font-weight: bold; /* Aplica negrita al texto dentro de los elementos span */
+  font-size: 15px;
+}
+
+.right img {
+  margin-left: 20px; /* Espacio entre cada icono a la derecha */
+}
+
+.logo_freya {
+  height: 40px; /* Establece la altura del logo de Freya */
+  margin-left: 40%; /* Ajusta el margen izquierdo según sea necesario */
+}
+
+.locate_icon_container {
+  margin-top: 5px; /* Margen superior para los elementos con la clase "locate_icon" */
+}
+
+.locate_icon{
+
+}
