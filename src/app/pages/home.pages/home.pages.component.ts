@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.pages.component.scss']
 })
 export class HomePagesComponent {
+  stadeLoginPopup: boolean = false;
 
+  showLoginPopup() {
+    this.stadeLoginPopup = true;
+  }
+
+  noStadeLoginPopup(){
+    this.stadeLoginPopup = false;
+  }
 }

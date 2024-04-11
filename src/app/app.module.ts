@@ -10,6 +10,10 @@ import { CarouselComponent } from './admin/components/carousel/carousel.componen
 import { CCarouselComponent } from './admin/components/c-carousel/c-carousel.component';
 import { AreasComponent } from './admin/components/areas/areas.component';
 import { TargetaAreasComponent } from './admin/components/targeta-areas/targeta-areas.component';
+import { LoginPopUpComponent } from './admin/components/login-pop-up/login-pop-up.component';
+import { RegisterPagesComponent } from './pages/register.pages/register.pages.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,11 +24,15 @@ import { TargetaAreasComponent } from './admin/components/targeta-areas/targeta-
     CarouselComponent,
     CCarouselComponent,
     AreasComponent,
-    TargetaAreasComponent
+    TargetaAreasComponent,
+    LoginPopUpComponent,
+    RegisterPagesComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

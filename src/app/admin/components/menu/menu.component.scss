@@ -28,12 +28,47 @@
 .logo_freya {
   height: 40px; /* Establece la altura del logo de Freya */
   margin-left: 40%; /* Ajusta el margen izquierdo según sea necesario */
+  cursor: pointer;
 }
 
 .locate_icon_container {
   margin-top: 5px; /* Margen superior para los elementos con la clase "locate_icon" */
 }
 
-.locate_icon{
+/* Estilos para el rectángulo pequeño con los botones */
+.user-options {
+  position: absolute;
+  background-color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  display:grid;
+  left: 50%; /* Centra el elemento horizontalmente */
+  transform: translateX(35vw); /* Corrige la posición centrando el elemento */
+  z-index: 1000; /* Asegura que el elemento esté por encima de otros contenidos */
+}
 
+.user-options button {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1em;
+  margin: 5px;
+  border: none;
+  width: 100%;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.btn_navbar{
+  cursor: pointer;
+}
+
+
+.background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo desvanecido gris */
+  z-index: 999; /* Asegura que esté por encima de todos los demás elementos */
 }

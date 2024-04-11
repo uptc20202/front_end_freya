@@ -1,6 +1,6 @@
 <div class="navbar">
   <div class="left">
-    <img class="logo_freya" src="../../../assets/menu/logo_freya.png" alt="Logo Freya">
+    <img class="logo_freya" (click)="homeRoute()" src="../../../assets/menu/logo_freya.png" alt="Logo Freya">
   </div>
   <div class="center">
     <span>Mujer <img class="locate_icon" src="../../../assets/menu/chevron-down.png" alt="Chevron Down"></span>
@@ -9,9 +9,20 @@
     <span class="locate_icon_container">Tiendas </span>
   </div>
   <div class="right">
-    <img src="../../../assets/menu/Search.png" alt="Search">
-    <img src="../../../assets/menu/user.png" alt="User">
-    <img src="../../../assets/menu/heart.png" alt="Heart">
-    <img src="../../../assets/menu/Union.png" alt="Union">
+    <img class="btn_navbar" src="../../../assets/menu/Search.png" alt="Search">
+    <img class="btn_navbar" (mouseenter)="onUserIconHover()" src="../../../assets/menu/user.png" alt="User">
+    <img class="btn_navbar" src="../../../assets/menu/heart.png" alt="Heart">
+    <img class="btn_navbar" src="../../../assets/menu/Union.png" alt="Union">
   </div>
 </div>
+
+<!-- Rectángulo pequeño con botones -->
+<div class="user-options" *ngIf="showUserOptions" (mouseenter)="onUserOptionsHover()" (mouseleave)="onUserOptionsLeave()">
+  <!--button (click)="onUserIconClick()" >Inicia Sesión</-button-->
+  <button (click)="showLoginPopup()" >Inicia Sesión</button>
+  <button (click)="redirectToRegister()">Regístrate</button>
+</div>
+
+<app-login-pop-up *ngIf="stadeLoginPopup"></app-login-pop-up>
+<div (click)="noStadeLoginPopup()" class="background-overlay" *ngIf="stadeLoginPopup"></div>
+

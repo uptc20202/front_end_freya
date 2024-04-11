@@ -1,0 +1,19 @@
+<div class="popup-container">
+  <div class="container">
+    <h2 class="title">INICIAR SESIÓN</h2>
+    <hr class="divider">
+
+    <div class="input-group">
+      <h3 class="input-title">Correo</h3>
+      <input type="email" class="input-field" placeholder="Ingrese su correo" [(ngModel)]="email" (ngModelChange)="setEmail($event)">
+    </div>
+
+    <div class="input-group">
+      <h3 class="input-title">Contraseña</h3>
+      <input type="password" class="input-field" placeholder="Ingrese su contraseña" [(ngModel)]="password" (ngModelChange)="setPassword($event)">
+      <a href="#" class="forgot-password">Olvidé mi contraseña</a>
+    </div>
+
+    <button (click)="loginBtnClick()" class="login-button">INGRESAR</button>
+  </div>
+</div>
