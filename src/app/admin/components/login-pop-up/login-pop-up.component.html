@@ -1,6 +1,6 @@
 <div class="popup-container">
   <div class="container">
-    <h2 class="title">INICIAR SESIÓN</h2>
+    <h2 class="title">{{ title }}</h2>
     <hr class="divider">
 
     <div class="input-group">
@@ -11,9 +11,10 @@
     <div class="input-group">
       <h3 class="input-title">Contraseña</h3>
       <input type="password" class="input-field" placeholder="Ingrese su contraseña" [(ngModel)]="password" (ngModelChange)="setPassword($event)">
-      <a href="#" class="forgot-password">Olvidé mi contraseña</a>
+      <a *ngIf="showLoginBtn" href="#" class="forgot-password">Olvidé mi contraseña</a>
     </div>
 
-    <button (click)="loginBtnClick()" class="login-button">INGRESAR</button>
+    <button *ngIf="showLoginBtn" (click)="loginBtnClick()" class="login-button">INGRESAR</button>
+    <button *ngIf="showRegisterBtn" (click)="registerBtnClick()" class="login-button">REGISTRARSE</button>
   </div>
 </div>

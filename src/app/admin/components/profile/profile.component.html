@@ -1,0 +1,51 @@
+<div class="profile-edit-container">
+  <!-- Columna izquierda -->
+  <div class="column left-column">
+    <div class="field-group">
+      <h3 class="field-title">Nombre (s)</h3>
+      <input [(ngModel)]="name" [ngClass]="{ 'editing': isEditing }" [readonly]="!isEditing" class="input-field" />
+      <!--hr class="field-line" /-->
+    </div>
+
+    <div class="field-group">
+      <h3 class="field-title">Cédula de Ciudadanía</h3>
+      <input [(ngModel)]="idNumber" [ngClass]="{ 'editing': isEditing }" [readonly]="!isEditing" class="input-field" />
+    </div>
+
+    <div class="field-group">
+      <h3 class="field-title">Contacto</h3>
+      <input [(ngModel)]="contact" [ngClass]="{ 'editing': isEditing }" [readonly]="!isEditing" class="input-field" />
+    </div>
+
+    <div class="field-group">
+      <h3 class="field-title">Fecha de Nacimiento</h3>
+      <input [(ngModel)]="birthDate" [readonly]="!isEditing" class="input-field" [ngClass]="{ 'editing': isEditing }" type="date"/>
+    </div>
+  </div>
+
+  <!-- Columna derecha -->
+  <div class="column right-column">
+    <div class="field-group">
+      <h3 class="field-title">Apellidos</h3>
+      <input [(ngModel)]="lastName" [ngClass]="{ 'editing': isEditing }" [readonly]="!isEditing" class="input-field" />
+      <!--hr class="field-line" /-->
+    </div>
+
+    <div class="field-group">
+      <h3 class="field-title">Género</h3>
+      <input [(ngModel)]="gender" [ngClass]="{ 'editing': isEditing }" [readonly]="!isEditing" class="input-field" />
+
+    </div>
+
+    <div class="field-group">
+      <h3 class="field-title">Email</h3>
+      <input [(ngModel)]="email" class="input-field" />
+
+    </div>
+  </div>
+</div>
+
+<!-- Botón Editar -->
+<div class="edit-button-container">
+  <button (click)="toggleEditMode()" class="edit-button">{{ isEditing ? 'Guardar' : 'Editar' }}</button>
+</div>

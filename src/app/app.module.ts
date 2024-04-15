@@ -14,6 +14,8 @@ import { LoginPopUpComponent } from './admin/components/login-pop-up/login-pop-u
 import { RegisterPagesComponent } from './pages/register.pages/register.pages.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ProfilePagesComponent } from './pages/profile.pages/profile.pages.component';
+import { ProfileComponent } from './admin/components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { FormsModule } from '@angular/forms';
     TargetaAreasComponent,
     LoginPopUpComponent,
     RegisterPagesComponent,
+    ProfilePagesComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

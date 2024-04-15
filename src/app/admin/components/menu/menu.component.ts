@@ -7,6 +7,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent {
+  stadeRegisterPopup: boolean=false;
+  stadeBackGroundPopup: boolean=false;
+
+  showRegisterPopup() {
+    this.stadeRegisterPopup = true;
+    this.stadeBackGroundPopup = true;
+  }
 
   constructor(private router: Router) {}
   //@Output() showLoginPopup = new EventEmitter<void>();
@@ -34,10 +41,13 @@ export class MenuComponent {
 
   showLoginPopup() {
     this.stadeLoginPopup = true;
+    this.stadeBackGroundPopup = true;
   }
 
   noStadeLoginPopup(){
+    this.stadeBackGroundPopup = false;
     this.stadeLoginPopup = false;
+    this.stadeRegisterPopup =false;
   }
 
   // Método para redirigir al usuario a la ruta \register

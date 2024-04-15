@@ -19,10 +19,11 @@
 <!-- Rectángulo pequeño con botones -->
 <div class="user-options" *ngIf="showUserOptions" (mouseenter)="onUserOptionsHover()" (mouseleave)="onUserOptionsLeave()">
   <!--button (click)="onUserIconClick()" >Inicia Sesión</-button-->
-  <button (click)="showLoginPopup()" >Inicia Sesión</button>
-  <button (click)="redirectToRegister()">Regístrate</button>
+  <button class="btn_aut" (click)="showLoginPopup()" >Inicia Sesión</button>
+  <button class="btn_aut" (click)="showRegisterPopup()">Regístrate</button>
 </div>
 
-<app-login-pop-up *ngIf="stadeLoginPopup"></app-login-pop-up>
-<div (click)="noStadeLoginPopup()" class="background-overlay" *ngIf="stadeLoginPopup"></div>
+<app-login-pop-up [showLoginBtn]="true" *ngIf="stadeLoginPopup"></app-login-pop-up>
+<app-login-pop-up title="REGISTRARSE" [showRegisterBtn]="true" *ngIf="stadeRegisterPopup"></app-login-pop-up>
+<div (click)="noStadeLoginPopup()" class="background-overlay" *ngIf="stadeBackGroundPopup"></div>
 
