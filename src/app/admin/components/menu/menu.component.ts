@@ -67,4 +67,8 @@ export class MenuComponent {
     this.router.navigate(['/profile']);
   }
 
+  productsRoute(){
+    this.router.navigate(['/catalogue']);
+  }
+
 }
