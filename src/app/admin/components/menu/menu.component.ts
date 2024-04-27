@@ -11,8 +11,10 @@ export class MenuComponent {
   stadeBackGroundPopup: boolean=false;
 
   showRegisterPopup() {
+    this.showUserOptions = false;
     this.stadeRegisterPopup = true;
     this.stadeBackGroundPopup = true;
+    this.stadeLoginPopup = false;
   }
 
   constructor(private router: Router) {}
@@ -40,8 +42,10 @@ export class MenuComponent {
   stadeLoginPopup: boolean = false;
 
   showLoginPopup() {
+    this.showUserOptions = false;
     this.stadeLoginPopup = true;
     this.stadeBackGroundPopup = true;
+    this.stadeRegisterPopup = false;
   }
 
   noStadeLoginPopup(){
@@ -57,6 +61,10 @@ export class MenuComponent {
 
   homeRoute() {
     this.router.navigate(['/']);
+  }
+
+  profileRoute(){
+    this.router.navigate(['/profile']);
   }
 
 }

@@ -1,3 +1,5 @@
+<app-pop-message [typeOfAlert]="typeOfAlert" [showSuccessMessage]="showSuccessMessage" [message]="messagePopAd"></app-pop-message>
+
 <div class="popup-container">
   <div class="container">
     <h2 class="title">{{ title }}</h2>
@@ -17,4 +19,5 @@
     <button *ngIf="showLoginBtn" (click)="loginBtnClick()" class="login-button">INGRESAR</button>
     <button *ngIf="showRegisterBtn" (click)="registerBtnClick()" class="login-button">REGISTRARSE</button>
   </div>
+
 </div>

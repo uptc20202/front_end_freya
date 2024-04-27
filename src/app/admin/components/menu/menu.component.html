@@ -1,6 +1,6 @@
 <div class="navbar">
-  <div class="left">
-    <img class="logo_freya" (click)="homeRoute()" src="../../../assets/menu/logo_freya.png" alt="Logo Freya">
+  <div class="left" >
+    <a (click)="homeRoute()"><img class="logo_freya" src="../../../assets/menu/logo_freya.png" alt="Logo Freya"></a>
   </div>
   <div class="center">
     <span>Mujer <img class="locate_icon" src="../../../assets/menu/chevron-down.png" alt="Chevron Down"></span>
@@ -10,7 +10,7 @@
   </div>
   <div class="right">
     <img class="btn_navbar" src="../../../assets/menu/Search.png" alt="Search">
-    <img class="btn_navbar" (mouseenter)="onUserIconHover()" src="../../../assets/menu/user.png" alt="User">
+    <img class="btn_navbar" (click)="profileRoute()" (mouseenter)="onUserIconHover()" src="../../../assets/menu/user.png" alt="User">
     <img class="btn_navbar" src="../../../assets/menu/heart.png" alt="Heart">
     <img class="btn_navbar" src="../../../assets/menu/Union.png" alt="Union">
   </div>

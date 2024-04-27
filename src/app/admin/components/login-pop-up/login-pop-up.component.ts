@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/api/services/login/login.service';
 import { RegisterService } from 'src/app/api/services/register/register.service';
+import { PopMessageComponent } from '../pop-message/pop-message.component';
 
 @Component({
   selector: 'app-login-pop-up',
@@ -10,11 +11,16 @@ import { RegisterService } from 'src/app/api/services/register/register.service'
 })
 export class LoginPopUpComponent {
 
+  @ViewChild(PopMessageComponent) popMessageComponent!: PopMessageComponent;
+
   email: string = "";
   password: string = "";
-  @Input() title: string = 'INICIAR SESIÓsN';
+  @Input() title: string = 'INICIAR SESIÓN';
   @Input() showLoginBtn: boolean = false;
   @Input() showRegisterBtn: boolean = false;
+  showSuccessMessage: boolean = false;
+  messagePopAd: string = "error";
+  typeOfAlert: string = "error";
 
   constructor(private registerService: RegisterService
     ,private loginService: LoginService,private router: Router) {}
@@ -37,25 +43,19 @@ export class LoginPopUpComponent {
   }
 
   onLogin(email: string, passwordUser: string): void {
-    console.log('Login')
-    // Llama al método login del servicio LoginService y se suscribe al Observable devuelto
-    this.loginService.login(email, passwordUser).subscribe(
-      (response) => { // Callback para manejar la respuesta exitosa del servidor
-        // Convierte la respuesta JSON en un objeto JavaScript
-        const responseObject = JSON.parse(response);
-        // Extrae el correo electrónico del objeto de respuesta y lo guarda en una variable local
-        const user = responseObject.data;
-        localStorage.setItem('user', JSON.stringify(user)); // Guarda el correo electrónico en el almacenamiento local del navegador
-        // Maneja la respuesta del servidor, por ejemplo, guarda el token en una cookie
-        const token = responseObject.tokenSession;
-        this.loginService.saveTokenInCookie(token); // Llama al método del servicio para guardar el token en una cookie
-        this.navigateToHome();
-      },
-      (error) => { // Callback para manejar errores en la solicitud
-        // Maneja errores, por ejemplo, muestra un mensaje de error en la consola
-        console.error('Error al iniciar sesión:', error);
+
+    this.loginService.onLogin(email, passwordUser).then((success) => {
+      // Lógica adicional después de un inicio de sesión exitoso
+      const userJson = localStorage.getItem('user');
+      if(userJson){
+        const user = JSON.parse(userJson);
+        this.noShowMessagePopAd("Hola "+user.first_name , "check");
       }
-    );
+      this.navigateToHome();
+    })
+    .catch((error) => {
+      this.noShowMessagePopAd("Correo o contraseña incorrectos", "error");
+    });
   }
 
   register(email: string, pass: string): void{
@@ -63,18 +63,22 @@ export class LoginPopUpComponent {
     this.registerService.register(email, pass).subscribe(
       (response) =>{
         const responseObject = JSON.stringify(response);
+        this.loginService.onLogin(email, pass);
+        this.noShowMessagePopAd("Registro exitoso", "check");
+        this.navigateToCompleteData();
       },
       (error) => {
-        console.error('Error al registrarse')
+        console.error('Error al registrarse');
+        this.noShowMessagePopAd("Error al registrarse ", "error");
       }
     )
   }
 
   navigateToCompleteData() {
-    this.router.navigate(['/']).then(() => {
+    this.router.navigate(['/register']).then(() => {
       setTimeout(() => {
         window.location.reload();
-      }, 500);
+      }, 1000);
     });;
   }
 
@@ -82,7 +86,21 @@ export class LoginPopUpComponent {
     this.router.navigate(['/']).then(() => {
       setTimeout(() => {
         window.location.reload();
-      }, 500);
+      }, 3000);
     });;
+  }
+
+  //Mensajes de exito o error
+  noShowMessagePopAd(message_err: string, typeOfAlert: string){
+    this.typeOfAlert = typeOfAlert;
+    this.popMessageComponent.typeOfAlert = typeOfAlert;
+    this.messagePopAd = message_err;
+    this.popMessageComponent.update();
+    console.log(this.popMessageComponent.typeOfAlert);
+    console.log(typeOfAlert);
+    this.showSuccessMessage = true;
+    setTimeout(() => {
+      this.showSuccessMessage = false;
+    }, 3000);
   }
 }

@@ -1,0 +1,30 @@
+.catalog-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+}
+
+.content {
+  display: flex; /* Usar display flex para colocar los elementos en línea */
+  justify-content: space-between; /* Espacio entre los elementos para separarlos */
+  padding: 10px;
+  height: 100%;
+}
+
+.text {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: #F45B69;
+}
+
+.product-image{
+  width: 100%;
+  height: 100%;
+}

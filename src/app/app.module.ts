@@ -16,6 +16,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ProfilePagesComponent } from './pages/profile.pages/profile.pages.component';
 import { ProfileComponent } from './admin/components/profile/profile.component';
+import { CataloguePagesComponent } from './pages/catalogue.pages/catalogue.pages.component';
+import { ProductCatalogueComponent } from './admin/components/product-catalogue/product-catalogue.component';
+import { PopMessageComponent } from './admin/components/pop-message/pop-message.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,9 @@ import { ProfileComponent } from './admin/components/profile/profile.component';
     RegisterPagesComponent,
     ProfilePagesComponent,
     ProfileComponent,
+    CataloguePagesComponent,
+    ProductCatalogueComponent,
+    PopMessageComponent,
   ],
   imports: [
     BrowserModule,

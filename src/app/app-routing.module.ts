@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomePagesComponent } from './pages/home.pages/home.pages.component';
 import { RegisterPagesComponent } from './pages/register.pages/register.pages.component';
 import { ProfilePagesComponent } from './pages/profile.pages/profile.pages.component';
+import { CataloguePagesComponent } from './pages/catalogue.pages/catalogue.pages.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'profile',
     component:ProfilePagesComponent
+  },
+  {
+    path: 'catalogue',
+    component:CataloguePagesComponent
   }
 ];
 
