@@ -2,12 +2,16 @@
   display: flex;
   flex-wrap: wrap;
   width: 95%;
-  margin: auto;
-  //justify-content: space-between;
+  justify-content: space-between;
 }
 
 .product-card {
   width: 20%;/* Adjust card width and margin */
   margin-bottom: 20px; /* Add margin between cards */
   margin: 20px 10px;
+}
+
+.container-wrapper {
+  display: flex;
+  justify-content: center;
 }

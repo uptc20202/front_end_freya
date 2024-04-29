@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class ArticlesService {
 
+
+
   private baseUrl = 'https://freya-backend.onrender.com/api/v1/articles/';
 
   constructor(private http: HttpClient) { }
@@ -23,6 +25,12 @@ export class ArticlesService {
 
   private serialize(obj: any): string {
     return Object.keys(obj).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`).join('&');
+  }
+
+
+  getArticlesByGender(gender: string): Observable<any> {
+    const url = `${this.baseUrl}searchArticleByGender?gender=${gender.toUpperCase()}`;
+    return this.http.get(url);
   }
 
 }

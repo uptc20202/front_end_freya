@@ -67,8 +67,8 @@ export class MenuComponent {
     this.router.navigate(['/profile']);
   }
 
-  productsRoute(){
-    this.router.navigate(['/catalogue']);
+  productsRoute(gender: string): void {
+    this.router.navigate(['/catalogue/'+gender]);
   }
 
 }

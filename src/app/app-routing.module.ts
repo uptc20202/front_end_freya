@@ -21,6 +21,14 @@ const routes: Routes = [
   {
     path: 'catalogue',
     component:CataloguePagesComponent
+  },
+  {
+    path: 'catalogue/male',
+    component:CataloguePagesComponent
+  },
+  {
+    path: 'catalogue/:gender',
+    component:CataloguePagesComponent
   }
 ];
 

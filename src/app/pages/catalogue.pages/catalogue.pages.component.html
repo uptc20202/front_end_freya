@@ -1,19 +1,19 @@
 <app-menu></app-menu>
-<!--app-product-catalogue
-  [cardWidth]="'20%'"
-  [text]="'Buso cuello semi alto'"
-  [price]="'$50.00'" >
-</!--app-product-catalogue-->
 
-<div class="catalogue-container">
-  <div class="product-card" *ngFor="let article of articles">
-    <app-product-catalogue
+<app-pop-message [typeOfAlert]="typeOfAlert" [showSuccessMessage]="showSuccessMessage" [message]="messagePopAd"></app-pop-message>
 
-      [cardWidth]="'100%'"
-      [imageUrl]="article.images[0]"
-      [text]="article.name_article"
-      [price]="article.retail_price | currency:'COP':'symbol':'1.2'"
-    >
-    </app-product-catalogue>
+
+<div class="container-wrapper">
+  <div class="catalogue-container">
+    <div class="product-card" *ngFor="let article of articles">
+      <app-product-catalogue
+
+        [cardWidth]="'100%'"
+        [imageUrl]="article.images[0]"
+        [text]="article.name_article"
+        [price]="article.retail_price | currency:'COP':'symbol':'1.2'"
+      >
+      </app-product-catalogue>
+    </div>
   </div>
 </div>
