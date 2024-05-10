@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { PopMessageComponent } from 'src/app/admin/components/pop-message/pop-message.component';
 import { ArticlesService } from 'src/app/api/services/articles/articles.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-catalogue.pages',
@@ -17,7 +17,8 @@ export class CataloguePagesComponent {
   typeOfAlert: string = "error";
 
   constructor(private articleService: ArticlesService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -27,9 +28,9 @@ export class CataloguePagesComponent {
 
       // Llamar al método correspondiente del servicio dependiendo del valor de 'gender'
       if (gender && gender.toUpperCase() === 'MALE') {
-        this.getArticlesByGender('MALE');
+        this.getArticlesByGender('M');
       } else if (gender && gender.toUpperCase() === 'FEMALE') {
-        this.getArticlesByGender('FEMALE');
+        this.getArticlesByGender('F');
       }else{
         this.getAllArticles();
       }

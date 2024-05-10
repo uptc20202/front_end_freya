@@ -1,0 +1,228 @@
+
+<div class="product-container">
+
+  <div class="top-space">
+    <h1 class="title">Productos</h1>
+    <div class="actions">
+      <button class="action-button back">Volver</button>
+      <button class="action-button save">Guardar</button>
+    </div>
+  </div>
+
+
+
+  <div class="form-container">
+    <div class="left-section">
+      <h2>Imágenes</h2>
+      <div class="image-upload">
+        <div class="image-upload" (click)="fileInput.click()">
+          <label>Haz clic aquí para cargar una imagen</label>
+          <input type="file" #fileInput style="display: none;" (change)="onFileChange($event)">
+        </div>
+      </div>
+
+      <div class="image-preview thumbnail-images" *ngFor="let imageUrl of product.images; let i = index">
+
+        <div class="thumbnail" [style.background-image]="'url(' + imageUrl + ')'"
+        alt="Imagen" alt="Thumbnail Image">
+          <div class="detele_ico" (click)="deleteImage(i)"
+          [style.background-image]="'url(../../../assets/general_icons/boton-x.png)'"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-section">
+      <div class="form-row colum_1">
+
+        <div class="form-column">
+
+          <label>Código</label>
+          <input type="text" [(ngModel)]="product.code" />
+
+          <label>Nombre</label>
+          <input type="text" [(ngModel)]="product.name" />
+
+          <label>Categoría</label>
+          <select [(ngModel)]="product.category">
+            <option value="categoria1">Categoría 1</option>
+            <option value="categoria2">Categoría 2</option>
+            <!-- Agrega más opciones según tus necesidades -->
+          </select>
+
+          <label>Género</label>
+          <select [(ngModel)]="product.gender">
+            <option value="male">Masculino</option>
+            <option value="female">Femenino</option>
+            <!-- Agrega más opciones según tus necesidades -->
+          </select>
+
+        </div>
+
+        <div class="form-column">
+
+          <div class="type_quantity">
+
+            <div class="quantity-input">
+              <label>Precio de Venta</label>
+              <input type="number" [(ngModel)]="product.retailPrice" />
+            </div>
+
+            <div class="quantity-input">
+              <label>Unidades Mínimas</label>
+              <input type="text"  />
+            </div>
+
+          </div>
+
+          <div class="type_quantity">
+
+            <div class="quantity-input">
+              <label>Precio Medio</label>
+              <input type="number" [(ngModel)]="product.retailPrice" />
+            </div>
+
+            <div class="quantity-input">
+              <label>Unidades Mínimas</label>
+              <input type="text"  />
+            </div>
+
+          </div>
+
+          <div class="type_quantity">
+
+            <div class="quantity-input">
+              <label>Precio Medio</label>
+              <input type="number" [(ngModel)]="product.retailPrice" />
+            </div>
+
+            <div class="quantity-input">
+              <label>Unidades Mínimas</label>
+              <input type="text"  />
+            </div>
+
+          </div>
+
+          <label>Color</label>
+          <select [(ngModel)]="product.color">
+            <option value="red">Rojo</option>
+            <option value="blue">Azul</option>
+            <!-- Agrega más opciones según tus necesidades -->
+          </select>
+        </div>
+
+        <div class="form-column sizes">
+
+          <div class="type_quantity">
+            <div class="quantity-input">
+              <label>Talla</label>
+              <div class="size-buttons">
+                <button class="size-button">XS</button>
+              </div>
+            </div>
+
+
+            <div class="quantity-input">
+              <label>Cantidad:</label>
+              <div class="quantity">
+                <button class="quantity-button">-</button>
+                <span>1</span>
+                <button class="quantity-button">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="type_quantity">
+            <div class="quantity-input">
+              <div class="size-buttons">
+                <button class="size-button">S</button>
+              </div>
+            </div>
+
+
+            <div class="quantity-input">
+              <div class="quantity">
+                <button class="quantity-button">-</button>
+                <span>1</span>
+                <button class="quantity-button">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="type_quantity">
+            <div class="quantity-input">
+              <div class="size-buttons">
+                <button class="size-button">M</button>
+              </div>
+            </div>
+
+
+            <div class="quantity-input">
+              <div class="quantity">
+                <button class="quantity-button">-</button>
+                <span>1</span>
+                <button class="quantity-button">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="type_quantity">
+            <div class="quantity-input">
+              <div class="size-buttons">
+                <button class="size-button">L</button>
+              </div>
+            </div>
+
+
+            <div class="quantity-input">
+              <div class="quantity">
+                <button class="quantity-button">-</button>
+                <span>1</span>
+                <button class="quantity-button">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="type_quantity">
+            <div class="quantity-input">
+              <div class="size-buttons">
+                <button class="size-button">XL</button>
+              </div>
+            </div>
+
+
+            <div class="quantity-input">
+              <div class="quantity">
+                <button class="quantity-button">-</button>
+                <span>1</span>
+                <button class="quantity-button">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="type_quantity">
+            <div class="quantity-input">
+              <div class="size-buttons">
+                <button class="size-button">XXL</button>
+              </div>
+            </div>
+
+
+            <div class="quantity-input">
+              <div class="quantity">
+                <button class="quantity-button">-</button>
+                <span>1</span>
+                <button class="quantity-button">+</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="form-row">
+        <textarea placeholder="Descripción..." [(ngModel)]="product.description"></textarea>
+      </div>
+    </div>
+  </div>
+</div>

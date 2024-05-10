@@ -1,6 +1,7 @@
-<div class="catalog-card" [style.width]="cardWidth">
-  <div>
-    <img [src]="imageUrl" alt="Product Image" class="product-image">
+<div class="catalog-card" [style.width]="cardWidth" (click)="routeProduct()">
+  <div class="product-image"
+  [style.background-image]="'url(' + imageUrl + ')'">
+    <!--img [src]="imageUrl" alt="Product Image" class="product-image"-->
   </div>
   <div class="content">
     <div class="text">{{ text }}</div>

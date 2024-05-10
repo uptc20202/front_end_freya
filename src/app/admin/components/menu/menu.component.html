@@ -2,18 +2,29 @@
   <div class="left" >
     <a (click)="homeRoute()"><img class="logo_freya" src="../../../assets/menu/logo_freya.png" alt="Logo Freya"></a>
   </div>
-  <div class="center">
+
+<!--Vista si es un usuario general-->
+  <div class="center" *ngIf="!admin">
     <span (click)="productsRoute('Female')">Mujer <img class="locate_icon" src="../../../assets/menu/chevron-down.png" alt="Chevron Down"></span>
     <span (click)="productsRoute('Male')">Hombre <img class="locate_icon" src="../../../assets/menu/chevron-down.png" alt="Chevron Down"></span>
     <span (click)="productsRoute('')">Accesorios</span>
     <span >Nosotros <img class="locate_icon" src="../../../assets/menu/chevron-down.png" alt="Chevron Down"></span>
     <span class="locate_icon_container">Tiendas </span>
   </div>
+
+<!--Vista si es un administrador-->
+  <div class="center"  *ngIf="admin">
+    <span (click)="productsAdminRoute()">Productos </span>
+    <span (click)="reportSellRoute()">Ventas </span>
+    <span (click)="productsRoute('')">Accesorios</span>
+    <span >Información</span>
+    <span class="locate_icon_container">Reportes</span>
+  </div>
+
   <div class="right">
     <img class="btn_navbar" src="../../../assets/menu/Search.png" alt="Search">
     <img class="btn_navbar" (click)="profileRoute()" (mouseenter)="onUserIconHover()" src="../../../assets/menu/user.png" alt="User">
-    <img class="btn_navbar" src="../../../assets/menu/heart.png" alt="Heart">
-    <img class="btn_navbar" src="../../../assets/menu/Union.png" alt="Union">
+    <img class="btn_navbar" (click)="stateCard = !stateCard" src="../../../assets/menu/Union.png" alt="Union">
   </div>
 </div>
 
@@ -28,3 +39,6 @@
 <app-login-pop-up title="REGISTRARSE" [showRegisterBtn]="true" *ngIf="stadeRegisterPopup"></app-login-pop-up>
 <div (click)="noStadeLoginPopup()" class="background-overlay" *ngIf="stadeBackGroundPopup"></div>
 
+<div class="card_show" *ngIf="stateCard">
+  <app-shop-car></app-shop-car>
+</div>

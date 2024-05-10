@@ -19,6 +19,16 @@ import { ProfileComponent } from './admin/components/profile/profile.component';
 import { CataloguePagesComponent } from './pages/catalogue.pages/catalogue.pages.component';
 import { ProductCatalogueComponent } from './admin/components/product-catalogue/product-catalogue.component';
 import { PopMessageComponent } from './admin/components/pop-message/pop-message.component';
+import { DetailProductPagesComponent } from './pages/detail-product.pages/detail-product.pages.component';
+import { ProductDescriptionComponent } from './admin/components/product-description/product-description.component';
+import { CreateProductPagesComponent } from './pages/create-product.pages/create-product.pages.component';
+import { AddProductComponent } from './admin/components/add-product/add-product.component';
+import { ReadProductAdminComponent } from './admin/components/read-product-admin/read-product-admin.component';
+import { ListFilterPipe } from './pipe/list-filter.pipe';
+import { CategoryListComponent } from './admin/components/category-list/category-list.component';
+import { SalesPagesComponent } from './pages/sales.pages/sales.pages.component';
+import { ShopCarComponent } from './admin/components/shop-car/shop-car.component';
+import { SalesReportComponent } from './admin/components/sales-report/sales-report.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +47,16 @@ import { PopMessageComponent } from './admin/components/pop-message/pop-message.
     CataloguePagesComponent,
     ProductCatalogueComponent,
     PopMessageComponent,
+    DetailProductPagesComponent,
+    ProductDescriptionComponent,
+    CreateProductPagesComponent,
+    AddProductComponent,
+    ReadProductAdminComponent,
+    ListFilterPipe,
+    CategoryListComponent,
+    SalesPagesComponent,
+    ShopCarComponent,
+    SalesReportComponent,
   ],
   imports: [
     BrowserModule,

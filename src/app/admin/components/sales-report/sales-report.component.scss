@@ -1,0 +1,65 @@
+/* Estilos para todas las tablas */
+.table {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 20px;
+}
+
+/* Estilos para cada celda de las tablas */
+.table-general{
+
+}
+
+/* Estilos para la columna con Venta REF */
+.col-md-3 h1 {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 30px;
+  color: #F45B69;
+}
+
+.col-md-3{
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.col-md-3 div{
+  padding: 5px;
+  background-color: #0000000d;
+  font-size: 13px;
+  font-weight: bold;
+  border: 1px solid #00000029;
+}
+
+/* Estilos para la tabla de detalles generales */
+.table-general thead th {
+  background-color: #F45B69;
+  color: #FFFFFF;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.table-general td {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 20px;
+}
+
+/* Estilos para la tabla de detalles de los artículos */
+.table-articles thead th {
+  background-color: #F45B69;
+  color: #FFFFFF;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 12px;
+}
+
+.table-articles td {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 12px;
+}
+
+.row{
+  display: flex;
+}
+
+.col-md-9{
+  font-family:'Ubuntu', sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  color: #F45B69;;
+}

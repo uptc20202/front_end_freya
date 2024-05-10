@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, map, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service'; // Importa el servicio CookieService de ngx-cookie-service
 
@@ -56,4 +56,32 @@ export class LoginService {
     this.cookieService.set('token', token);
   }
 
+  validateToken(): Promise<boolean> {
+    const token = this.cookieService.get('token'); // Obtener el token del servicio de cookies
+
+    const headers = new HttpHeaders({
+      'Authorization': `${token}` // Incluir el token en los encabezados de la solicitud
+    });
+
+    return new Promise<boolean>((resolve, reject) => {
+      this.http.get<any>('https://freya-backend.onrender.com/api/v1/auth/verifyToken', { headers,   responseType: 'text' as 'json' }).subscribe(
+        (response) => {
+          resolve(true);
+        },
+        (error) => {
+          console.error('Error al validar token:', error);
+          reject(false);
+        }
+      );
+    });
+
+  }
+
+  logout(): void {
+    this.cookieService.delete('token');
+    localStorage.removeItem('user');
+  }
+
 }
+
+

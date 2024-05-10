@@ -1,13 +1,16 @@
 <app-menu></app-menu>
 
-<app-pop-message [typeOfAlert]="typeOfAlert" [showSuccessMessage]="showSuccessMessage" [message]="messagePopAd"></app-pop-message>
+<app-pop-message [typeOfAlert]="typeOfAlert"
+  [showSuccessMessage]="showSuccessMessage" [message]="messagePopAd">
+</app-pop-message>
 
 
 <div class="container-wrapper">
   <div class="catalogue-container">
     <div class="product-card" *ngFor="let article of articles">
-      <app-product-catalogue
 
+      <app-product-catalogue
+        [routerLink]="article._id"
         [cardWidth]="'100%'"
         [imageUrl]="article.images[0]"
         [text]="article.name_article"

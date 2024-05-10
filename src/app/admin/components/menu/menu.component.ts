@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginService } from 'src/app/api/services/login/login.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,8 +8,40 @@ import { Router } from '@angular/router';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent {
+
   stadeRegisterPopup: boolean=false;
   stadeBackGroundPopup: boolean=false;
+  stateLogin: boolean=false;
+  stateCard: boolean=false;
+  admin:boolean=false;
+
+  constructor(private router: Router, private loginService: LoginService) {}
+
+  ngOnInit(): void {
+    this.validateRol();
+
+    this.loginService.validateToken().then((success) => {
+        this.stateLogin =true;
+
+        this.validateRol();
+      },
+      (error) => {
+        this.stateLogin =false;
+        this.loginService.logout();
+        this.admin = false;
+      }
+    );
+
+  }
+
+  validateRol(){
+    const userJson = localStorage.getItem('user');
+
+    if (userJson) {
+      const user = JSON.parse(userJson);
+      this.admin = user.role == 'admin';
+   }
+  }
 
   showRegisterPopup() {
     this.showUserOptions = false;
@@ -17,16 +50,14 @@ export class MenuComponent {
     this.stadeLoginPopup = false;
   }
 
-  constructor(private router: Router) {}
-  //@Output() showLoginPopup = new EventEmitter<void>();
   showUserOptions: boolean = false;
 
-  /*onUserIconClick() {
-    this.showLoginPopup.emit();
-  }*/
-
   onUserIconHover(): void {
-    this.showUserOptions = true;
+
+    if(!this.stateLogin){
+      this.showUserOptions = true;
+    }
+
   }
 
   onUserOptionsHover(): void {
@@ -36,8 +67,6 @@ export class MenuComponent {
   onUserOptionsLeave(): void {
     this.showUserOptions = false;
   }
-
-
 
   stadeLoginPopup: boolean = false;
 
@@ -69,6 +98,14 @@ export class MenuComponent {
 
   productsRoute(gender: string): void {
     this.router.navigate(['/catalogue/'+gender]);
+  }
+
+  productsAdminRoute(){
+    this.router.navigate(['/admin/products']);
+  }
+
+  reportSellRoute() {
+    this.router.navigate(['admin/sales-report']);
   }
 
 }

@@ -1,0 +1,61 @@
+<div class="product-list" *ngIf="!stadeEdit">
+  <div class="header">
+    <h1 class="title">Productos</h1>
+    <button class="new-product-button" (click)="toEdit()">Nuevo producto</button>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Producto</th>
+        <th>Nombre</th>
+        <th>Categoría</th>
+        <th>Precio de venta</th>
+        <th>Precio Medio</th>
+        <th>Precio por mayor</th>
+        <th>Cantidad total</th>
+        <th>Acciones</th>
+      </tr>
+      <tr>
+        <td><input type="text" [(ngModel)]="filter.code" (input)="applyFilter()" placeholder="Código"></td>
+        <td></td>
+        <td><input type="text" [(ngModel)]="filter.name"  (input)="applyFilter()" placeholder="Nombre"></td>
+        <td><input type="text" [(ngModel)]="filter.category" (input)="applyFilter()" placeholder="Categoría"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let article of filteredArticles">
+        <td>{{ article.code_article }}</td>
+        <td>
+          <div class="product-image" [style.background-image]="'url(' + article.images[0] + ')'" [title]="article.name_article">
+          </div>
+        </td>
+        <td>{{ article.name_article }}</td>
+        <td>{{ article.category }}</td>
+        <td>{{ article.retail_price }}</td>
+        <td>{{ article.medium_price }}</td>
+        <td>{{ article.wholesale_price }}</td>
+        <td>{{ getTotalQuantity(article.stock) }}</td>
+        <td>
+          <button (click)="viewArticle(article)" title="Ver">
+            <i class="fas fa-eye"></i>
+          </button>
+          <button (click)="editArticle(article)" title="Editar">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button (click)="deleteArticle(article)" title="Borrar">
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-add-product *ngIf="stadeEdit"></app-add-product>

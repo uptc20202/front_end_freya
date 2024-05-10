@@ -1,0 +1,82 @@
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { ArticlesService } from 'src/app/api/services/articles/articles.service';
+
+@Component({
+  selector: 'app-shop-car',
+  templateUrl: './shop-car.component.html',
+  styleUrls: ['./shop-car.component.scss']
+})
+export class ShopCarComponent implements OnInit {
+  cartItems: any[] = []; // Array para almacenar los elementos del carrito
+  articles: any[] = [];
+  shippingCost = 10; // Costo de envío fijo
+
+  constructor(private http: HttpClient,private articlesService: ArticlesService) { }
+
+  ngOnInit(): void {
+    // Obtener los elementos del carrito almacenados en localStorage
+    const storedCart = localStorage.getItem('cart');
+    if (storedCart) {
+      try {
+        this.cartItems = JSON.parse(storedCart);
+        this.fillCartItemsDetails(); // Llamar a la función para rellenar los detalles de los productos
+      } catch (error) {
+        console.error('Error parsing cart items from localStorage:', error);
+      }
+    }
+  }
+
+  fillCartItemsDetails(): void {
+    // Obtener detalles completos para cada elemento del carrito
+    this.cartItems.forEach(item => {
+      console.log('view item',item)
+      this.articlesService.getArticleById(item.productId).subscribe(
+        (data: any) => {
+          console.log('view item',data, item.productId)
+          item.product = data; // Asignar los detalles del producto al elemento del carrito
+        },
+        (error) => {
+          console.error(`Error fetching product details for ID ${item.productId}:`, error);
+        }
+      );
+    });
+  }
+
+
+  increaseQuantity(item: any): void {
+    item.quantity++;
+    this.saveCart(); // Guardar carrito actualizado en el localStorage
+  }
+
+  decreaseQuantity(item: any): void {
+    if (item.quantity > 1) {
+      item.quantity--;
+      this.saveCart(); // Guardar carrito actualizado en el localStorage
+    }
+  }
+
+  calculateSubtotal(): number {
+    return this.cartItems.reduce((total, item) => total + (item.product.retail_price * item.quantity), 0);
+  }
+
+  calculateTotal(): number {
+    return this.calculateSubtotal() + this.shippingCost;
+  }
+
+  saveCart(): void {
+    // Guardar el carrito actualizado en el localStorage
+    localStorage.setItem('cart', JSON.stringify(this.cartItems));
+  }
+
+  checkout(): void {
+    // Implementa la lógica para finalizar la compra
+    console.log('Compra finalizada!');
+  }
+
+  clearCart(): void {
+    // Limpiar el carrito (eliminar todos los elementos)
+    this.cartItems = [];
+    localStorage.removeItem('cart'); // Eliminar el carrito del localStorage
+  }
+}
