@@ -29,6 +29,14 @@ import { CategoryListComponent } from './admin/components/category-list/category
 import { SalesPagesComponent } from './pages/sales.pages/sales.pages.component';
 import { ShopCarComponent } from './admin/components/shop-car/shop-car.component';
 import { SalesReportComponent } from './admin/components/sales-report/sales-report.component';
+import { Step2BuyComponent } from './admin/components/step2-buy/step2-buy.component';
+import { ContinueBuyPagesComponent } from './pages/continue-buy.pages/continue-buy.pages.component';
+import { AddressPagesComponent } from './pages/address.pages/address.pages.component';
+import { AddressComponent } from './admin/components/address/address.component';
+import { CircleStateShippingComponent } from './admin/components/circle-state-shipping/circle-state-shipping.component';
+import { MapsPagesComponent } from './pages/maps.pages/maps.pages.component';
+import { MapsComponent } from './admin/components/maps/maps.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
   declarations: [
@@ -57,12 +65,20 @@ import { SalesReportComponent } from './admin/components/sales-report/sales-repo
     SalesPagesComponent,
     ShopCarComponent,
     SalesReportComponent,
+    Step2BuyComponent,
+    ContinueBuyPagesComponent,
+    AddressPagesComponent,
+    AddressComponent,
+    CircleStateShippingComponent,
+    MapsPagesComponent,
+    MapsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    GoogleMapsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ArticlesService } from 'src/app/api/services/articles/articles.service';
 
 @Component({
@@ -8,11 +9,13 @@ import { ArticlesService } from 'src/app/api/services/articles/articles.service'
   styleUrls: ['./shop-car.component.scss']
 })
 export class ShopCarComponent implements OnInit {
+
+
   cartItems: any[] = []; // Array para almacenar los elementos del carrito
   articles: any[] = [];
   shippingCost = 10; // Costo de envío fijo
 
-  constructor(private http: HttpClient,private articlesService: ArticlesService) { }
+  constructor(private router: Router,private http: HttpClient,private articlesService: ArticlesService) { }
 
   ngOnInit(): void {
     // Obtener los elementos del carrito almacenados en localStorage
@@ -78,5 +81,9 @@ export class ShopCarComponent implements OnInit {
     // Limpiar el carrito (eliminar todos los elementos)
     this.cartItems = [];
     localStorage.removeItem('cart'); // Eliminar el carrito del localStorage
+  }
+
+  cartRoute() {
+    this.router.navigate(['/cart']);
   }
 }

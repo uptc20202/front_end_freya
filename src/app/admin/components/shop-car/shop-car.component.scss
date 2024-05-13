@@ -7,6 +7,15 @@
   height: 400px;
 }
 
+.products-list{
+  height: 55%;
+  overflow-y: auto;
+}
+
+.before-list{
+  height: 100%;
+}
+
 .cart-title {
   font-size: 15px;
 }

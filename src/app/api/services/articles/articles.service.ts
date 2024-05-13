@@ -11,6 +11,8 @@ export class ArticlesService {
 
 
   private baseUrl = 'https://freya-backend.onrender.com/api/v1/articles/';
+  private apiUrl = 'https://freya-backend.onrender.com/api/v1/categories/';
+  private localStorageKey = 'categories';
 
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
@@ -49,5 +51,7 @@ export class ArticlesService {
     const url = 'https://freya-backend.onrender.com/api/v1/categories/';
     return this.http.get(url, { headers});
   }
+
+
 
 }

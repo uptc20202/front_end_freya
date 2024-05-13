@@ -8,6 +8,8 @@ import { DetailProductPagesComponent } from './pages/detail-product.pages/detail
 import { CreateProductPagesComponent } from './pages/create-product.pages/create-product.pages.component';
 import { ShopCarComponent } from './admin/components/shop-car/shop-car.component';
 import { SalesPagesComponent } from './pages/sales.pages/sales.pages.component';
+import { ContinueBuyPagesComponent } from './pages/continue-buy.pages/continue-buy.pages.component';
+import { MapsPagesComponent } from './pages/maps.pages/maps.pages.component';
 
 const routes: Routes = [
   {
@@ -45,6 +47,14 @@ const routes: Routes = [
   {
     path: 'admin/sales-report',
     component:SalesPagesComponent
+  },
+  {
+    path: 'cart',
+    component:ContinueBuyPagesComponent
+  },
+  {
+    path: 'maps',
+    component:MapsPagesComponent
   }
 ];
 

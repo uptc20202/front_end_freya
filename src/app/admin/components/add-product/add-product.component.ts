@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ArticlesService } from 'src/app/api/services/articles/articles.service';
 import { CloudinaryService } from 'src/app/api/services/cloudinary/cloudinary.service';
 
 @Component({
@@ -31,9 +32,21 @@ export class AddProductComponent  implements OnInit {
     description: ''
   };
 
-  constructor(private uploadService: CloudinaryService) { }
-  ngOnInit(): void {
+  categorias: any[]  = [];
 
+  constructor(private uploadService: CloudinaryService,
+    private categoriaService: ArticlesService) { }
+
+  ngOnInit(): void {
+    this.categoriaService.getCategories().subscribe(
+      categorias => {
+        this.categorias = categorias;
+        console.log(this.categorias); // Aquí puedes ver el arreglo con _id y name_category
+      },
+      error => {
+        console.error('Error al obtener las categorías', error);
+      }
+    );
   }
 
   onFileChange(event: any) {
@@ -77,4 +90,7 @@ export class AddProductComponent  implements OnInit {
     })
     return true;
   }
+
+
+
 }
