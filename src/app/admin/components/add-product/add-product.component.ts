@@ -22,26 +22,32 @@ export class AddProductComponent  implements OnInit {
     wholesalePrice: 0,
     color: '',
     units: {
-      XS: 0,
-      S: 0,
-      M: 0,
-      L: 0,
-      XL: 0,
-      XXL: 0
     },
     description: ''
   };
 
-  categorias: any[]  = [];
+  uploadedImageUrls: string[] = [];
+
+  test(){
+    console.log(this.product)
+  }
+
+  categories: any[]  = [];
 
   constructor(private uploadService: CloudinaryService,
     private categoriaService: ArticlesService) { }
 
   ngOnInit(): void {
+    this.loadCategories();
+  }
+
+  loadCategories(): void {
     this.categoriaService.getCategories().subscribe(
-      categorias => {
-        this.categorias = categorias;
-        console.log(this.categorias); // Aquí puedes ver el arreglo con _id y name_category
+      (categories: any[]) => {
+        this.categories = categories.map(category => ({
+          _id: category._id,
+          name: category.name_category
+        }));
       },
       error => {
         console.error('Error al obtener las categorías', error);
@@ -67,30 +73,73 @@ export class AddProductComponent  implements OnInit {
     this.product.images.splice(index, 1); // Eliminar la imagen del array según su índice
   }
 
+
+
+
+
   upload() {
-    if(this.product.images.length===0) return false;
+    if (this.product.images.length === 0) {
+      return false;
+    }
 
-    const file_data = this.product.images[0];
+    // Recorrer cada imagen en this.product.images
+    this.product.images.forEach((file_data: any) => {
+      const data = new FormData();
 
-    const data = new FormData();
+      data.append('file', file_data);
+      data.append('upload_preset', 'test-data');
+      data.append('cloud_name', 'ds9zdlkcc');
+      data.append('api_key', '467869935517896');
 
-    data.append('file', file_data);
-    data.append('upload_preset', 'test-data');
-    data.append('cloud_name', 'ds9zdlkcc');
-    data.append('api_key', '467869935517896')
-
-    this.uploadService.updloadImg(data).subscribe({
+      // Realizar la carga de la imagen en Cloudinary
+      this.uploadService.updloadImg(data).subscribe({
         next: (response: any) => {
-          console.log(response)
-          alert('Subida exitosa Cloudinary..')
+          console.log(response);
+
+          // Obtener la URL de la imagen subida desde la respuesta
+          const imageUrl = response.url;
+
+          // Almacenar la URL en el array de URLs de imágenes subidas
+          this.uploadedImageUrls.push(imageUrl);
+
+          // Mostrar mensaje de éxito para cada imagen subida
+          console.log('Subida exitosa Cloudinary para ' + imageUrl);
         },
         error: (e: any) => {
-          console.log(e)
+          console.log(e);
+
+          // Mostrar mensaje de error si la carga falla
+          alert('Error al subir imagen a Cloudinary');
         }
-    })
+      });
+    });
+
     return true;
   }
 
+  createArticle(): void {
 
+    const articleData = {
+      retail_price: this.product.retailPrice,
+      wholesale_price: this.product.wholesalePrice,
+      medium_price: this.product.middlePrice,
+      description_article: this.product.description,
+      images: this.uploadedImageUrls,
+      available: true,
+      stock: Object.entries(this.product.units),
+      gender: this.product.gender
+    };
+
+    // Realizar la solicitud HTTP POST para crear el artículo
+    this.categoriaService.addArticle(articleData).subscribe({
+      next: (response: any) => {
+        console.log('Artículo creado con éxito:', response);
+        // Reiniciar el formulario o realizar otras acciones después de crear el artículo
+      },
+      error: (error: any) => {
+        console.error('Error al crear el artículo:', error);
+      }
+    });
+  }
 
 }

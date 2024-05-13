@@ -52,6 +52,11 @@ export class ArticlesService {
     return this.http.get(url, { headers});
   }
 
+  addArticle(articleData: any): Observable<any> {
+    const token = this.cookieService.get('token');
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
 
+    return this.http.post(this.apiUrl, articleData, { headers });
+  }
 
 }
