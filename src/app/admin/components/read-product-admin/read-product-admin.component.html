@@ -1,7 +1,7 @@
 <div class="product-list" *ngIf="!stadeEdit">
   <div class="header">
     <h1 class="title">Productos</h1>
-    <button class="new-product-button" (click)="toEdit()">Nuevo producto</button>
+    <button class="new-product-button" (click)="toEdit()" >Nuevo producto</button>
   </div>
 
   <table class="table">
@@ -18,10 +18,10 @@
         <th>Acciones</th>
       </tr>
       <tr>
-        <td><input type="text" [(ngModel)]="filter.code" (input)="applyFilter()" placeholder="Código"></td>
+        <td><input type="text" [(ngModel)]="filter.code" (ngModelChange)="applyFilter()" placeholder="Código"></td>
         <td></td>
-        <td><input type="text" [(ngModel)]="filter.name"  (input)="applyFilter()" placeholder="Nombre"></td>
-        <td><input type="text" [(ngModel)]="filter.category" (input)="applyFilter()" placeholder="Categoría"></td>
+        <td><input type="text" [(ngModel)]="filter.name" (ngModelChange)="applyFilter()" placeholder="Nombre"></td>
+        <td><input type="text" [(ngModel)]="filter.category" (ngModelChange)="applyFilter()" placeholder="Categoría"></td>
         <td></td>
         <td></td>
         <td></td>
@@ -37,20 +37,29 @@
           </div>
         </td>
         <td>{{ article.name_article }}</td>
-        <td>{{ article.category }}</td>
+        <td>{{ getCategoryName(article.category) }}</td>
         <td>{{ article.retail_price }}</td>
         <td>{{ article.medium_price }}</td>
         <td>{{ article.wholesale_price }}</td>
         <td>{{ getTotalQuantity(article.stock) }}</td>
         <td>
-          <button (click)="viewArticle(article)" title="Ver">
-            <i class="fas fa-eye"></i>
+          <button class="bnts-products" (click)="routeProduct(article._id)" title="Ver">
+            <i class="fas fa-eye">
+              <div class="options-product" [style.background-image]="'url(../../../assets/admin/Eye.png)'">
+              </div>
+            </i>
           </button>
-          <button (click)="editArticle(article)" title="Editar">
-            <i class="fas fa-edit"></i>
+          <button class="bnts-products" (click)="editArticle(article)" title="Editar">
+            <i class="fas fa-edit">
+              <div class="options-product" [style.background-image]="'url(../../../assets/admin/edit.png)'">
+              </div>
+            </i>
           </button>
-          <button (click)="deleteArticle(article)" title="Borrar">
-            <i class="fas fa-trash"></i>
+          <button class="bnts-products" (click)="deleteArticle(article)" title="Borrar">
+            <i class="fas fa-trash">
+              <div class="options-product"  [style.background-image]="'url(../../../assets/admin/Trash.png)'">
+              </div>
+            </i>
           </button>
         </td>
       </tr>
@@ -58,4 +67,4 @@
   </table>
 </div>
 
-<app-add-product *ngIf="stadeEdit"></app-add-product>
+<app-add-product *ngIf="stadeEdit" [product]="editProduct" (back)="toEdit()"></app-add-product>

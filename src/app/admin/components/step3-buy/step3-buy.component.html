@@ -1,0 +1,44 @@
+<div class="delivery-container">
+  <div class="address-section">
+    <h2 class="address-title">ELIGE DIRECCIÓN DE ENTREGA</h2>
+    <div class="address-list">
+      <div *ngFor="let address of addresses; let i = index" class="address-item">
+        <div class="verification-icon" (click)="selectAddress(i)">
+          <img [src]="address.selected ? '../../../assets/shop/check_green.png' : '../../../assets/shop/uncheck_green.png'" alt="Verification Icon">
+        </div >
+
+        <div class="address-edit">
+          <div class="center">
+            <div class="address-info">
+              <p class="text-address">{{ address.address }}, {{ address.municipality }}</p>
+              <p class="text-address">{{ address.neighborhood }}, {{ address.aditional_info }}</p>
+              <p class="text-address">Destinatario: {{ address.name_addressee }}, Teléfono: {{ address.number_phone }}</p>
+            </div>
+
+            <button class="edit-button">Editar</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="summary-section">
+    <h2 class="address-title">RESUMEN DE COMPRA</h2>
+    <div class="totals">
+      <div>
+        <p>Subtotal:</p>
+        <p>{{ calculateSubtotal | currency:'COP':'symbol':'1.0-0' }}</p>
+      </div>
+      <div>
+        <p>Costo de Envío:</p>
+        <p>{{ shippingCost | currency:'COP':'symbol':'1.0-0' }}</p>
+      </div>
+      <div>
+        <p>Total:</p>
+        <p>{{ calculateTotal | currency:'COP':'symbol':'1.0-0' }}</p>
+      </div>
+    </div>
+    <button (click)="continueToPayment()" class="continue-button">IR AL PAGO</button>
+  </div>
+</div>

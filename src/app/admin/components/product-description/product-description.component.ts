@@ -60,6 +60,7 @@ export class ProductDescriptionComponent {
     } else {
       // Agregar el nuevo producto al carrito
       const newItem = {
+
         productId: this.productId,
         size: this.selectedSize,
         quantity: this.quantity

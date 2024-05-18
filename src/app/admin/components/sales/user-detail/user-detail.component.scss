@@ -1,0 +1,81 @@
+h1, h2, h3, a, p, label,div{
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.container {
+  margin: 10px auto;
+  width: 90%;
+  border-radius: 20px;
+  border: 1px solid #00000054;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.date, .order {
+  font-size: 14px;
+}
+
+.status {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.products {
+  display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.product-details {
+  flex: 1 1 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.product-info {
+  margin-bottom: 10px;
+}
+
+.product-info h3 {
+  margin: 0;
+}
+
+.product-info p {
+  margin: 5px 0;
+}
+
+.product-details img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.address-details {
+  margin-top: 40px;
+}
+
+.summary {
+  margin-top: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.summary h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.summary p {
+  margin: 5px 0;
+}

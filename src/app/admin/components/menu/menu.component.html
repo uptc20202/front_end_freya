@@ -31,8 +31,9 @@
 <!-- Rectángulo pequeño con botones -->
 <div class="user-options" *ngIf="showUserOptions" (mouseenter)="onUserOptionsHover()" (mouseleave)="onUserOptionsLeave()">
   <!--button (click)="onUserIconClick()" >Inicia Sesión</-button-->
-  <button class="btn_aut" (click)="showLoginPopup()" >Inicia Sesión</button>
-  <button class="btn_aut" (click)="showRegisterPopup()">Regístrate</button>
+  <button class="btn_aut" *ngIf="showNoLoginOptions" (click)="showLoginPopup()" >Inicia Sesión</button>
+  <button class="btn_aut" *ngIf="showNoLoginOptions" (click)="showRegisterPopup()">Regístrate</button>
+  <button class="btn_aut" *ngIf="!showNoLoginOptions" (click)="logout()">Cerrar sesión</button>
 </div>
 
 <app-login-pop-up [showLoginBtn]="true" *ngIf="stadeLoginPopup"></app-login-pop-up>

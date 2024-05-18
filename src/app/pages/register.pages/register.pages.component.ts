@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { PopMessageComponent } from 'src/app/admin/components/pop-message/pop-message.component';
 import { UpdateUserService } from 'src/app/api/services/updateUser/update-user.service';
 
@@ -23,7 +24,7 @@ export class RegisterPagesComponent {
   gender: string = '';
   typeDocumen: string = '';
 
-  constructor(private updateUserService : UpdateUserService) {}
+  constructor(private updateUserService : UpdateUserService, private router: Router) {}
 
   changeDataUser(){
     const userJson = localStorage.getItem('user');
@@ -63,6 +64,11 @@ export class RegisterPagesComponent {
         // Manejar respuesta exitosa
         this.noShowMessagePopAd("Datos completados con exito", "check");
         console.log('Usuario actualizado con éxito:', response);
+
+        const user = response;
+        localStorage.setItem('user', JSON.stringify(user));
+
+        this.router.navigate(['/profile'])
       },
       (error) => {
         // Manejar error

@@ -59,10 +59,9 @@ export class LoginPopUpComponent {
   }
 
   register(email: string, pass: string): void{
-    console.log("Register")
+
     this.registerService.register(email, pass).subscribe(
       (response) =>{
-        const responseObject = JSON.stringify(response);
         this.loginService.onLogin(email, pass);
         this.noShowMessagePopAd("Registro exitoso", "check");
         this.navigateToCompleteData();
@@ -96,8 +95,6 @@ export class LoginPopUpComponent {
     this.popMessageComponent.typeOfAlert = typeOfAlert;
     this.messagePopAd = message_err;
     this.popMessageComponent.update();
-    console.log(this.popMessageComponent.typeOfAlert);
-    console.log(typeOfAlert);
     this.showSuccessMessage = true;
     setTimeout(() => {
       this.showSuccessMessage = false;

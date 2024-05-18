@@ -36,23 +36,11 @@ export class CataloguePagesComponent {
       }
     });
 
-
-
-    /*this.articleService.getArticles().subscribe(data => {
-      this.articles = data;
-      console.log(this.articles)
-    },
-    (error) => {
-      console.error('Error al registrarse');
-      this.noShowMessagePopAd("Error al cargar productos ", "error");
-    });*/
-
   }
 
   private getAllArticles(){
     this.articleService.getArticles().subscribe(data => {
       this.articles = data;
-      console.log(this.articles)
     },
     (error) => {
       console.error('Error al registrarse');
@@ -64,7 +52,6 @@ export class CataloguePagesComponent {
     this.articleService.getArticlesByGender(gender).subscribe(
       data => {
         this.articles = data;
-        console.log(this.articles);
       },
       error => {
         console.error('Error al cargar productos:', error);
@@ -78,8 +65,6 @@ export class CataloguePagesComponent {
     this.popMessageComponent.typeOfAlert = typeOfAlert;
     this.messagePopAd = message_err;
     this.popMessageComponent.update();
-    console.log(this.popMessageComponent.typeOfAlert);
-    console.log(typeOfAlert);
     this.showSuccessMessage = true;
     setTimeout(() => {
       this.showSuccessMessage = false;

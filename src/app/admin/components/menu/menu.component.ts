@@ -34,6 +34,11 @@ export class MenuComponent {
 
   }
 
+  logout(){
+    this.loginService.logout();
+    this.homeRoute();
+  }
+
   validateRol(){
     const userJson = localStorage.getItem('user');
 
@@ -51,12 +56,17 @@ export class MenuComponent {
   }
 
   showUserOptions: boolean = false;
+  showNoLoginOptions: boolean = false;
 
   onUserIconHover(): void {
 
     if(!this.stateLogin){
-      this.showUserOptions = true;
+      this.showNoLoginOptions = true;
+    }else{
+      this.showNoLoginOptions = false;
     }
+
+    this.showUserOptions = true;
 
   }
 

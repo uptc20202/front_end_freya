@@ -85,12 +85,6 @@
   cursor: pointer;
 }
 
-.totals {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
 .continue-button {
   margin-top: 20px;
   font-size: 12px;
@@ -166,4 +160,15 @@
 
 .details{
   display: flex;
+}
+
+.totals {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.totals div {
+  display: flex;
+
 }

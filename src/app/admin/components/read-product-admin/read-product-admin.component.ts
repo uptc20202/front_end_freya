@@ -1,5 +1,39 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { ArticlesService } from 'src/app/api/services/articles/articles.service';
+
+interface InputData {
+  available: boolean;
+  category: string;
+  code_article: string;
+  color: string;
+  createdAt: string;
+  description_article: string;
+  gender: string;
+  images: string[];
+  name_article: string;
+  retail_price: number;
+  stock: any[];
+  updatedAt: string;
+  wholesale_price: number;
+  _id: string;
+}
+
+interface OutputData {
+
+    category: string;
+    code_article: string;
+    color: string;
+    description: string;
+    gender: string;
+    images: string[];
+    medium_price: number;
+    name_article: string;
+    retail_price: number;
+    stock: { [size: string]: number };
+    wholesale_price: number;
+    _id: string;
+}
 
 @Component({
   selector: 'app-read-product-admin',
@@ -8,23 +42,93 @@ import { ArticlesService } from 'src/app/api/services/articles/articles.service'
 })
 export class ReadProductAdminComponent implements OnInit {
 
-  stadeEdit:boolean = false;
+  stadeEdit: boolean = false;
   articles: any[] = [];
   filteredArticles: any[] = []; // Array filtrado a mostrar en la tabla
   filter: any = { code: '', name: '', category: '' };
+  editProduct: any;
 
+  categories: any[]  = [];
 
-  constructor(private articleService: ArticlesService) { }
+  constructor(private articleService: ArticlesService, private router: Router,
+    private categoriaService: ArticlesService) { }
 
   ngOnInit(): void {
+
+    this.loadCategories();
     this.getAllArticles();
+  }
+
+
+  loadCategories(): void {
+    this.categoriaService.getCategories().subscribe(
+      (categories: any[]) => {
+        this.categories = categories.map(category => ({
+          _id: category._id,
+          name_category: category.name_category
+        }));
+
+      },
+      error => {
+        console.error('Error al obtener las categorías', error);
+      }
+    );
+  }
+
+  getCategoryName(categoryId: string): string {
+    const foundCategory = this.categories.find(cat => cat._id === categoryId);
+    return foundCategory ? foundCategory.name_category : 'Sin categoría';
+  }
+
+  transformData(input: InputData): OutputData {
+    interface InputData {
+      available: boolean;
+      category: string;
+      code_article: string;
+      color: string;
+      createdAt: string;
+      description_article: string;
+      gender: string;
+      images: string[];
+      name_article: string;
+      retail_price: number;
+      stock: { size: string; quantity: number }[]; // Correctly specify the stock property as an array of objects with size and quantity
+      updatedAt: string;
+      wholesale_price: number;
+      _id: string;
+    }
+
+      const output: OutputData = {
+          _id: input._id,
+          category: input.category,
+          code_article: input.code_article,
+          color: input.color,
+          description: '', // Puedes asignar aquí la descripción deseada si la propiedad existe en el objeto de entrada
+          gender: input.gender,
+          images: input.images,
+          medium_price: 1, // Aquí debes definir cómo se calcula el precio medio
+          name_article: input.name_article,
+          retail_price: input.retail_price,
+          wholesale_price: input.wholesale_price,
+          stock: {}, // Inicializamos el objeto de stock vacío para llenarlo a continuación
+      };
+
+      // Mapeo del stock del formato array al formato objeto por tamaño
+      if (input.stock && Array.isArray(input.stock)) {
+          input.stock.forEach((item) => {
+              if (item.size && item.quantity) {
+                  output.stock[item.size] = item.quantity;
+              }
+          });
+      }
+      return output;
   }
 
   getAllArticles(): void {
     this.articleService.getArticles().subscribe(
       (data: any[]) => {
         this.articles = data;
-        this.filteredArticles = [...this.articles]; // Inicializar con todos los artículos
+        this.filteredArticles = this.articles;
       },
       (error) => {
         console.error('Error al obtener los productos', error);
@@ -39,9 +143,9 @@ export class ReadProductAdminComponent implements OnInit {
   applyFilter(): void {
     // Aplicar el filtro localmente al array de artículos
     this.filteredArticles = this.articles.filter(article =>
-      article.code_article.toLowerCase().includes(this.filter.code.toLowerCase()) &&
-      article.name_article.toLowerCase().includes(this.filter.name.toLowerCase()) &&
-      article.category.toLowerCase().includes(this.filter.category.toLowerCase())
+      article.code_article?.toLowerCase().includes(this.filter.code.toLowerCase()) &&
+      article.name_article?.toLowerCase().includes(this.filter.name.toLowerCase()) &&
+      article.category?.toLowerCase().includes(this.filter.category.toLowerCase())
     );
   }
 
@@ -50,14 +154,46 @@ export class ReadProductAdminComponent implements OnInit {
   }
 
   editArticle(article: any): void {
-    console.log('Editar artículo:', article);
+    this.editProduct = this.transformData(article);
+    this.stadeEdit = true;
   }
 
   deleteArticle(article: any): void {
-    console.log('Eliminar artículo:', article);
+    if (confirm(`¿Estás seguro de que deseas eliminar el artículo "${article.name_article}"?`)) {
+      this.articleService.deleteArticle(article._id).subscribe(
+        (response: any) => {
+          console.log('Artículo eliminado correctamente', response);
+          // Actualizar la lista de artículos después de la eliminación
+          this.articles = this.articles.filter(a => a._id !== article._id);
+          this.applyFilter();
+        },
+        (error) => {
+          console.error('Error al eliminar el artículo', error);
+        }
+      );
+    }
   }
 
   toEdit() {
-    this.stadeEdit = true;
+    this.stadeEdit = !this.stadeEdit;
+
+    this.editProduct = {
+      category: '',
+      images: [],
+      code_article: '',
+      name_article: '',
+      gender: '',
+      retail_price: 0,
+      medium_price: 0,
+      wholesale_price: 0,
+      color: '',
+      stock: {
+      },
+      description: ''
+    };
+  }
+
+  routeProduct(routerLink: string) {
+    this.router.navigate(['/catalogue/product/'+routerLink]);
   }
 }

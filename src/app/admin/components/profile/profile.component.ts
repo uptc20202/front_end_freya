@@ -42,6 +42,8 @@ import { User } from 'src/app/models/user.model';
         (response) => {
           // Manejar respuesta exitosa
           console.log('Usuario actualizado con éxito:', response);
+          const user = response;
+          localStorage.setItem('user', JSON.stringify(user));
         },
         (error) => {
           // Manejar error

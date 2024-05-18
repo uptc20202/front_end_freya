@@ -1,7 +1,7 @@
 <div class="product-list" *ngIf="!stadeEdit">
   <div class="header">
     <h1 class="title">Categorías</h1>
-    <button class="new-product-button" (click)="toEdit()"> Nueva categoria</button>
+    <button class="new-product-button" (click)="toEdit();editCategory=''"> Nueva categoria</button>
   </div>
 
   <table class="table">
@@ -25,14 +25,23 @@
           <img [src]="category.url_image" alt="Imagen" width="100">
         </td>
         <td>
-          <button  title="Ver">
-            <i class="fas fa-eye"></i>
+          <!--button-- class="bnts-products"  title="Ver">
+            <i class="fas fa-eye">
+              <div class="options-product" [style.background-image]="'url(../../../assets/admin/Eye.png)'">
+              </div>
+            </i>
+          </!--button-->
+          <button class="bnts-products"  title="Editar" (click)="toEditCategory(category)">
+            <i class="fas fa-edit">
+              <div class="options-product" [style.background-image]="'url(../../../assets/admin/edit.png)'">
+              </div>
+            </i>
           </button>
-          <button  title="Editar">
-            <i class="fas fa-edit"></i>
-          </button>
-          <button  title="Borrar">
-            <i class="fas fa-trash"></i>
+          <button class="bnts-products" title="Borrar" (click)="deteleCategory(category)">
+            <i class="fas fa-trash">
+              <div class="options-product"  [style.background-image]="'url(../../../assets/admin/Trash.png)'">
+              </div>
+            </i>
           </button>
         </td>
       </tr>
@@ -41,3 +50,6 @@
 
 
 </div>
+
+
+<app-edit-category *ngIf="stadeEdit" [categoryId]="editCategory"  (back)="toEdit()" (newCategory)="categories.push($event)"></app-edit-category>

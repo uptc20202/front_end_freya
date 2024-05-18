@@ -10,6 +10,8 @@ import { ShopCarComponent } from './admin/components/shop-car/shop-car.component
 import { SalesPagesComponent } from './pages/sales.pages/sales.pages.component';
 import { ContinueBuyPagesComponent } from './pages/continue-buy.pages/continue-buy.pages.component';
 import { MapsPagesComponent } from './pages/maps.pages/maps.pages.component';
+import { SalesOrdersComponent } from './admin/components/sales-orders/sales-orders.component';
+import { UserDetailComponent } from './admin/components/sales/user-detail/user-detail.component';
 
 const routes: Routes = [
   {
@@ -41,10 +43,6 @@ const routes: Routes = [
     component:CreateProductPagesComponent
   },
   {
-    path: 'shop-test',
-    component:ShopCarComponent
-  },
-  {
     path: 'admin/sales-report',
     component:SalesPagesComponent
   },
@@ -55,6 +53,10 @@ const routes: Routes = [
   {
     path: 'maps',
     component:MapsPagesComponent
+  },
+  {
+    path: 'test',
+    component:UserDetailComponent
   }
 ];
 

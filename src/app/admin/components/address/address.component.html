@@ -1,1 +1,20 @@
-<p>address works!</p>
+<div class="address-book-container">
+  <div class="header">
+    <button mat-button class="header-button left" (click)="goBack()">Volver</button>
+    <button mat-button class="header-button right" (click)="addAddress()">Agregar dirección</button>
+  </div>
+
+  <div class="address-list">
+    <div *ngFor="let address of addresses" class="address-card">
+      <div class="address-details">
+        <div class="data-address">
+          <p> {{ address.address }}</p>
+          <p>{{ address.municipality }}</p>
+          <p>{{ address.department }}</p>
+        </div>
+
+        <button mat-button class="edit-button" (click)="editAddress(address)">Editar</button>
+      </div>
+    </div>
+  </div>
+</div>

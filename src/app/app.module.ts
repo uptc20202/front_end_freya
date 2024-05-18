@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -36,7 +38,13 @@ import { AddressComponent } from './admin/components/address/address.component';
 import { CircleStateShippingComponent } from './admin/components/circle-state-shipping/circle-state-shipping.component';
 import { MapsPagesComponent } from './pages/maps.pages/maps.pages.component';
 import { MapsComponent } from './admin/components/maps/maps.component';
-import { GoogleMapsModule } from '@angular/google-maps';
+import { EditAddresComponent } from './admin/components/edit-addres/edit-addres.component';
+import { MatOption } from '@angular/material/core';
+import { Step3BuyComponent } from './admin/components/step3-buy/step3-buy.component';
+import { SalesOrdersComponent } from './admin/components/sales-orders/sales-orders.component';
+import { UserDetailComponent } from './admin/components/sales/user-detail/user-detail.component';
+import { EditCategoryComponent } from './admin/components/edit-category/edit-category.component';
+
 
 @NgModule({
   declarations: [
@@ -72,13 +80,19 @@ import { GoogleMapsModule } from '@angular/google-maps';
     CircleStateShippingComponent,
     MapsPagesComponent,
     MapsComponent,
+    EditAddresComponent,
+    Step3BuyComponent,
+    SalesOrdersComponent,
+    UserDetailComponent,
+    EditCategoryComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    GoogleMapsModule
+    MatFormFieldModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

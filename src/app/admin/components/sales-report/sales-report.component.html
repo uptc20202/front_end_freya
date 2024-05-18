@@ -4,7 +4,7 @@
     <div class="col-md-3">
       <input type="text" class="form-control mb-3" placeholder="Buscar venta...">
       <div *ngFor="let sale of sales" (click)="onSelectSale(sale)" class="btn btn-primary mb-2">
-        Venta REF {{ sale._id.substring(0, 6) }}
+        <p> Venta REF {{ sale._id.substring(0, 6) }} </p>
       </div>
     </div>
 
@@ -39,30 +39,33 @@
       </table>
 
       <!-- Detalles de los artículos de la venta -->
-      <table class="table table-bordered table-articles">
-        <thead>
-          <tr>
-            <th scope="col">Ref Producto</th>
-            <th scope="col">Producto</th>
-            <th scope="col">Cantidad</th>
-            <th scope="col">Talla</th>
-            <th scope="col">Impuesto</th>
-            <th scope="col">Descuento</th>
-            <th scope="col">Total a pagar</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let article of selectedSale.articles">
-            <td>{{ article.article_id }}</td>
-            <td>{{ article.title }}</td>
-            <td>{{ article.quantity }}</td>
-            <td>{{ article.size }}</td>
-            <td>n/a</td>
-            <td>-</td>
-            <td>{{ article.total }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="div_table_articles">
+        <table class="table table-bordered table-articles">
+          <thead>
+            <tr>
+              <th scope="col">Ref Producto</th>
+              <th scope="col">Producto</th>
+              <th scope="col">Cantidad</th>
+              <th scope="col">Talla</th>
+              <th scope="col">Impuesto</th>
+              <th scope="col">Descuento</th>
+              <th scope="col">Total a pagar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let article of selectedSale.articles">
+              <td>{{ article.article_id }}</td>
+              <td>{{ article.title }}</td>
+              <td>{{ article.quantity }}</td>
+              <td>{{ article.size }}</td>
+              <td>n/a</td>
+              <td>-</td>
+              <td>{{ article.total }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
     </div>
 
   </div>

@@ -14,7 +14,6 @@ export class CreateProductPagesComponent {
   changePage(num: number){
     if(num == 2){
       this.position = false;
-      console.log("False")
     }else{
       this.position = true;
     }

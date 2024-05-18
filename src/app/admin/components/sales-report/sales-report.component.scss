@@ -6,7 +6,12 @@
 
 /* Estilos para cada celda de las tablas */
 .table-general{
-
+  border-collapse: separate;
+      border-spacing: 0;
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 15px;
+      overflow: hidden;
 }
 
 /* Estilos para la columna con Venta REF */
@@ -42,10 +47,19 @@
 
 /* Estilos para la tabla de detalles de los artículos */
 .table-articles thead th {
-  background-color: #F45B69;
-  color: #FFFFFF;
+  background-color: #0000002f;
+  color: #000000;
   font-family: 'Ubuntu', sans-serif;
   font-size: 12px;
+  margin-top: 50px;
+}
+
+.table-articles tr{
+  border-bottom:1px solid #F45B69;
+}
+
+.div_table_articles{
+  margin-top: 20px;
 }
 
 .table-articles td {
@@ -60,6 +74,54 @@
 .col-md-9{
   font-family:'Ubuntu', sans-serif;
   font-size: 15px;
-  font-weight: bold;
-  color: #F45B69;;
+  margin:10px auto;
+}
+
+.btn-primary {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 18px;
+  padding: 10px 20px;
+  height: 9vh;
+  border: none;
+  background-color: #ffffff;
+  color: #000000;
+  cursor: pointer;
+  box-shadow: 4px 4px 18px rgba(0, 0, 0, 0.2); /* Sombra con ángulo de 90 grados */
+  transition: transform 0.3s ease-in-out; /* Transición suave al hacer hover */
+  width: 100%;
+  align-items: center;
+}
+
+.btn-primary p{
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 18px;
+}
+
+/* Estilos al hacer hover sobre el botón */
+.btn-primary:hover {
+  transform: translate(2px, 2px); /* Desplazamiento al hacer hover */
+}
+
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  border: 1px solid #dddddd;
+  padding: 10px;
+}
+
+.table th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.table tbody tr:hover {
+  background-color: #e9e9e9;
 }

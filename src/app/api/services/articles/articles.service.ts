@@ -27,7 +27,8 @@ export class ArticlesService {
   }
 
   private serialize(obj: any): string {
-    return Object.keys(obj).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`).join('&');
+    return Object.keys(obj).map(key =>
+       `${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`).join('&');
   }
 
 
@@ -56,7 +57,24 @@ export class ArticlesService {
     const token = this.cookieService.get('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
 
-    return this.http.post(this.apiUrl, articleData, { headers });
+    return this.http.post(this.baseUrl, articleData, { headers });
+  }
+
+  deleteArticle(id: string): Observable<any> {
+
+    const token = this.cookieService.get('token');
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+    const url = `${this.baseUrl}${id}`;
+
+    return this.http.delete(url, { headers, responseType: 'text' });
+  }
+
+  updateArticle(id: string, articleData: any): Observable<any> {
+    const token = this.cookieService.get('token');
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+    const url = `${this.baseUrl}${id}`;
+
+    return this.http.put(url, articleData, { headers });
   }
 
 }

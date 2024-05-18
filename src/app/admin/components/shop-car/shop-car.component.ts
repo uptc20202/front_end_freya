@@ -12,7 +12,7 @@ export class ShopCarComponent implements OnInit {
 
 
   cartItems: any[] = []; // Array para almacenar los elementos del carrito
-  articles: any[] = [];
+  //articles: any[] = [];
   shippingCost = 10; // Costo de envío fijo
 
   constructor(private router: Router,private http: HttpClient,private articlesService: ArticlesService) { }
@@ -36,7 +36,6 @@ export class ShopCarComponent implements OnInit {
       console.log('view item',item)
       this.articlesService.getArticleById(item.productId).subscribe(
         (data: any) => {
-          console.log('view item',data, item.productId)
           item.product = data; // Asignar los detalles del producto al elemento del carrito
         },
         (error) => {
@@ -60,7 +59,8 @@ export class ShopCarComponent implements OnInit {
   }
 
   calculateSubtotal(): number {
-    return this.cartItems.reduce((total, item) => total + (item.product.retail_price * item.quantity), 0);
+    return this.cartItems.reduce((total, item) =>
+        total + ((item.product?.retail_price ?? 0) * item.quantity), 0);
   }
 
   calculateTotal(): number {

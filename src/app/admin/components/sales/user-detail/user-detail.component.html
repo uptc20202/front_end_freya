@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="header">
+    <div class="date"><b>FECHA DEL PEDIDO:</b> {{ sale.createdAt | date:'dd MMMM yyyy' }}</div>
+    <div class="order"><b>PEDIDO:</b> {{ sale._id }}</div>
+  </div>
+  <div class="status">{{ sale.statusSale | uppercase}}</div>
+  <div class="products">
+    <div class="product-details" *ngFor="let article of sale.articles">
+      <div class="product-info">
+        <h3>{{ article.details.name }}</h3>
+        <p>Cantidad: {{ article.quantity }}</p>
+        <p>Valor: {{ article.total }}</p>
+      </div>
+      <img [src]="article.details.image" alt="{{ article.details.name }}">
+    </div>
+  </div>
+  <div class="address-details">
+    <h2>Datos de dirección</h2>
+    <p>{{ sale.address.address }}</p>
+    <p>{{ sale.address.department }}, {{ sale.address.municipality }}, {{ sale.address.neighborhood }}</p>
+    <p>{{ sale.address.additional_info }}</p>
+    <p>Destinatario: {{ sale.address.name_addressee }}</p>
+    <p>Teléfono: {{ sale.address.number_phone }}</p>
+  </div>
+  <div class="summary">
+    <h2>Resumen de compra</h2>
+    <p>Subtotal: {{ calculateSubtotal() }}</p>
+    <p>Costo de envío: {{ calculateShippingCost() }}</p>
+    <p>Total: {{ calculateTotal() }}</p>
+  </div>
+</div>

@@ -123,3 +123,29 @@
   display: inline-block;
   margin-right: 8px;
 }
+
+.options-product{
+  width: 20px;
+  height: 20px;
+  background-size: cover;
+  background-position: center top;
+}
+
+
+.bnts-products{
+  background: none;
+  border: none;
+}
+
+.bnts-products:hover {
+  background-color: lightgray; /* Color de fondo al pasar el cursor */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra al pasar el cursor */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transición suave */
+  cursor: pointer;
+}
+
+.bnts-products:active {
+  transform: scale(0.95); /* Reducir tamaño al hacer clic */
+  transition: transform 0.1s ease; /* Transición rápida */
+}
+

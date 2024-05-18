@@ -5,9 +5,9 @@
   <div class="left-section">
     <h1 class="title">Mi cuenta</h1>
     <ul class="menu">
-      <li>Perfil</li>
-      <li>Direcciones</li>
-      <li>Pedidos</li>
+      <li (click)="show('profile')">Perfil</li>
+      <li (click)="show('address')">Direcciones</li>
+      <li (click)="show('orders')">Pedidos</li>
       <li>Contraseña</li>
     </ul>
   </div>
@@ -15,6 +15,24 @@
   <!-- Sección derecha (70% de ancho) -->
   <div class="right-section">
     <!-- Aquí puedes incluir otro componente Angular usando su selector -->
-    <app-profile></app-profile>
+    <app-profile *ngIf="profile"></app-profile>
+
+    <app-address
+      (editBtn)="show('editAddress')"
+      (addressEdit)="addressEdit=$event;
+
+      show('editAddress')" *ngIf="address">
+    </app-address>
+    <app-edit-addres
+      (back)="show('address')"
+      [addressEdit]="addressEdit"
+      [id_user]="id_user"
+      (addressDeleted)="onAddressDeleted($event)"
+      *ngIf="address_edit">
+    </app-edit-addres>
+
+    <app-sales-orders *ngIf="orders">
+
+    </app-sales-orders>
   </div>
 </div>

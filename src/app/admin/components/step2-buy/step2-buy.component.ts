@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { ArticlesService } from 'src/app/api/services/articles/articles.service';
 
 @Component({
   selector: 'app-step2-buy',
@@ -7,13 +8,19 @@ import { Component } from '@angular/core';
 })
 export class Step2BuyComponent {
 
+  @Output() step3Btn: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() Subtotal: EventEmitter<number> = new EventEmitter<number>();
+  @Output() shipping: EventEmitter<number> = new EventEmitter<number>();
+  @Output() total: EventEmitter<number> = new EventEmitter<number>();
+  @Output() aricles: EventEmitter<any[]> = new EventEmitter<any[]>();
+
   cartItems: any[] = []; // Array para almacenar los elementos del carrito
-  shippingCost = 10; // Costo de envío fijo
+  shippingCost = 10000; // Costo de envío fijo
 
   imageCircleUnchecked = '../../../assets/shop/Ellipse_vacio.png';
   imageCircleChecked = '../../../assets/shop/Ellipse_check.png';
 
-  constructor() { }
+  constructor(private articlesService: ArticlesService) { }
 
   ngOnInit(): void {
     this.retrieveCartItems();
@@ -23,15 +30,22 @@ export class Step2BuyComponent {
     const cartItemsString = localStorage.getItem('cart');
     if (cartItemsString) {
       this.cartItems = JSON.parse(cartItemsString);
+      this.fillCartItemsDetails();
     }
   }
 
   calculateSubtotal(): number {
-    return this.cartItems.reduce((total, item) => total + (item.product.retail_price * item.quantity), 0);
+    const SubtotalValue = this.cartItems.reduce((total, item) => total + ((item.product?.retail_price ?? 0) * item.quantity), 0)
+    this.Subtotal.emit(SubtotalValue)
+    return SubtotalValue;
   }
 
   calculateTotal(): number {
-    return this.calculateSubtotal() + this.shippingCost;
+    const totalValue = this.calculateSubtotal() + this.shippingCost;
+    this.shipping.emit(this.shippingCost);
+    this.total.emit(totalValue)
+    this.aricles.emit(this.cartItems);
+    return totalValue;
   }
 
   decreaseQuantity(item: any): void {
@@ -56,5 +70,22 @@ export class Step2BuyComponent {
     localStorage.setItem('cart', JSON.stringify(this.cartItems));
   }
 
+  toStep3(){
+    this.step3Btn.emit(true);
+  }
+
+  fillCartItemsDetails(): void {
+    // Obtener detalles completos para cada elemento del carrito
+    this.cartItems.forEach(item => {
+      this.articlesService.getArticleById(item.productId).subscribe(
+        (data: any) => {
+          item.product = data; // Asignar los detalles del producto al elemento del carrito
+        },
+        (error) => {
+          console.error(`Error fetching product details for ID ${item.productId}:`, error);
+        }
+      );
+    });
+  }
 
 }
