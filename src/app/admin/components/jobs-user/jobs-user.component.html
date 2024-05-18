@@ -9,7 +9,7 @@
         <h3>{{ job?.title }}</h3>
         <p class="location">{{ job?.ubicacion }}</p>
         <p class="description">{{ job?.requeriments }}</p>
-        <button class="more-info">Ver más</button>
+        <button (click)="routerNavigate(job._id)" class="more-info">Ver más</button>
       </div>
 
     </div>

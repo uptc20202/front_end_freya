@@ -47,6 +47,8 @@ import { EditCategoryComponent } from './admin/components/edit-category/edit-cat
 import { SaleStatusPagesComponent } from './pages/sale-status.pages/sale-status.pages.component';
 import { JobsUserComponent } from './admin/components/jobs-user/jobs-user.component';
 import { JobsUserListPagesComponent } from './pages/jobs-user-list.pages/jobs-user-list.pages.component';
+import { JobsUserDetailsPagesComponent } from './pages/jobs-user-details.pages/jobs-user-details.pages.component';
+import { JobsUserDetailComponent } from './admin/components/jobs-user-detail/jobs-user-detail.component';
 
 
 @NgModule({
@@ -91,6 +93,8 @@ import { JobsUserListPagesComponent } from './pages/jobs-user-list.pages/jobs-us
     SaleStatusPagesComponent,
     JobsUserComponent,
     JobsUserListPagesComponent,
+    JobsUserDetailsPagesComponent,
+    JobsUserDetailComponent,
   ],
   imports: [
     BrowserModule,

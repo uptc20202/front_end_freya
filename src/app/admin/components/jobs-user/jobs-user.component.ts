@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { JobsService } from 'src/app/api/services/jobs/jobs.service';
 
 @Component({
@@ -10,7 +11,7 @@ export class JobsUserComponent implements OnInit{
 
   jobs: any[] = [];
 
-  constructor(private jobService: JobsService) { }
+  constructor(private jobService: JobsService, private router: Router) { }
 
   ngOnInit(): void {
       this.getJobs();
@@ -25,6 +26,10 @@ export class JobsUserComponent implements OnInit{
         console.error('There was an error!', error);
       }
     );
+  }
+
+  routerNavigate(id:string){
+    this.router.navigate(['/jobs/'+id]);
   }
 
 }
