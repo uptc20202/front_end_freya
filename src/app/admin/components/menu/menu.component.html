@@ -8,8 +8,8 @@
     <span (click)="productsRoute('Female')">Mujer <img class="locate_icon" src="../../../assets/menu/chevron-down.png" alt="Chevron Down"></span>
     <span (click)="productsRoute('Male')">Hombre <img class="locate_icon" src="../../../assets/menu/chevron-down.png" alt="Chevron Down"></span>
     <span (click)="productsRoute('')">Accesorios</span>
-    <span >Nosotros <img class="locate_icon" src="../../../assets/menu/chevron-down.png" alt="Chevron Down"></span>
-    <span class="locate_icon_container">Tiendas </span>
+    <span (click)="routerNavigate('/jobs')">Nosotros <img class="locate_icon" src="../../../assets/menu/chevron-down.png" alt="Chevron Down"></span>
+    <span class="locate_icon_container" (click)="routerNavigate('/maps')">Tiendas </span>
   </div>
 
 <!--Vista si es un administrador-->

@@ -12,6 +12,8 @@ import { ContinueBuyPagesComponent } from './pages/continue-buy.pages/continue-b
 import { MapsPagesComponent } from './pages/maps.pages/maps.pages.component';
 import { SalesOrdersComponent } from './admin/components/sales-orders/sales-orders.component';
 import { UserDetailComponent } from './admin/components/sales/user-detail/user-detail.component';
+import { SaleStatusPagesComponent } from './pages/sale-status.pages/sale-status.pages.component';
+import { JobsUserListPagesComponent } from './pages/jobs-user-list.pages/jobs-user-list.pages.component';
 
 const routes: Routes = [
   {
@@ -53,6 +55,14 @@ const routes: Routes = [
   {
     path: 'maps',
     component:MapsPagesComponent
+  },
+  {
+    path: 'sale/:id',
+    component:SaleStatusPagesComponent
+  },
+  {
+    path: 'jobs',
+    component:JobsUserListPagesComponent
   },
   {
     path: 'test',

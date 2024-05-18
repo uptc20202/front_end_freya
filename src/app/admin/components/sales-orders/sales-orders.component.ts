@@ -9,6 +9,9 @@ import { ArticlesService } from 'src/app/api/services/articles/articles.service'
 })
 export class SalesOrdersComponent {
 
+  editState: boolean = false;
+  idSaleView: string = "";
+
   sales: any[] = [];
 
   constructor(private salesService: SalesService, private articlesService: ArticlesService) { }
@@ -43,7 +46,6 @@ export class SalesOrdersComponent {
         this.articlesService.getArticleById(article.article_id).subscribe(
           (articleDetails: any) => {
             article.details = articleDetails;
-            console.log(this.sales)
           },
           (error: any) => {
             console.error(`Error fetching details for article ID ${article.article_id}:`, error);
@@ -83,11 +85,15 @@ export class SalesOrdersComponent {
         return 'status-prepared';
       case 'CONFIRMADO':
         return 'status-confirmed';
-      case 'PENDIENTE':
+      case 'CONFIRMADA':
         return 'status-pending';
       default:
         return '';
     }
+  }
+
+  viewSale(id: string){
+    this.idSaleView = id;
   }
 
 }

@@ -11,12 +11,14 @@ export class SalesService {
 
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
-  getSales(token: string): Observable<any> {
+  getSales(): Observable<any> {
+    const token = this.cookieService.get('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get(`${this.apiUrl}/sales`, { headers });
   }
 
-  getUserById(userId: string, token: string): Observable<any> {
+  getUserById(userId: string): Observable<any> {
+    const token = this.cookieService.get('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get(`${this.apiUrl}/users/${userId}`, { headers });
   }
@@ -82,6 +84,30 @@ export class SalesService {
     const token = this.cookieService.get('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get(`${this.apiUrl}/sales/${saleId}`, { headers });
+  }
+
+  /**
+   * Updates the status of a sale by its ID.
+   *
+   * This method sends a PUT request to update the status of the sale with the provided sale ID.
+   * The request includes an authorization token in the headers and expects a JSON response.
+   *
+   * @param {string} saleId - The ID of the sale to update.
+   * @param {object} statusData - The data containing the new status of the sale. The structure
+   * of the data should match the expected format:
+   *  {
+   *    "statusSale": "COMPLETA" | "CANCELADA"
+   *  }
+   * @returns {Observable<any>} - An observable containing the response from the server.
+   */
+  updateSaleStatus(saleId: string, statusData: any): Observable<any> {
+    const token = this.cookieService.get('token');
+    const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${token}`)
+      .set('Content-Type', 'application/json');
+
+    console.log( saleId, statusData)
+    return this.http.put(`${this.apiUrl}/sales/${saleId}`, statusData, { headers });
   }
 
 }

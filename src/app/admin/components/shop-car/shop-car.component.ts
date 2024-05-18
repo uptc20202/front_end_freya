@@ -34,7 +34,7 @@ export class ShopCarComponent implements OnInit {
     // Obtener detalles completos para cada elemento del carrito
     this.cartItems.forEach(item => {
       console.log('view item',item)
-      this.articlesService.getArticleById(item.productId).subscribe(
+      this.articlesService.getArticleById(item?.productId).subscribe(
         (data: any) => {
           item.product = data; // Asignar los detalles del producto al elemento del carrito
         },

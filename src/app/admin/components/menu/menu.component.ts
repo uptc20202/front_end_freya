@@ -35,6 +35,7 @@ export class MenuComponent {
   }
 
   logout(){
+    this.showNoLoginOptions = !this.showNoLoginOptions;
     this.loginService.logout();
     this.homeRoute();
   }
@@ -108,6 +109,10 @@ export class MenuComponent {
 
   productsRoute(gender: string): void {
     this.router.navigate(['/catalogue/'+gender]);
+  }
+
+  routerNavigate(path:string){
+    this.router.navigate([path]);
   }
 
   productsAdminRoute(){

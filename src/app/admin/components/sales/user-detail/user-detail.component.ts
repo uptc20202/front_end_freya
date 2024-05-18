@@ -22,8 +22,8 @@ export class UserDetailComponent {
             "total": 272000,
             "_id": "6647e5f5e857cdf0c2406edf",
             "details": {
-                "name": "Camisa Azul",
-                "image": "https://via.placeholder.com/150"
+                "name_article": "Camisa Azul",
+                "images": ["https://via.placeholder.com/150"]
             }
         },
         {
@@ -33,8 +33,8 @@ export class UserDetailComponent {
             "total": 272000,
             "_id": "6647e5f5e857cdf0c2406ee0",
             "details": {
-                "name": "Camisa Roja",
-                "image": "https://via.placeholder.com/150"
+                "name_article": "Camisa Roja",
+                "images": ["https://via.placeholder.com/150"]
             }
         },
         {
@@ -44,8 +44,8 @@ export class UserDetailComponent {
             "total": 136000,
             "_id": "6647e5f5e857cdf0c2406ee1",
             "details": {
-                "name": "Camisa Verde",
-                "image": "https://via.placeholder.com/150"
+                "name_article": "Camisa Verde",
+                "images": ["https://via.placeholder.com/150"]
             }
         }
     ],
@@ -71,11 +71,14 @@ export class UserDetailComponent {
     this.getSaleById();
   }
 
+
+
   getSaleById(){
     if(this.id_sale!=""){
       this.salesService.getSaleById(this.id_sale).subscribe(
         (response) => {
           this.sale = response;
+          this.loadArticlesDetails();
         },
         (error) => {
           console.error('Error al obtener la venta:', error);
@@ -117,5 +120,28 @@ export class UserDetailComponent {
     return this.calculateSubtotal() + this.calculateShippingCost();
   }
 
+  getOrderStatusClass(status: string): string {
+    switch (status.toUpperCase()) {
+      case 'ENTREGADO':
+        return 'status-delivered';
+      case 'CANCELADO':
+        return 'status-cancelled';
+      case 'EN PREPARACIÓN':
+        return 'status-preparing';
+      case 'PREPARADO':
+        return 'status-prepared';
+      case 'CONFIRMADO':
+        return 'status-confirmed';
+      case 'CONFIRMADA':
+        return 'status-pending';
+      default:
+        return '';
+    }
+  }
+
+  redirectToWhatsApp(): void {
+    const whatsappLink = `https://api.whatsapp.com/send?phone=573204118057&text=Deseo%20completar%20mi%20compra%20con%20referencia%20${this.id_sale}`;
+    window.open(whatsappLink, '_blank');
+  }
 
 }

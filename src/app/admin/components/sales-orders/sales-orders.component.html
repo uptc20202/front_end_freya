@@ -1,5 +1,5 @@
 <!-- sales-orders.component.html -->
-<div *ngIf="sales.length > 0; else noSales">
+<div *ngIf="sales.length > 0 && !editState">
   <div *ngFor="let sale of sales" class="sale-card">
     <div class="sale-section">
       <img [src]="sale.articles[0]?.details?.images[0]" alt="Product Image" class="product-image">
@@ -22,11 +22,19 @@
       <div [ngClass]="getOrderStatusClass(sale.statusSale)">
        <p> {{ sale.statusSale | uppercase }} </p>
       </div>
-      <button>Ver detalles</button>
+      <button (click)="editState=true; viewSale(sale._id)">Ver detalles</button>
     </div>
   </div>
 </div>
 
-<ng-template #noSales>
-  <p>No se encontraron ventas para este usuario.</p>
-</ng-template>
+
+<div *ngIf="editState">
+  <app-user-detail [id_sale]="idSaleView"></app-user-detail>
+</div>
+
+<!--noSales-->
+<div  *ngIf="sales.length <= 0">
+  <p >No se encontraron ventas para este usuario.</p>
+</div>
+
+

@@ -44,6 +44,9 @@ import { Step3BuyComponent } from './admin/components/step3-buy/step3-buy.compon
 import { SalesOrdersComponent } from './admin/components/sales-orders/sales-orders.component';
 import { UserDetailComponent } from './admin/components/sales/user-detail/user-detail.component';
 import { EditCategoryComponent } from './admin/components/edit-category/edit-category.component';
+import { SaleStatusPagesComponent } from './pages/sale-status.pages/sale-status.pages.component';
+import { JobsUserComponent } from './admin/components/jobs-user/jobs-user.component';
+import { JobsUserListPagesComponent } from './pages/jobs-user-list.pages/jobs-user-list.pages.component';
 
 
 @NgModule({
@@ -85,6 +88,9 @@ import { EditCategoryComponent } from './admin/components/edit-category/edit-cat
     SalesOrdersComponent,
     UserDetailComponent,
     EditCategoryComponent,
+    SaleStatusPagesComponent,
+    JobsUserComponent,
+    JobsUserListPagesComponent,
   ],
   imports: [
     BrowserModule,

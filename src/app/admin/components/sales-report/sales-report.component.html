@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" >
   <div class="row">
     <!-- Barra lateral con búsqueda y lista de ventas -->
     <div class="col-md-3">
@@ -25,6 +25,18 @@
             <td>Estado</td>
             <td [ngStyle]="{ 'background-color': selectedSale.statusSale === 'completed' ? '#D8C61E' : '' }">
               {{ selectedSale.statusSale }}
+              <span
+                (click)="toggleDropdown()"
+                [style.background-image]="'url(../../../assets/admin/edit.png)'"
+                class="edit-icon">
+              </span>
+              <div *ngIf="dropdownVisible" class="dropdown">
+                <ul>
+                  <li *ngFor="let status of statusOptions" (click)="updateSaleStatus(status)">
+                    {{ status }}
+                  </li>
+                </ul>
+              </div>
             </td>
           </tr>
           <tr>
@@ -54,8 +66,8 @@
           </thead>
           <tbody>
             <tr *ngFor="let article of selectedSale.articles">
-              <td>{{ article.article_id }}</td>
-              <td>{{ article.title }}</td>
+              <td>{{ article.details?.code_article }}</td>
+              <td>{{ article.details?.name_article }}</td>
               <td>{{ article.quantity }}</td>
               <td>{{ article.size }}</td>
               <td>n/a</td>
