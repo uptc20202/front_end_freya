@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { JobsService } from 'src/app/api/services/jobs/jobs.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class JobsUserDetailComponent implements OnInit{
   @Input() id_job: string | null= "";
   job: any;
 
-  constructor(private jobService: JobsService){}
+  constructor(private jobService: JobsService, private router: Router){}
 
   ngOnInit(): void {
       this.getJob();
@@ -31,8 +32,10 @@ export class JobsUserDetailComponent implements OnInit{
   }
 
   applyToJob() {
-    // Lógica para aplicar al trabajo
-    alert('Aplicando a la oferta');
+    this.routerNavigate("jobs/"+this.id_job+"/apply");
   }
 
+  routerNavigate(path:string){
+    this.router.navigate(["/"+path]);
+  }
 }

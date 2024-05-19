@@ -15,6 +15,9 @@ import { UserDetailComponent } from './admin/components/sales/user-detail/user-d
 import { SaleStatusPagesComponent } from './pages/sale-status.pages/sale-status.pages.component';
 import { JobsUserListPagesComponent } from './pages/jobs-user-list.pages/jobs-user-list.pages.component';
 import { JobsUserDetailsPagesComponent } from './pages/jobs-user-details.pages/jobs-user-details.pages.component';
+import { JobsAdminListPagesComponent } from './pages/jobs-admin-list.pages/jobs-admin-list.pages.component';
+import { ApplyOfferComponent } from './admin/components/apply-offer/apply-offer.component';
+import { ApplyOfferPagesComponent } from './pages/apply-offer.pages/apply-offer.pages.component';
 
 const routes: Routes = [
   {
@@ -68,6 +71,14 @@ const routes: Routes = [
   {
     path: 'jobs/:id',
     component:JobsUserDetailsPagesComponent
+  },
+  {
+    path: 'jobs/:id/apply',
+    component:ApplyOfferPagesComponent
+  },
+  {
+    path: 'admin/jobs',
+    component:JobsAdminListPagesComponent
   },
   {
     path: 'test',

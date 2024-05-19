@@ -49,6 +49,13 @@ import { JobsUserComponent } from './admin/components/jobs-user/jobs-user.compon
 import { JobsUserListPagesComponent } from './pages/jobs-user-list.pages/jobs-user-list.pages.component';
 import { JobsUserDetailsPagesComponent } from './pages/jobs-user-details.pages/jobs-user-details.pages.component';
 import { JobsUserDetailComponent } from './admin/components/jobs-user-detail/jobs-user-detail.component';
+import { JobsAdminListComponent } from './admin/components/jobs-admin-list/jobs-admin-list.component';
+import { JobsAdminListPagesComponent } from './pages/jobs-admin-list.pages/jobs-admin-list.pages.component';
+import { FilterJobsPipe } from './pipe/filter-jobs.pipe';
+import { FilterPipe } from './filter.pipe';
+import { CreateJobComponent } from './admin/components/create-job/create-job.component';
+import { ApplyOfferComponent } from './admin/components/apply-offer/apply-offer.component';
+import { ApplyOfferPagesComponent } from './pages/apply-offer.pages/apply-offer.pages.component';
 
 
 @NgModule({
@@ -95,6 +102,13 @@ import { JobsUserDetailComponent } from './admin/components/jobs-user-detail/job
     JobsUserListPagesComponent,
     JobsUserDetailsPagesComponent,
     JobsUserDetailComponent,
+    JobsAdminListComponent,
+    JobsAdminListPagesComponent,
+    FilterJobsPipe,
+    FilterPipe,
+    CreateJobComponent,
+    ApplyOfferComponent,
+    ApplyOfferPagesComponent,
   ],
   imports: [
     BrowserModule,

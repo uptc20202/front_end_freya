@@ -21,9 +21,13 @@ export class MenuComponent {
     this.validateRol();
 
     this.loginService.validateToken().then((success) => {
+      const userData = localStorage.getItem('user');
+      if (userData) {
         this.stateLogin =true;
-
         this.validateRol();
+      }else{
+        this.stateLogin =false;
+      }
       },
       (error) => {
         this.stateLogin =false;
@@ -35,7 +39,7 @@ export class MenuComponent {
   }
 
   logout(){
-    this.showNoLoginOptions = !this.showNoLoginOptions;
+    this.showNoLoginOptions = false;
     this.loginService.logout();
     this.homeRoute();
   }
