@@ -26,7 +26,7 @@
 
 <div class="sub-rectangles">
   <div class="sub-rectangle">
-    <app-targeta-areas
+    <app-targeta-areas (click)="navigateRoute('byCategory/Buzos')"
       [backgroundImage]="'../../../assets/grid_topics/example_grid_3.png'"
       [labelText]="'BUZOS'"
       [buttonText]="'VER MÁS'"
@@ -36,9 +36,9 @@
   </div>
 
   <div class="sub-rectangle">
-    <app-targeta-areas
+    <app-targeta-areas (click)="navigateRoute('byCategory/Camisas')"
       [backgroundImage]="'../../../assets/grid_topics/example_grid_4.png'"
-      [labelText]="'Categoría 2'"
+      [labelText]="'CAMISAS'"
       [buttonText]="'VER MÁS'"
       [height]="'70vh'"
       [width]="'100%'"
@@ -46,9 +46,9 @@
   </div>
 
   <div class="sub-rectangle">
-    <app-targeta-areas
+    <app-targeta-areas (click)="navigateRoute('Buzos')"
       [backgroundImage]="'../../../assets/grid_topics/example_grid_3.png'"
-      [labelText]="'Categoría 3'"
+      [labelText]="'BUZOS'"
       [buttonText]="'VER MÁS'"
       [height]="'70vh'"
       [width]="'100%'"

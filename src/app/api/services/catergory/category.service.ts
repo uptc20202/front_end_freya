@@ -78,4 +78,13 @@ export class CategoryService {
     return this.http.delete<any>(url, { headers });
   }
 
+  getCategories(): Observable<any> {
+    const token = this.cookieService.get('token');
+
+    const headers = new HttpHeaders({
+      'Authorization': `${token}`
+    });
+
+    return this.http.get(this.baseUrl, { headers});
+  }
 }

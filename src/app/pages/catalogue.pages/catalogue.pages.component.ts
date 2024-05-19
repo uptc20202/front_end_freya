@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { PopMessageComponent } from 'src/app/admin/components/pop-message/pop-message.component';
 import { ArticlesService } from 'src/app/api/services/articles/articles.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CategoryService } from 'src/app/api/services/catergory/category.service';
 
 @Component({
   selector: 'app-catalogue.pages',
@@ -16,26 +17,45 @@ export class CataloguePagesComponent {
   messagePopAd: string = "error";
   typeOfAlert: string = "error";
 
+  categories: any;
+
   constructor(private articleService: ArticlesService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private categoryService: CategoryService
   ) { }
 
   ngOnInit(): void {
-    // Obtener todos los artículos
+    this.categories = this.categoryService.getCategories();
+    this.fillProducts();
+  }
+
+  fillProducts(){
     this.route.paramMap.subscribe(params => {
       const gender = params.get('gender'); // Obtener el parámetro 'gender' de la URL
+      const category = params.get('category');
 
       // Llamar al método correspondiente del servicio dependiendo del valor de 'gender'
       if (gender && gender.toUpperCase() === 'MALE') {
         this.getArticlesByGender('M');
       } else if (gender && gender.toUpperCase() === 'FEMALE') {
         this.getArticlesByGender('F');
+      }else if(category){
+        this.getByCategory(category);
       }else{
         this.getAllArticles();
       }
     });
+  }
 
+  getByCategory(category:string){
+    this.articleService.getArticlesByCategoryName(category).subscribe(
+      resolve =>{
+        this.articles = resolve;
+      },
+      error =>{
+        console.error(error);
+    });
   }
 
   private getAllArticles(){

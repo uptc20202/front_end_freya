@@ -77,4 +77,10 @@ export class ArticlesService {
     return this.http.put(url, articleData, { headers });
   }
 
+  getArticlesByCategoryName(name :string): Observable<any> {
+    const headers = new HttpHeaders();
+    const url = `${this.baseUrl}${"searchArticleByCategoryName?category="+name}`;
+    return this.http.get(url, { headers });
+  }
+
 }

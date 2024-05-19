@@ -44,6 +44,10 @@ const routes: Routes = [
     component:CataloguePagesComponent
   },
   {
+    path: 'catalogue/byCategory/:category',
+    component:CataloguePagesComponent
+  },
+  {
     path: 'catalogue/product/:id',
     component:DetailProductPagesComponent
   },

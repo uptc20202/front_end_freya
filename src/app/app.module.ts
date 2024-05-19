@@ -56,6 +56,8 @@ import { FilterPipe } from './filter.pipe';
 import { CreateJobComponent } from './admin/components/create-job/create-job.component';
 import { ApplyOfferComponent } from './admin/components/apply-offer/apply-offer.component';
 import { ApplyOfferPagesComponent } from './pages/apply-offer.pages/apply-offer.pages.component';
+import { BannerAccesoriosComponent } from './admin/components/banner-accesorios/banner-accesorios.component';
+import { FootterPageComponent } from './admin/components/footter-page/footter-page.component';
 
 
 @NgModule({
@@ -109,6 +111,8 @@ import { ApplyOfferPagesComponent } from './pages/apply-offer.pages/apply-offer.
     CreateJobComponent,
     ApplyOfferComponent,
     ApplyOfferPagesComponent,
+    BannerAccesoriosComponent,
+    FootterPageComponent,
   ],
   imports: [
     BrowserModule,
