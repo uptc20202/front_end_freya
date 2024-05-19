@@ -4,7 +4,7 @@
 
 <div class="rectangles">
   <div class="rectangle">
-    <app-targeta-areas
+    <app-targeta-areas (click)="navigateRoute('Female')"
       [backgroundImage]="'../../../assets/grid_topics/example_grid_1.png'"
       [labelText]="'MUJER'"
       [buttonText]="'VER MÁS'"
@@ -14,7 +14,7 @@
   </div>
 
   <div class="rectangle">
-    <app-targeta-areas
+    <app-targeta-areas (click)="navigateRoute('Male')"
       [backgroundImage]="'../../../assets/grid_topics/example_grid_2.png'"
       [labelText]="'HOMBRE'"
       [buttonText]="'VER MÁS'"
@@ -28,7 +28,7 @@
   <div class="sub-rectangle">
     <app-targeta-areas
       [backgroundImage]="'../../../assets/grid_topics/example_grid_3.png'"
-      [labelText]="'Categoría 1'"
+      [labelText]="'BUZOS'"
       [buttonText]="'VER MÁS'"
       [height]="'70vh'"
       [width]="'100%'"

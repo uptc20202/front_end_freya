@@ -18,6 +18,8 @@ import { JobsUserDetailsPagesComponent } from './pages/jobs-user-details.pages/j
 import { JobsAdminListPagesComponent } from './pages/jobs-admin-list.pages/jobs-admin-list.pages.component';
 import { ApplyOfferComponent } from './admin/components/apply-offer/apply-offer.component';
 import { ApplyOfferPagesComponent } from './pages/apply-offer.pages/apply-offer.pages.component';
+import { AuthGuard } from './guards/auth.guard';
+import { AdminGuard } from './guards/admin/admin.guard';
 
 const routes: Routes = [
   {
@@ -30,6 +32,7 @@ const routes: Routes = [
   },
   {
     path: 'profile',
+    canMatch: [AuthGuard],
     component:ProfilePagesComponent
   },
   {
@@ -46,10 +49,12 @@ const routes: Routes = [
   },
   {
     path: 'admin/products',
+    canMatch: [AuthGuard, AdminGuard],
     component:CreateProductPagesComponent
   },
   {
     path: 'admin/sales-report',
+    canMatch: [AuthGuard, AdminGuard],
     component:SalesPagesComponent
   },
   {
@@ -62,6 +67,7 @@ const routes: Routes = [
   },
   {
     path: 'sale/:id',
+    canMatch: [AuthGuard],
     component:SaleStatusPagesComponent
   },
   {
@@ -78,6 +84,7 @@ const routes: Routes = [
   },
   {
     path: 'admin/jobs',
+    canMatch: [AuthGuard, AdminGuard],
     component:JobsAdminListPagesComponent
   },
   {
