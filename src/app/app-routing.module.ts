@@ -20,6 +20,7 @@ import { ApplyOfferComponent } from './admin/components/apply-offer/apply-offer.
 import { ApplyOfferPagesComponent } from './pages/apply-offer.pages/apply-offer.pages.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin/admin.guard';
+import { ReportAdminPagesComponent } from './pages/report-admin.pages/report-admin.pages.component';
 
 const routes: Routes = [
   {
@@ -92,8 +93,13 @@ const routes: Routes = [
     component:JobsAdminListPagesComponent
   },
   {
+    path: 'admin/report',
+    canMatch: [AuthGuard, AdminGuard],
+    component:ReportAdminPagesComponent
+  },
+  {
     path: 'test',
-    component:UserDetailComponent
+    component:ReportAdminPagesComponent
   }
 ];
 

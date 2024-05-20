@@ -6,6 +6,15 @@
 
 
 <div class="container-wrapper">
+
+  <!-- Carrusel de íconos de categorías -->
+  <div class="category-carousel">
+    <div class="category-item" *ngFor="let category of categories" (click)="navigateRoute('byCategory/'+category.name_category)">
+      <img [src]="category.url_icon" [alt]="category.name_category">
+      <p>{{ category.name_category }}</p>
+    </div>
+  </div>
+
   <div class="catalogue-container">
     <div class="product-card" *ngFor="let article of articles">
 

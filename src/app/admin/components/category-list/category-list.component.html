@@ -52,4 +52,4 @@
 </div>
 
 
-<app-edit-category *ngIf="stadeEdit" [categoryId]="editCategory"  (back)="toEdit()" (newCategory)="categories.push($event)"></app-edit-category>
+<app-edit-category *ngIf="stadeEdit" [categoryId]="editCategory"  (back)="toEdit();loadCategories()" (newCategory)="categories.push($event)"></app-edit-category>

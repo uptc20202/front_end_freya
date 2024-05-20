@@ -106,8 +106,31 @@ export class SalesService {
       .set('Authorization', `Bearer ${token}`)
       .set('Content-Type', 'application/json');
 
-    console.log( saleId, statusData)
     return this.http.put(`${this.apiUrl}/sales/${saleId}`, statusData, { headers });
+  }
+
+  reportByDay(){
+    const token = this.cookieService.get('token');
+    const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${token}`);
+
+    return this.http.get<any>(`${this.apiUrl}/sales/salesToDay`, { headers });
+  }
+
+  reportByMonth(){
+    const token = this.cookieService.get('token');
+    const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${token}`);
+
+    return this.http.get<any>(`${this.apiUrl}/sales/salesToMonth`, { headers });
+  }
+
+  reportByWeek(){
+    const token = this.cookieService.get('token');
+    const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${token}`);
+
+    return this.http.get<any>(`${this.apiUrl}/sales/salesToWeek`, { headers });
   }
 
 }

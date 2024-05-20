@@ -58,6 +58,8 @@ import { ApplyOfferComponent } from './admin/components/apply-offer/apply-offer.
 import { ApplyOfferPagesComponent } from './pages/apply-offer.pages/apply-offer.pages.component';
 import { BannerAccesoriosComponent } from './admin/components/banner-accesorios/banner-accesorios.component';
 import { FootterPageComponent } from './admin/components/footter-page/footter-page.component';
+import { ReportsAdminComponent } from './admin/components/reports-admin/reports-admin.component';
+import { ReportAdminPagesComponent } from './pages/report-admin.pages/report-admin.pages.component';
 
 
 @NgModule({
@@ -113,6 +115,8 @@ import { FootterPageComponent } from './admin/components/footter-page/footter-pa
     ApplyOfferPagesComponent,
     BannerAccesoriosComponent,
     FootterPageComponent,
+    ReportsAdminComponent,
+    ReportAdminPagesComponent,
   ],
   imports: [
     BrowserModule,

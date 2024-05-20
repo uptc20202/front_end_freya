@@ -128,12 +128,25 @@ export class ReadProductAdminComponent implements OnInit {
     this.articleService.getArticles().subscribe(
       (data: any[]) => {
         this.articles = data;
+        this.setCategoryNames();
         this.filteredArticles = this.articles;
       },
       (error) => {
         console.error('Error al obtener los productos', error);
       }
     );
+  }
+
+  setCategoryNames(){
+    this.articles = this.articles.map(
+      article => {
+        return{
+          ...article,
+          name_category: this.getCategoryName(article.category)
+        }
+      }
+    );
+    console.log(this.articles[0])
   }
 
   getTotalQuantity(stock: any[]): number {
@@ -145,7 +158,7 @@ export class ReadProductAdminComponent implements OnInit {
     this.filteredArticles = this.articles.filter(article =>
       article.code_article?.toLowerCase().includes(this.filter.code.toLowerCase()) &&
       article.name_article?.toLowerCase().includes(this.filter.name.toLowerCase()) &&
-      article.category?.toLowerCase().includes(this.filter.category.toLowerCase())
+      article.name_category?.toLowerCase().includes(this.filter.category.toLowerCase())
     );
   }
 

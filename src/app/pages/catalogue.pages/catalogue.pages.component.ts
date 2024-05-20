@@ -26,8 +26,19 @@ export class CataloguePagesComponent {
   ) { }
 
   ngOnInit(): void {
-    this.categories = this.categoryService.getCategories();
+    this.getCategories();
+
+    console.log(this.categories)
     this.fillProducts();
+  }
+
+  getCategories(){
+    this.categoryService.getCategories().subscribe(
+      resolve =>{
+        this.categories = resolve;
+      },error=>{
+         console.error(error);
+      });
   }
 
   fillProducts(){
@@ -89,5 +100,9 @@ export class CataloguePagesComponent {
     setTimeout(() => {
       this.showSuccessMessage = false;
     }, 3000);
+  }
+
+  navigateRoute(path:string){
+    this.router.navigate(['/catalogue/'+path]);
   }
 }

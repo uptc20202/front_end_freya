@@ -178,7 +178,8 @@ export class EditCategoryComponent implements OnInit {
           next: (data) => {
             console.log('Categoría actualizada:', data);
             // Lógica adicional después de guardar la categoría, como navegar a otra página
-            this.router.navigate(['/categories']);
+            this.goBack();
+            //this.router.navigate(['/admin/products']);
           },
           error: (err) => console.error('Error actualizando categoría:', err)
         });
