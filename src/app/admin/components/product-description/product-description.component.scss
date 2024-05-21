@@ -161,3 +161,12 @@
   background-color: #F45B69;
   color: white;
 }
+
+
+.bulk{
+  position: absolute;
+  transform: translateX(65vw);
+  background-color: #fff;
+  z-index: 1000;
+  box-shadow:-1px 0px 11px 12px rgb(0 0 0 / 27%);
+}

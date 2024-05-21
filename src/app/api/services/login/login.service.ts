@@ -78,10 +78,10 @@ export class LoginService {
   }
 
   logout(): void {
-    console.log("Antes "+this.cookieService.getAll())
+    console.log(this.cookieService.getAll())
     this.cookieService.deleteAll();
 
-    console.log("Despues "+this.cookieService.getAll())
+    console.log(this.cookieService.getAll())
     localStorage.removeItem('user');
   }
 

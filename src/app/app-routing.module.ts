@@ -21,6 +21,7 @@ import { ApplyOfferPagesComponent } from './pages/apply-offer.pages/apply-offer.
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin/admin.guard';
 import { ReportAdminPagesComponent } from './pages/report-admin.pages/report-admin.pages.component';
+import { BulkPurchaseComponent } from './admin/components/bulk-purchase/bulk-purchase.component';
 
 const routes: Routes = [
   {
@@ -99,7 +100,7 @@ const routes: Routes = [
   },
   {
     path: 'test',
-    component:ReportAdminPagesComponent
+    component:BulkPurchaseComponent
   }
 ];
 

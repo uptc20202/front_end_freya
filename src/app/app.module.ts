@@ -60,6 +60,7 @@ import { BannerAccesoriosComponent } from './admin/components/banner-accesorios/
 import { FootterPageComponent } from './admin/components/footter-page/footter-page.component';
 import { ReportsAdminComponent } from './admin/components/reports-admin/reports-admin.component';
 import { ReportAdminPagesComponent } from './pages/report-admin.pages/report-admin.pages.component';
+import { BulkPurchaseComponent } from './admin/components/bulk-purchase/bulk-purchase.component';
 
 
 @NgModule({
@@ -117,6 +118,7 @@ import { ReportAdminPagesComponent } from './pages/report-admin.pages/report-adm
     FootterPageComponent,
     ReportsAdminComponent,
     ReportAdminPagesComponent,
+    BulkPurchaseComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,8 +1,22 @@
-<div class="product-details">
+<div class="bulk">
+  <app-bulk-purchase
+  *ngIf="edit"
+  (edit)="edit = false"
+  [price1To6]="product.retail_price"
+  [price7To19]="product.medium_price"
+  [price20OrMore]="product.wholesale_price"
+  [colors]="product.color"
+  [sizes]="product.stock"
+  [productId]="product._id">
+
+</app-bulk-purchase>
+</div>
+
+<div class="product-details" >
   <div class="gallery">
 
     <!-- Imágenes adicionales -->
-    <div class="thumbnail-images">
+    <div class="thumbnail-images" (click)="edit = false">
       <div class="thumbnail" *ngFor="let image of product.images.slice(1, 4)"
       [style.background-image]="'url(' + image + ')'" alt="Thumbnail Image">
       </div>
@@ -43,7 +57,7 @@
 
         <div class="size-buttons">
           <button class="size-button" *ngFor="let size of product.stock"
-            (click)="selectedSize = size.size"
+            (click)="selectedSize = size.size; validateStock()"
             [class.selected]="selectedSize === size.size">
 
             {{ size.size }}
@@ -54,19 +68,22 @@
       <div class="quantity">
         <p>Cantidad:</p>
         <button class="quantity-button"
-        (click)="quantity = quantity > 1 ? quantity - 1 : 1">-</button>
+        (click)="quantity = quantity > 1 ? quantity - 1 : 1; validateStock()">-</button>
 
-        <span>{{ quantity }} </span>
+        <span >{{ quantity }} </span>
 
         <button class="quantity-button"
-        (click)="quantity = quantity + 1">+</button>
+        (click)="quantity = quantity + 1; validateStock()">+</button>
 
       </div>
       <div class="btn-product">
         <button class="add-to-cart" (click)="addToCart()" >AGREGAR AL CARRITO</button>
-        <button class="buy-wholesale">COMPRAR POR MAYOR</button>
+        <button class="buy-wholesale" (click)="edit = true">COMPRAR POR MAYOR</button>
       </div>
 
     </div>
   </div>
 </div>
+
+
+

@@ -8,11 +8,16 @@ import { ArticlesService } from 'src/app/api/services/articles/articles.service'
   styleUrls: ['./product-description.component.scss']
 })
 export class ProductDescriptionComponent {
-  //@Input() product: any;
+  test(){
+    console.log(this.product)
+  }
+
   @Input() productId: string | null;
   product: any;
   selectedSize: string = '';
   quantity: number = 1;
+
+  edit: boolean = false;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -82,6 +87,21 @@ export class ProductDescriptionComponent {
     return cartItems.findIndex(
       (item: any) => item.productId === productId && item.size === size
     );
+  }
+
+
+  validateStock(){
+    if(this.quantity<0){
+      this.quantity = this.quantity * -1;
+    }
+
+    const sizeReference = this.product.stock.filter(
+      (stockSize: any) => stockSize.size == this.selectedSize
+    );
+
+    if(sizeReference && this.quantity > sizeReference[0].quantity){
+      this.quantity = sizeReference[0].quantity;
+    }
   }
 
 
