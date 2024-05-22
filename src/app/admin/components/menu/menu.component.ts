@@ -14,6 +14,7 @@ export class MenuComponent {
   stateLogin: boolean=false;
   stateCard: boolean=false;
   admin:boolean=false;
+  nosotrosViewState:boolean = false;
 
   constructor(private router: Router, private loginService: LoginService) {}
 

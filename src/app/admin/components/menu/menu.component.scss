@@ -93,3 +93,55 @@
   background-color:  rgba(0, 0, 0, 0.2);
   border-radius: 10px
 }
+
+.banner {
+  height: 50vh;
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+
+  position: absolute;
+  width: 100vw;
+  z-index: 1000;
+  background: white;
+}
+
+.banner-img {
+      /* flex: 1; */
+    /* background-size: cover; */
+    /* background-position: center; */
+    background-position: center top;
+    background-repeat: no-repeat;
+    height: 100%;
+    /* width: auto; */
+    width: 20%;
+}
+
+.txt-banner{
+  width: 34%;
+  display: flex;
+  flex-direction: column;
+  /* align-content: center; */
+  align-items: center;
+  padding: 30px;
+  justify-content: flex-start;
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.txt-banner p{
+  margin: 10px;
+  cursor: pointer;
+}
+
+.txt-banner p:active {
+  transform: scale(0.95); /* Reducir tamaño al hacer clic */
+  transition: transform 0.1s ease; /* Transición rápida */
+}
+
+.txt-banner p:hover {
+  background-color: lightgray; /* Color de fondo al pasar el cursor */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra al pasar el cursor */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transición suave */
+}

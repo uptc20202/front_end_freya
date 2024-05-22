@@ -5,10 +5,10 @@
 
 <!--Vista si es un usuario general-->
   <div class="center" *ngIf="!admin">
-    <span (click)="productsRoute('Female')">Mujer <img class="locate_icon" src="../../../assets/menu/chevron-down.png" alt="Chevron Down"></span>
-    <span (click)="productsRoute('Male')">Hombre <img class="locate_icon" src="../../../assets/menu/chevron-down.png" alt="Chevron Down"></span>
+    <span (click)="productsRoute('Female')">Mujer <!--img class="locate_icon" src="../../../assets/menu/chevron-down.png" alt="Chevron Down"--></span>
+    <span (click)="productsRoute('Male')">Hombre <!--img class="locate_icon" src="../../../assets/menu/chevron-down.png" alt="Chevron Down"--></span>
     <span (click)="productsRoute('')">Accesorios</span>
-    <span (click)="routerNavigate('/jobs')">Nosotros <img class="locate_icon" src="../../../assets/menu/chevron-down.png" alt="Chevron Down"></span>
+    <span (click)="nosotrosViewState=true" (mouseenter)="nosotrosViewState=true">Nosotros <img class="locate_icon" src="../../../assets/menu/chevron-down.png" alt="Chevron Down"></span>
     <span class="locate_icon_container" (click)="routerNavigate('/maps')">Tiendas </span>
   </div>
 
@@ -43,4 +43,13 @@
 
 <div class="card_show" *ngIf="stateCard">
   <app-shop-car></app-shop-car>
+</div>
+
+<div class="banner" *ngIf="nosotrosViewState" (mouseleave)="nosotrosViewState=false">
+  <div class="banner-img" [style.background-image]="'url(../../../assets/menu/nosotros1.png)'"></div>
+  <div class="banner-img" [style.background-image]="'url(../../../assets/menu/nosotros2.png)'"></div>
+  <div class="txt-banner">
+    <p> ¿ Quiénes somos ?</p>
+    <p (click)="routerNavigate('/jobs')"> Trabaja con nosotros</p>
+  </div>
 </div>
