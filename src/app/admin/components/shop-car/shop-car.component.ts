@@ -30,6 +30,11 @@ export class ShopCarComponent implements OnInit {
     }
   }
 
+  deleteItem(item:any){
+    this.cartItems =  this.cartItems.filter(product => product != item);
+    this.saveCart();
+  }
+
   fillCartItemsDetails(): void {
     // Obtener detalles completos para cada elemento del carrito
     this.cartItems.forEach(item => {

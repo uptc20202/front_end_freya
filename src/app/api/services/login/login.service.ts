@@ -78,13 +78,22 @@ export class LoginService {
   }
 
   logout(): void {
-    console.log(this.cookieService.getAll())
     this.cookieService.deleteAll();
-
-    console.log(this.cookieService.getAll())
     localStorage.removeItem('user');
   }
 
+  getUser(id:string){
+
+    const url = "http://localhost:5000/api/v1/users/" +id;
+
+    const token = this.cookieService.get('token'); // Obtener el token del servicio de cookies
+
+    const headers = new HttpHeaders({
+      'Authorization': `${token}` // Incluir el token en los encabezados de la solicitud
+    });
+
+    return this.http.post(url, { headers, responseType: 'text' })
+  }
 }
 
 

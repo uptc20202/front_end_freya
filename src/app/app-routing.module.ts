@@ -23,6 +23,8 @@ import { AdminGuard } from './guards/admin/admin.guard';
 import { ReportAdminPagesComponent } from './pages/report-admin.pages/report-admin.pages.component';
 import { BulkPurchaseComponent } from './admin/components/bulk-purchase/bulk-purchase.component';
 import { MenuComponent } from './admin/components/menu/menu.component';
+import { StoresAdminComponent } from './admin/components/stores-admin/stores-admin.component';
+import { StoresAdminPagesComponent } from './pages/stores-admin.pages/stores-admin.pages.component';
 
 const routes: Routes = [
   {
@@ -100,8 +102,13 @@ const routes: Routes = [
     component:ReportAdminPagesComponent
   },
   {
+    path: 'orders',
+    canMatch: [AuthGuard],
+    component:SalesOrdersComponent
+  },
+  {
     path: 'test',
-    component:MenuComponent
+    component:ShopCarComponent
   }
 ];
 

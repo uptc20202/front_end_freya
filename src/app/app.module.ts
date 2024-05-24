@@ -61,6 +61,10 @@ import { FootterPageComponent } from './admin/components/footter-page/footter-pa
 import { ReportsAdminComponent } from './admin/components/reports-admin/reports-admin.component';
 import { ReportAdminPagesComponent } from './pages/report-admin.pages/report-admin.pages.component';
 import { BulkPurchaseComponent } from './admin/components/bulk-purchase/bulk-purchase.component';
+import { StoresAdminPagesComponent } from './pages/stores-admin.pages/stores-admin.pages.component';
+import { StoresAdminComponent } from './admin/components/stores-admin/stores-admin.component';
+import { StoresComponent } from './admin/components/stores/stores.component';
+import { EditStoresComponent } from './admin/components/edit-stores/edit-stores.component';
 
 
 @NgModule({
@@ -119,6 +123,10 @@ import { BulkPurchaseComponent } from './admin/components/bulk-purchase/bulk-pur
     ReportsAdminComponent,
     ReportAdminPagesComponent,
     BulkPurchaseComponent,
+    StoresAdminPagesComponent,
+    StoresAdminComponent,
+    StoresComponent,
+    EditStoresComponent,
   ],
   imports: [
     BrowserModule,

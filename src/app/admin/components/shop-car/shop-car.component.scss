@@ -78,3 +78,26 @@ hr {
   border-radius: 20px;
   cursor: pointer;
 }
+
+
+.detele_ico{
+  margin-bottom: 1px;
+  width: 24px;
+  height: 17px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.detele_ico:hover {
+  background-color: lightgray; /* Color de fondo al pasar el cursor */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra al pasar el cursor */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transición suave */
+}
+
+.detele_ico:active {
+  transform: scale(0.95); /* Reducir tamaño al hacer clic */
+  transition: transform 0.1s ease; /* Transición rápida */
+}
+

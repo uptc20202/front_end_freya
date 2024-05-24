@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-banner-accesorios',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./banner-accesorios.component.scss']
 })
 export class BannerAccesoriosComponent {
+
+  constructor(private router:Router){}
+
+  navigate(path:string){
+    this.router.navigate([path]);
+  }
 
 }

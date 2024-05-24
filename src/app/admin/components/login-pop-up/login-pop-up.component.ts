@@ -44,6 +44,10 @@ export class LoginPopUpComponent {
 
   onLogin(email: string, passwordUser: string): void {
 
+    if(!this.validateFields()){
+      return;
+    }
+
     this.loginService.onLogin(email, passwordUser).then((success) => {
       // Lógica adicional después de un inicio de sesión exitoso
       const userJson = localStorage.getItem('user');
@@ -58,7 +62,31 @@ export class LoginPopUpComponent {
     });
   }
 
+  validateFields(): boolean{
+    const emailExpresion =  /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+
+    if(!emailExpresion.test(this.email)){
+      this.noShowMessagePopAd("Ingrese una dirección de correo valida", "error");
+      return false;
+    }
+
+    if(!this.password){
+      this.noShowMessagePopAd("Ingrese una contraseña", "error");
+      return false;
+    }
+
+    return true;
+  }
+
   register(email: string, pass: string): void{
+    if(!this.validateFields()){
+      return;
+    }
+
+    if(this.password.length<8){
+      this.noShowMessagePopAd("Ingrese una constraseña de minimo 8 caracteres", "error");
+      return;
+    }
 
     this.registerService.register(email, pass).subscribe(
       (response) =>{
@@ -90,7 +118,7 @@ export class LoginPopUpComponent {
   }
 
   //Mensajes de exito o error
-  noShowMessagePopAd(message_err: string, typeOfAlert: string){
+  noShowMessagePopAd(message_err: string, typeOfAlert: 'check' | 'error'){
     this.typeOfAlert = typeOfAlert;
     this.popMessageComponent.typeOfAlert = typeOfAlert;
     this.messagePopAd = message_err;

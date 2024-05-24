@@ -39,3 +39,8 @@
 .sub-rectangles .sub-rectangle {
   width: 30%; /* Ancho del 30% */
 }
+
+.sub-rectangle:hover {
+  transform: scale(1.1);
+  box-shadow:10px 8px 10px 10px #0806062a;
+}

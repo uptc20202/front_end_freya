@@ -1,3 +1,5 @@
+<div class="space"></div>
+
 <div class="navbar">
   <div class="left" >
     <a (click)="homeRoute()"><img class="logo_freya" src="../../../assets/menu/logo_freya.png" alt="Logo Freya"></a>
@@ -7,7 +9,7 @@
   <div class="center" *ngIf="!admin">
     <span (click)="productsRoute('Female')">Mujer <!--img class="locate_icon" src="../../../assets/menu/chevron-down.png" alt="Chevron Down"--></span>
     <span (click)="productsRoute('Male')">Hombre <!--img class="locate_icon" src="../../../assets/menu/chevron-down.png" alt="Chevron Down"--></span>
-    <span (click)="productsRoute('')">Accesorios</span>
+    <span (click)="productsRoute('/byCategory/Accesorios')">Accesorios</span>
     <span (click)="nosotrosViewState=true" (mouseenter)="nosotrosViewState=true">Nosotros <img class="locate_icon" src="../../../assets/menu/chevron-down.png" alt="Chevron Down"></span>
     <span class="locate_icon_container" (click)="routerNavigate('/maps')">Tiendas </span>
   </div>
@@ -34,14 +36,16 @@
   <!--button (click)="onUserIconClick()" >Inicia Sesión</-button-->
   <button class="btn_aut" *ngIf="showNoLoginOptions" (click)="showLoginPopup()" >Inicia Sesión</button>
   <button class="btn_aut" *ngIf="showNoLoginOptions" (click)="showRegisterPopup()">Regístrate</button>
-  <button class="btn_aut" *ngIf="!showNoLoginOptions" (click)="logout()">Cerrar sesión</button>
+  <button class="btn_aut" *ngIf="!showNoLoginOptions" (click)="profileRoute()">Mi perfil</button>
+  <button class="btn_aut" *ngIf="!showNoLoginOptions" (click)="routerNavigate('/orders')">Mis Pedidos</button>
+  <button class="btn_aut" *ngIf="!showNoLoginOptions" (click)="logout(); showNoLoginOptions=true" >Cerrar sesión</button>
 </div>
 
 <app-login-pop-up [showLoginBtn]="true" *ngIf="stadeLoginPopup"></app-login-pop-up>
 <app-login-pop-up title="REGISTRARSE" [showRegisterBtn]="true" *ngIf="stadeRegisterPopup"></app-login-pop-up>
 <div (click)="noStadeLoginPopup()" class="background-overlay" *ngIf="stadeBackGroundPopup"></div>
 
-<div class="card_show" *ngIf="stateCard">
+<div class="card_show" *ngIf="stateCard" (mouseleave)="stateCard=false">
   <app-shop-car></app-shop-car>
 </div>
 

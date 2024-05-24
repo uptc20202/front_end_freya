@@ -41,14 +41,16 @@ export class CategoryListComponent implements OnInit {
   }
 
   deteleCategory(category: any): void{
-    this.categoryService.deleteCategory(category._id).subscribe(
-      (resolve) => {
-        this.categories = this.categories.filter(categoryFilter => categoryFilter._id != category._id)
-      },
-      (error) => {
-        alert("Error al eliminar categoria");
-      }
-    );
+    if(confirm("¿Desea eliminar la categoria "+category.name_category + " ?")){
+      this.categoryService.deleteCategory(category._id).subscribe(
+        (resolve) => {
+          this.categories = this.categories.filter(categoryFilter => categoryFilter._id != category._id)
+        },
+        (error) => {
+          alert("Error al eliminar categoria");
+        }
+      );
+    }
   }
 
 }

@@ -14,33 +14,41 @@ export class MenuComponent {
   stateLogin: boolean=false;
   stateCard: boolean=false;
   admin:boolean=false;
+
   nosotrosViewState:boolean = false;
 
   constructor(private router: Router, private loginService: LoginService) {}
 
   ngOnInit(): void {
     this.validateRol();
+    this.validateSecion(0);
+  }
 
+  validateSecion(trys:number){
     this.loginService.validateToken().then((success) => {
+      this.stateLogin =true;
       const userData = localStorage.getItem('user');
       if (userData) {
-        this.stateLogin =true;
         this.validateRol();
-      }else{
-        this.stateLogin =false;
       }
-      },
+    },
       (error) => {
-        this.stateLogin =false;
-        this.loginService.logout();
-        this.admin = false;
+        if(trys>=3){
+          this.stateLogin =false;
+          this.loginService.logout();
+          this.admin = false;
+        }else{
+          this.validateSecion(trys+1);
+        }
+
       }
     );
-
   }
 
   logout(){
+    this.stateLogin =false;
     this.showNoLoginOptions = false;
+    this.admin = false;
     this.loginService.logout();
     this.homeRoute();
   }
@@ -51,7 +59,7 @@ export class MenuComponent {
     if (userJson) {
       const user = JSON.parse(userJson);
       this.admin = user.role == 'admin';
-   }
+    }
   }
 
   showRegisterPopup() {

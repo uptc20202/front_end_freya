@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { image } from '@cloudinary/url-gen/qualifiers/source';
 import { CategoryService } from 'src/app/api/services/catergory/category.service';
 import { CloudinaryService } from 'src/app/api/services/cloudinary/cloudinary.service';
+import { PopMessageComponent } from '../pop-message/pop-message.component';
 
 @Component({
   selector: 'app-edit-category',
@@ -11,11 +12,13 @@ import { CloudinaryService } from 'src/app/api/services/cloudinary/cloudinary.se
 })
 export class EditCategoryComponent implements OnInit {
 
+  @ViewChild(PopMessageComponent) popMessageComponent!: PopMessageComponent;
+
   urlImageUpload: string = "https://thumbs.dreamstime.com/b/sin-foto-ni-icono-de-imagen-en-blanco-cargar-imágenes-o-falta-marca-no-disponible-próxima-señal-silueta-naturaleza-simple-marco-215973362.jpg";
 
   category: any= {
-    name_category: 'Cargando...',
-    description_category: 'Cargando...',
+    name_category: '',
+    description_category: '',
     url_icon: this.urlImageUpload,
     url_image: this.urlImageUpload,
     url_size_guide_fem: this.urlImageUpload,
@@ -27,11 +30,34 @@ export class EditCategoryComponent implements OnInit {
   @Output() back: EventEmitter<boolean> = new EventEmitter<boolean>;
   @Output() newCategory: EventEmitter<any> = new EventEmitter<any>;
 
+  showSuccessMessage: boolean = false;
+  messagePopAd: string = "error";
+  typeOfAlert:  'error' | 'check' = 'error';
+
   constructor(private uploadService: CloudinaryService,
     private categoryService: CategoryService, private router: Router) { }
 
   ngOnInit(): void {
     this.getCategoryById();
+  }
+
+  validateFields(): boolean{
+    if(!this.category.name_category){
+      this.noShowMessagePopAd("Ingresa un nombre de categoria ", 'error');
+      return false;
+    }
+
+    if(!this.category.description_category){
+      this.noShowMessagePopAd("Ingresa una descripción", 'error');
+      return false;
+    }
+
+    if(this.category.url_icon==this.urlImageUpload ){
+      this.noShowMessagePopAd("Se requiere ingresar un icono para la categoria", 'error');
+      return false;
+    }
+
+    return true;
   }
 
   getCategoryById(): void {
@@ -170,6 +196,10 @@ export class EditCategoryComponent implements OnInit {
 
    updateCategory(): void {
 
+    if(!this.validateFields()){
+      return;
+    }
+
     this.uploadImg().then(resolve =>{
       console.log("Termino")
       if (this.categoryId) {
@@ -193,6 +223,8 @@ export class EditCategoryComponent implements OnInit {
 
   }
 
+
+
   createCategory(){
     this.categoryService.createCategory(this.category).subscribe({
       next: (resolve) => {
@@ -205,5 +237,16 @@ export class EditCategoryComponent implements OnInit {
         console.log(err);
       }
     });
+  }
+
+  noShowMessagePopAd(message_err: string, typeOfAlert: 'check' | 'error'){
+    this.typeOfAlert = typeOfAlert;
+    this.popMessageComponent.typeOfAlert = typeOfAlert;
+    this.messagePopAd = message_err;
+    this.popMessageComponent.update();
+    this.showSuccessMessage = true;
+    setTimeout(() => {
+      this.showSuccessMessage = false;
+    }, 3000);
   }
 }
