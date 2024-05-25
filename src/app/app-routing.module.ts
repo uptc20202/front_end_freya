@@ -25,6 +25,7 @@ import { BulkPurchaseComponent } from './admin/components/bulk-purchase/bulk-pur
 import { MenuComponent } from './admin/components/menu/menu.component';
 import { StoresAdminComponent } from './admin/components/stores-admin/stores-admin.component';
 import { StoresAdminPagesComponent } from './pages/stores-admin.pages/stores-admin.pages.component';
+import { StoreViewUserComponent } from './admin/components/store-view-user/store-view-user.component';
 
 const routes: Routes = [
   {
@@ -71,7 +72,7 @@ const routes: Routes = [
     component:ContinueBuyPagesComponent
   },
   {
-    path: 'maps',
+    path: 'stores',
     component:MapsPagesComponent
   },
   {
@@ -102,6 +103,11 @@ const routes: Routes = [
     component:ReportAdminPagesComponent
   },
   {
+    path: 'admin/stores',
+    canMatch: [AuthGuard, AdminGuard],
+    component:StoresAdminComponent
+  },
+  {
     path: 'orders',
     canMatch: [AuthGuard],
     component:SalesOrdersComponent
@@ -109,6 +115,10 @@ const routes: Routes = [
   {
     path: 'catalogue/search/:data',
     component:CataloguePagesComponent
+  },
+  {
+    path: 'stores/:idStore',
+    component:StoreViewUserComponent
   },
   {
     path: 'test',

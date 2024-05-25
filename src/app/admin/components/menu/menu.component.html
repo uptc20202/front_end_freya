@@ -11,7 +11,7 @@
     <span (click)="productsRoute('Male')">Hombre <!--img class="locate_icon" src="../../../assets/menu/chevron-down.png" alt="Chevron Down"--></span>
     <span (click)="productsRoute('/byCategory/Accesorios')">Accesorios</span>
     <span (click)="nosotrosViewState=true" (mouseenter)="nosotrosViewState=true">Nosotros <img class="locate_icon" src="../../../assets/menu/chevron-down.png" alt="Chevron Down"></span>
-    <span class="locate_icon_container" (click)="routerNavigate('/maps')">Tiendas </span>
+    <span class="locate_icon_container" (click)="routerNavigate('/stores')">Tiendas </span>
   </div>
 
 <!--Vista si es un administrador-->
@@ -20,7 +20,7 @@
     <span (click)="reportSellRoute()">Ventas </span>
     <span (click)="routerNavigate('/admin/jobs')">Ofertas
       laborales</span>
-    <span >Información</span>
+    <span (click)="routerNavigate('/admin/stores')">Tiendas</span>
     <span class="locate_icon_container" (click)="routerNavigate('/admin/report')">Reportes</span>
   </div>
 

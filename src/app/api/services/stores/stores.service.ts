@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { text } from '@cloudinary/url-gen/qualifiers/source';
 import { CookieService } from 'ngx-cookie-service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +11,18 @@ export class StoresService {
 
   urlApi = "https://freya-backend.onrender.com/api/v1/stores/"
 
+  private _stores: BehaviorSubject<[]>= new BehaviorSubject<[]>([]);
+
   constructor(private http: HttpClient, private cookieService: CookieService) { }
+
+  get stores(){
+    return this._stores.asObservable();
+  }
+
+  setStoresObservable(stores:[]){
+    this._stores.next(stores);
+  }
+
 
 
   deteleStore(id:string){
@@ -17,7 +30,7 @@ export class StoresService {
     const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${token}`)
 
-      return this.http.delete(`${this.urlApi}/sales/${id}`, { headers });
+      return this.http.delete(`${this.urlApi}${id}`, { headers, responseType: 'text' });
   }
 
   createStore(store:any){
@@ -28,12 +41,12 @@ export class StoresService {
       return this.http.post(this.urlApi, store,{ headers });
   }
 
-  updateStore(store:any, id:string){
+  updateStore(store:any){
     const token = this.cookieService.get('token');
     const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${token}`)
 
-      return this.http.put(`${this.urlApi}/${id}`, store, { headers });
+      return this.http.put(`${this.urlApi}/${store._id}`, store, { headers });
   }
 
   getStores(){
@@ -42,9 +55,9 @@ export class StoresService {
   }
 
   getStoreById(id:string){
-    const token = this.cookieService.get('token');
+    //const token = this.cookieService.get('token');
     const headers = new HttpHeaders()
-      .set('Authorization', `Bearer ${token}`)
+      //.set('Authorization', `Bearer ${token}`)
 
       return this.http.put(`${this.urlApi}/${id}`, { headers });
   }

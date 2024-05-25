@@ -30,15 +30,24 @@
           </div>
         </div>
       </div>
-      <div class="form-group" *ngIf="!isViewMode">
+      <div class="form-group upload" *ngIf="!isViewMode">
         <label for="images">Cargar Imágenes:</label>
         <input id="images" type="file" multiple (change)="onFileChange($event)">
       </div>
     </div>
     <div class="button-group">
-      <button (click)="isEditMode ? saveChanges() : saveStore()">
-        {{ isEditMode ? 'Guardar Cambios' : isViewMode ? 'Editar Tienda' : 'Guardar Tienda' }}
+      <button *ngIf="isEditMode" (click)="saveChanges()">
+        {{'Guardar Cambios' }}
       </button>
+
+      <button *ngIf="isCreateMode" (click)="saveStore()">
+        {{ 'Guardar Tienda' }}
+      </button>
+
+      <button *ngIf="isViewMode" (click)="isEditMode=true;isViewMode=false">
+        {{ 'Editar Tienda'  }}
+      </button>
+
     </div>
   </div>
 </div>

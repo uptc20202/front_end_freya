@@ -8,20 +8,22 @@
 </head>
 <body>
 
-  <div class="tiendas-freya-container">
+  <!--<div class="tiendas-freya-container">
     <div class="left-panel">
       <h1 class="title">Tiendas Freya</h1>
-      <div class="buttons">
-        <button class="button" (click)="showMap('Plaza Real Tunja')">Tunja Plaza Real</button>
-        <button class="button" (click)="showMap('Tunja Centro')">Tunja Centro</button>
-        <button class="button" (click)="showMap('Tunja')">Tunja</button>
-        <button class="button" (click)="showMap('Duitama')">Duitama</button>
-        <button class="button" (click)="showMap('Sogamoso')">Sogamoso</button>
-        <button class="button" (click)="showMap('Paipa')">Paipa</button>
-        <button class="button" (click)="showMap('Barbosa')">Barbosa</button>
+
+
+      <div class="buttons" style="visibility: hidden;">
+        <button class="button" >Tunja Plaza Real</button>
+        <button class="button" >Tunja Centro</button>
+        <button class="button" >Tunja</button>
+        <button class="button" >Duitama</button>
+        <button class="button" >Sogamoso</button>
+        <button class="button" >Paipa</button>
+        <button class="button" >Barbosa</button>
       </div>
     </div>
-    <div class="right-panel">
+    <div class="right-panel" hidden="true">
       <div class="google-maps" id="googleMap">
         <iframe
               width="100%"
@@ -32,6 +34,23 @@
           </iframe>
       </div>
     </div>
+  </div>-->
+
+  <div class="container">
+    <h1 class="title">Tiendas Freya</h1>
+    <div class="store-cards">
+      <div class="store-card" *ngFor="let store of stores">
+        <div class="carousel">
+          <div class="carousel-image" *ngFor="let image of store.images" [style.backgroundImage]="'url(' + image + ')'"></div>
+        </div>
+        <div class="card-content">
+          <h3>{{ store.name_store }}</h3>
+          <p class="location">{{ store.address }}, {{ store.city }}, {{ store.department }}</p>
+          <button (click)="viewStore(store._id)" class="more-info">Ver más</button>
+        </div>
+      </div>
+    </div>
   </div>
+
 </body>
 </html>

@@ -38,7 +38,7 @@ export class LoginService {
 
         },
         (error) => {
-          console.error('Error al iniciar sesión:', error);
+          console.error('Error al iniciar sesión:');
           reject(false);
         }
       );
@@ -85,7 +85,7 @@ export class LoginService {
           this._stadeLogin.next(true);
         },
         (error) => {
-          console.error('Error al validar token:', error);
+          console.error('Error al validar token:');
           reject(false);
         }
       );

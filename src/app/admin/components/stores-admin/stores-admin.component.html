@@ -1,5 +1,9 @@
 <div class="background-edit" *ngIf="viewStateStore" (click)="viewStateStore=false"></div>
-<app-edit-stores *ngIf="viewStateStore" [store]="selectStore" [mode]="modeView"></app-edit-stores>
+
+<app-edit-stores *ngIf="viewStateStore" [store]="selectStore" [mode]="modeView"
+ (storeUpdated)="loadStores();viewStateStore=false">
+</app-edit-stores>
+
 <div class="stores-container">
   <div class="header">
     <div class="title">Tiendas</div>

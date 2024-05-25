@@ -27,7 +27,9 @@ export class StoresAdminComponent {
   }
 
   createStore() {
-    // Lógica para crear una nueva tienda
+    this.selectStore = {};
+    this.modeView ='create';
+    this.viewStateStore = true;
   }
 
   viewStore(store:any) {
@@ -42,10 +44,18 @@ export class StoresAdminComponent {
     this.modeView = "edit";
   }
 
+  refeshDetele(store:any){
+    this.stores = this.stores.filter(item => item._id != store.id );
+  }
+
   deleteStore(store:any){
     if(confirm("¿Desea eliminar la tienda "+store.name_store+" ?")){
       this.storesService.deteleStore(store._id).subscribe({
-        next: (Response) => console.log(Response),
+        next: (Response) => {
+          console.log(Response);
+
+          this.loadStores();
+        },
         error: (err) =>  {console.error(err)}
       });
     }

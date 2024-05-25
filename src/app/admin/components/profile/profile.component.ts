@@ -64,13 +64,13 @@ import { PopMessageComponent } from '../pop-message/pop-message.component';
       this.updateUserService.updateUser(this.userUp).subscribe(
         (response) => {
           // Manejar respuesta exitosa
-          console.log('Usuario actualizado con éxito:', response);
+          this.noShowMessagePopAd('Usuario actualizado con éxito:', 'check');
           const user = response;
           localStorage.setItem('user', JSON.stringify(user));
         },
         (error) => {
           // Manejar error
-          console.error('Error al actualizar el usuario:', error);
+          this.noShowMessagePopAd('Error al actualizar el usuario:', 'error');
         }
       );
     }
@@ -108,7 +108,8 @@ import { PopMessageComponent } from '../pop-message/pop-message.component';
         this.name = user.first_name; // Combinar nombres
         this.idNumber = user.number_document;
         this.contact = user.number_phone;
-        if(this.birthDate.length >= 10){
+
+        if(user.birth_day){
           this.birthDate = user.birth_day.slice(0, 10); // En formato ISO
         }
 
