@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { ArticlesService } from 'src/app/api/services/articles/articles.service';
 import { LoginService } from 'src/app/api/services/login/login.service';
 
 @Component({
@@ -14,14 +15,22 @@ export class MenuComponent {
   stateLogin: boolean=false;
   stateCard: boolean=false;
   admin:boolean=false;
+  amountItemCard:number=0;
 
   nosotrosViewState:boolean = false;
 
-  constructor(private router: Router, private loginService: LoginService) {}
+  constructor(private router: Router, private loginService: LoginService,
+    private articlesService: ArticlesService
+  ) {}
 
   ngOnInit(): void {
     this.validateRol();
     this.validateSecion(0);
+    this.articlesService.amountCar.subscribe(
+      amount =>{
+        this.amountItemCard =amount;
+      }
+    )
   }
 
   validateSecion(trys:number){

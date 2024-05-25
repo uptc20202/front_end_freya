@@ -1,5 +1,5 @@
 .space{
-  height: 71px;
+  height: 85px;
 }
 .navbar {
   display: flex;
@@ -34,6 +34,10 @@
 
 .center span:hover {
   cursor: pointer;
+}
+
+.right{
+  display: flex;
 }
 
 .right img {
@@ -155,4 +159,23 @@
   background-color: lightgray; /* Color de fondo al pasar el cursor */
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra al pasar el cursor */
   transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transición suave */
+}
+
+.card-container{
+  display: flex;
+}
+
+.amountCard{
+  width: 16px;
+  height: 16px;
+  background-color: #F45B69;
+  font-size: 14px;
+  border-radius: 30px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  padding: 1px;
+  font-family: 'Ubuntu', sans-serif;
 }

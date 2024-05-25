@@ -47,6 +47,7 @@ export class SalesService {
    * @returns {Observable<any>} - An observable containing the response from the server.
    */
   addSale(saleData: any): Observable<any> {
+    console.log(saleData);
     const token = this.cookieService.get('token');
     const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${token}`)

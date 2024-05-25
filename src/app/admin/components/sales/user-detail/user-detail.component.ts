@@ -11,57 +11,46 @@ export class UserDetailComponent {
 
   @Input() id_sale: string = "";
   sale: any = {
-    "_id": "6647e5f5e857cdf0c2406ede",
-    "user_id": "661216e55fdbd57cce7de074",
-    "address_id": "66402dd3e864423d0589ef64",
+    "_id": "",
+    "user_id": "",
+    "address_id": "",
     "articles": [
         {
-            "article_id": "662c6f031bf8b0190775b45c",
-            "size": "M",
-            "quantity": 4,
-            "total": 272000,
-            "_id": "6647e5f5e857cdf0c2406edf",
+            "article_id": "",
+            "size": "",
+            "quantity": 0,
+            "total": 0,
+            "_id": "",
             "details": {
-                "name_article": "Camisa Azul",
+                "name_article": "",
                 "images": ["https://via.placeholder.com/150"]
             }
         },
         {
-            "article_id": "662c6f031bf8b0190775b45c",
-            "size": "S",
-            "quantity": 4,
-            "total": 272000,
-            "_id": "6647e5f5e857cdf0c2406ee0",
+            "article_id": "",
+            "size": "",
+            "quantity": 0,
+            "total": 0,
+            "_id": "",
             "details": {
-                "name_article": "Camisa Roja",
-                "images": ["https://via.placeholder.com/150"]
-            }
-        },
-        {
-            "article_id": "662c6e9b1bf8b0190775b453",
-            "size": "XS",
-            "quantity": 2,
-            "total": 136000,
-            "_id": "6647e5f5e857cdf0c2406ee1",
-            "details": {
-                "name_article": "Camisa Verde",
+                "name_article": "",
                 "images": ["https://via.placeholder.com/150"]
             }
         }
     ],
-    "totalSale": 680000,
-    "statusSale": "completed",
-    "createdAt": "2024-05-17T23:19:17.505Z",
-    "updatedAt": "2024-05-17T23:19:17.505Z",
+    "totalSale": 0,
+    "statusSale": "",
+    "createdAt": "",
+    "updatedAt": "",
     "address": {
-        "department": "Boyacá",
-        "municipality": "Siachoque",
-        "address": "Cra 2",
-        "neighborhood": "Centro",
-        "additional_info": "Casa verde",
-        "name_addressee": "Paquita",
-        "number_phone": "320302",
-        "_id": "66402dd3e864423d0589ef64"
+        "department": "",
+        "municipality": "",
+        "address": "",
+        "neighborhood": "",
+        "additional_info": "",
+        "name_addressee": "",
+        "number_phone": "",
+        "_id": ""
     }
   };
 

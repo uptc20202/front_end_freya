@@ -27,7 +27,10 @@
   <div class="right">
     <img class="btn_navbar" src="../../../assets/menu/Search.png" alt="Search">
     <img class="btn_navbar" (click)="profileRoute()" (mouseenter)="onUserIconHover()" src="../../../assets/menu/user.png" alt="User">
-    <img class="btn_navbar" (click)="stateCard = !stateCard" src="../../../assets/menu/Union.png" alt="Union">
+    <div class="card-container">
+      <img class="btn_navbar" (click)="stateCard = !stateCard" src="../../../assets/menu/Union.png" alt="Union">
+      <div class="amountCard" *ngIf="amountItemCard>0">{{amountItemCard}}</div>
+    </div>
   </div>
 </div>
 
@@ -46,7 +49,7 @@
 <div (click)="noStadeLoginPopup()" class="background-overlay" *ngIf="stadeBackGroundPopup"></div>
 
 <div class="card_show" *ngIf="stateCard" (mouseleave)="stateCard=false">
-  <app-shop-car></app-shop-car>
+  <app-shop-car ></app-shop-car>
 </div>
 
 <div class="banner" *ngIf="nosotrosViewState" (mouseleave)="nosotrosViewState=false">

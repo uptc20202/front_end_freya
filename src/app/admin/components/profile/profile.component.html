@@ -5,18 +5,18 @@
   <div class="column left-column">
     <div class="field-group">
       <h3 class="field-title">Nombre (s)</h3>
-      <input [(ngModel)]="name" [ngClass]="{ 'editing': isEditing }" [readonly]="!isEditing" class="input-field" />
+      <input placeholder="Nombre de Usuario" [(ngModel)]="name" [ngClass]="{ 'editing': isEditing }" [readonly]="!isEditing" class="input-field" />
       <!--hr class="field-line" /-->
     </div>
 
     <div class="field-group">
-      <h3 class="field-title">Cédula de Ciudadanía</h3>
-      <input [(ngModel)]="idNumber" [ngClass]="{ 'editing': isEditing }" [readonly]="!isEditing" class="input-field" />
+      <h3 class="field-title">Documento</h3>
+      <input placeholder="Digita número de documento" [(ngModel)]="idNumber" [ngClass]="{ 'editing': isEditing }" [readonly]="!isEditing" class="input-field" />
     </div>
 
     <div class="field-group">
       <h3 class="field-title">Contacto</h3>
-      <input [(ngModel)]="contact" [ngClass]="{ 'editing': isEditing }" [readonly]="!isEditing" class="input-field" />
+      <input placeholder="Digita número de telefono" [(ngModel)]="contact" [ngClass]="{ 'editing': isEditing }" [readonly]="!isEditing" class="input-field" />
     </div>
 
     <div class="field-group">
@@ -29,19 +29,23 @@
   <div class="column right-column">
     <div class="field-group">
       <h3 class="field-title">Apellidos</h3>
-      <input [(ngModel)]="lastName" [ngClass]="{ 'editing': isEditing }" [readonly]="!isEditing" class="input-field" />
+      <input placeholder="Digita apellido" [(ngModel)]="lastName" [ngClass]="{ 'editing': isEditing }" [readonly]="!isEditing" class="input-field" />
       <!--hr class="field-line" /-->
     </div>
 
     <div class="field-group">
       <h3 class="field-title">Género</h3>
-      <input [(ngModel)]="gender" [ngClass]="{ 'editing': isEditing }" [readonly]="!isEditing" class="input-field" />
-
+      <select [(ngModel)]="gender" [ngClass]="{ 'editing': isEditing }" [disabled]="!isEditing" class="input-field">
+        <option value="male">Hombre</option>
+        <option value="female">Mujer</option>
+        <option value="other">Otro</option>
+      </select>
     </div>
 
-    <div class="field-group">
+    <div class="field-group" >
       <h3 class="field-title">Email</h3>
-      <input [(ngModel)]="email" class="input-field" />
+      <input [(ngModel)]="email" class="input-field" placeholder="Digite un correo"
+       [ngClass]="{ 'editing': mode=='shop'&&isEditing }" [disabled]="mode=='profile'" />
 
     </div>
   </div>

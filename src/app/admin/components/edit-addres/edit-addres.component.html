@@ -1,5 +1,7 @@
+<app-pop-message [typeOfAlert]="typeOfAlert" [showSuccessMessage]="showSuccessMessage" [message]="messagePopAd"></app-pop-message>
+
 <div class="form-container">
-  <button class="back-button" (click)="back.emit(true);">Volver</button>
+  <button class="back-button" *ngIf="mode=='profile'" (click)="back.emit(true);">Volver</button>
 
   <div class="form-section">
     <div class="input-container">

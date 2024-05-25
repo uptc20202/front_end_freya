@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AddressService } from 'src/app/api/services/address/address.service';
+import { PopMessageComponent } from '../pop-message/pop-message.component';
 
 @Component({
   selector: 'app-edit-addres',
@@ -8,10 +9,18 @@ import { AddressService } from 'src/app/api/services/address/address.service';
 })
 export class EditAddresComponent implements OnInit {
 
+  showSuccessMessage: boolean = false;
+  messagePopAd: string = "error";
+  typeOfAlert: string = "error";
+  @ViewChild(PopMessageComponent) popMessageComponent!: PopMessageComponent;
+
+
   @Output() back: EventEmitter<boolean> = new EventEmitter<boolean>;
+  @Output() address: EventEmitter<any>= new EventEmitter<any>;
   @Output() addressDeleted: EventEmitter<string> = new EventEmitter<string>();
 
   @Input() id_user: string = "";
+  @Input() mode: 'profile' | 'shop' = 'profile';
 
   departamentos: any[] = [];
   municipios: any[] = [];
@@ -32,6 +41,7 @@ export class EditAddresComponent implements OnInit {
   };
 
   @Input() addressEdit: any;
+
 
   constructor(private ubicacionService: AddressService) {}
 
@@ -85,7 +95,13 @@ export class EditAddresComponent implements OnInit {
     );
   }
 
+  getAddressShop(){
+    this.address.emit(this.nuevaDireccion);
+    this.noShowMessagePopAd("Dirección Guardada con éxito", "check");
+  }
+
   onSaveChanges(): void {
+
     // Verificar que se haya seleccionado un departamento
     if(this.addressEdit || !this.validateFields()){
       this.editAddres();
@@ -93,7 +109,12 @@ export class EditAddresComponent implements OnInit {
     }
 
     this.nuevaDireccion.department = this.departamentoSelect;
-    // Llamar al servicio para crear la dirección asociada al usuario
+
+    if(this.mode == 'shop'){
+      this.getAddressShop();
+      return;
+    }
+
     this.ubicacionService.createAddress(this.userId, this.nuevaDireccion).subscribe(
       (response) => {
         console.log('Dirección creada exitosamente:', response);
@@ -103,9 +124,8 @@ export class EditAddresComponent implements OnInit {
         this.back.emit(true);
       },
       (error) => {
-        alert('Error al crear la dirección:')
+        this.noShowMessagePopAd("Error al crear la dirección:", "error");
         console.error('Error al crear la dirección:', error);
-        // Mostrar mensaje de error al usuario
       }
     );
   }
@@ -143,7 +163,7 @@ export class EditAddresComponent implements OnInit {
         this.back.emit(true);
       },
       (error) => {
-        alert('Error al eliminar la dirección.');
+        this.noShowMessagePopAd("Error al eliminar la dirección.", "error");
         console.error('Error al eliminar la dirección:', error);
       }
     );
@@ -151,18 +171,30 @@ export class EditAddresComponent implements OnInit {
 
   validateFields(): boolean{
     console.log("Direccion "+this.nuevaDireccion);
+    console.log(this.nuevaDireccion);
 
     if (this.nuevaDireccion.address=="" || !this.nuevaDireccion.municipality || this.nuevaDireccion.neighborhood=="" || this.nuevaDireccion.name_addressee=="" || this.nuevaDireccion.number_phone=="") {
-      alert('Por favor, complete todos los campos antes de guardar.');
+      this.noShowMessagePopAd("Por favor, complete todos los campos antes de guardar.", "error");
       return false;
     }
 
     if (!this.departamentoSelect) {
-      alert('Debe seleccionar un departamento antes de guardar.');
+      this.noShowMessagePopAd("Debe seleccionar un departamento antes de guardar.", "error");
       return false;
     }
 
     return true;
+  }
+
+  noShowMessagePopAd(message_err: string, typeOfAlert: 'check' | 'error'){
+    this.typeOfAlert = typeOfAlert;
+    this.popMessageComponent.typeOfAlert = typeOfAlert;
+    this.messagePopAd = message_err;
+    this.popMessageComponent.update();
+    this.showSuccessMessage = true;
+    setTimeout(() => {
+      this.showSuccessMessage = false;
+    }, 3000);
   }
 
 }

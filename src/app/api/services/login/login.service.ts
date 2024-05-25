@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
-import { Observable, catchError, map, of, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service'; // Importa el servicio CookieService de ngx-cookie-service
 
@@ -10,7 +10,14 @@ export class LoginService {
 
   private apiUrl = 'https://freya-backend.onrender.com/api/v1/auth/login'; // Declara la URL de la API
 
+  private _stadeLogin: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   constructor(private http: HttpClient, private cookieService: CookieService) { } // Inyección de dependencias de HttpClient y CookieService
+
+
+  get stadeLogin(){
+    return this._stadeLogin.asObservable();
+  }
 
   onLogin(email: string, passwordUser: string): Promise<boolean>{
     // Llama al método login del servicio LoginService y se suscribe al Observable devuelto
@@ -25,6 +32,7 @@ export class LoginService {
           const token = responseObject.tokenSession;
           this.saveTokenInCookie(token);
           resolve(true);
+          this._stadeLogin.next(true);
         },
         (error) => {
           console.error('Error al iniciar sesión:', error);
@@ -67,6 +75,7 @@ export class LoginService {
       this.http.get<any>('https://freya-backend.onrender.com/api/v1/auth/verifyToken', { headers,   responseType: 'text' as 'json' }).subscribe(
         (response) => {
           resolve(true);
+          this._stadeLogin.next(true);
         },
         (error) => {
           console.error('Error al validar token:', error);
@@ -80,6 +89,7 @@ export class LoginService {
   logout(): void {
     this.cookieService.deleteAll();
     localStorage.removeItem('user');
+    this._stadeLogin.next(false);
   }
 
   getUser(id:string){

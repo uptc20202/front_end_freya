@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { ArticlesService } from 'src/app/api/services/articles/articles.service';
+import { LoginService } from 'src/app/api/services/login/login.service';
 
 @Component({
   selector: 'app-step2-buy',
@@ -19,6 +20,8 @@ export class Step2BuyComponent {
 
   imageCircleUnchecked = '../../../assets/shop/Ellipse_vacio.png';
   imageCircleChecked = '../../../assets/shop/Ellipse_check.png';
+
+
 
   constructor(private articlesService: ArticlesService) { }
 

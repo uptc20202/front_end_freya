@@ -1,8 +1,8 @@
 <div class="delivery-container">
-  <div class="address-section">
+  <div class="address-section" *ngIf="stadeLogin">
     <h2 class="address-title">ELIGE DIRECCIÓN DE ENTREGA</h2>
     <div class="address-list">
-      <div *ngFor="let address of addresses; let i = index" class="address-item">
+      <div  *ngFor="let address of addresses; let i = index" class="address-item">
         <div class="verification-icon" (click)="selectAddress(i)">
           <img [src]="address.selected ? '../../../assets/shop/check_green.png' : '../../../assets/shop/uncheck_green.png'" alt="Verification Icon">
         </div >
@@ -21,6 +21,18 @@
 
       </div>
     </div>
+  </div>
+
+  <div *ngIf="!stadeLogin" class="address-section noLogin">
+    <div class="newUser">
+      <app-profile [mode]="'shop'" (user)="userNoLogin=$event"></app-profile>
+    </div>
+
+    <div class="newAddress">
+      <app-edit-addres [mode]="'shop'" (address)="addresses[0]=$event"></app-edit-addres>
+    </div>
+
+
   </div>
 
   <div class="summary-section">

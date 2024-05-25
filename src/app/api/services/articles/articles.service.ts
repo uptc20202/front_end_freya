@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,7 @@ export class ArticlesService {
   private baseUrl = 'https://freya-backend.onrender.com/api/v1/articles/';
   private apiUrl = 'https://freya-backend.onrender.com/api/v1/categories/';
   private localStorageKey = 'categories';
+  private _amuntProducts: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
@@ -81,6 +82,65 @@ export class ArticlesService {
     const headers = new HttpHeaders();
     const url = `${this.baseUrl}${"searchArticleByCategoryName?category="+name}`;
     return this.http.get(url, { headers });
+  }
+
+  get amountCar() {
+    return this._amuntProducts.asObservable();
+  }
+
+  getCard(){
+    const storedCart = localStorage.getItem('cart');
+    if (storedCart) {
+      try {
+        const card = JSON.parse(storedCart);
+        this._amuntProducts.next(card.length);
+        return card;
+      } catch (error) {
+        console.error('Error parsing cart items from localStorage:', error);
+      }
+    }else{
+      return [];
+    }
+  }
+
+
+  addProductCard(productId:string|null,selectedSize:string,quantity:number){
+
+    // Buscar el carrito en el localStorage
+    let cartItems = this.getCard();
+
+    // Verificar si el producto con la misma talla ya está en el carrito
+    const itemIndex = this.productInCartIndex(
+      productId, selectedSize , cartItems);
+
+    if (itemIndex !== -1) {
+      // Si el producto con la misma talla ya está en el carrito, actualizar la cantidad
+      cartItems[itemIndex].quantity += quantity;
+    } else {
+      // Agregar el nuevo producto al carrito
+      const newItem = {
+
+        productId: productId,
+        size: selectedSize,
+        quantity: quantity
+      };
+      cartItems.push(newItem);
+      this._amuntProducts.next(cartItems.length);
+    }
+
+    // Guardar el carrito actualizado en el localStorage
+    localStorage.setItem('cart', JSON.stringify(cartItems));
+  }
+
+  private productInCartIndex(productId: string | null, size: string, cartItems: any[]): number {
+    return cartItems.findIndex(
+      (item: any) => item.productId === productId && item.size === size
+    );
+  }
+
+  clearCart() {
+    localStorage.removeItem('cart');
+    this._amuntProducts.next(0);
   }
 
 }

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ArticlesService } from 'src/app/api/services/articles/articles.service';
 
@@ -14,19 +14,20 @@ export class ShopCarComponent implements OnInit {
   cartItems: any[] = []; // Array para almacenar los elementos del carrito
   //articles: any[] = [];
   shippingCost = 10; // Costo de envío fijo
+  @Output() amountProductsCard: EventEmitter<number> = new EventEmitter<number>;
 
   constructor(private router: Router,private http: HttpClient,private articlesService: ArticlesService) { }
 
   ngOnInit(): void {
     // Obtener los elementos del carrito almacenados en localStorage
     const storedCart = localStorage.getItem('cart');
-    if (storedCart) {
-      try {
-        this.cartItems = JSON.parse(storedCart);
-        this.fillCartItemsDetails(); // Llamar a la función para rellenar los detalles de los productos
-      } catch (error) {
-        console.error('Error parsing cart items from localStorage:', error);
-      }
+
+    this.cartItems = this.articlesService.getCard()
+    this.amountProductsCard.emit(this.cartItems?.length)
+    if(this.cartItems){
+      this.fillCartItemsDetails();
+    }else{
+      this.cartItems=[];
     }
   }
 
