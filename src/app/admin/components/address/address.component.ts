@@ -1,4 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AddressService } from 'src/app/api/services/address/address.service';
+import { LoginService } from 'src/app/api/services/login/login.service';
 
 @Component({
   selector: 'app-address',
@@ -8,20 +10,25 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class AddressComponent   implements OnInit {
 
   @Output() editBtn: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() addressEdit: EventEmitter<any> = new EventEmitter<any>();
+  addressEdit: any;
 
+  address_edit: boolean = false;
   addresses: any[] = [];
   userId: string = '';
 
-  constructor() { }
+  constructor(private loginService:LoginService,private addressService:AddressService) { }
 
   ngOnInit(): void {
     // Recuperar las direcciones del localStorage bajo la clave "user"
-      const userData = localStorage.getItem('user');
-      if (userData) {
-        const user = JSON.parse(userData);
-        this.addresses = user.shiping_address;
-      }
+    this.userId = this.loginService.getUserStorage()?._id;
+    this.loadAddress();
+  }
+
+  loadAddress(){
+    this.addresses = this.addressService.getAddressesStorage();
+    this.addressService.addresses.subscribe(
+      addresses => this.addresses = addresses
+    );
   }
 
   goBack(): void {
@@ -33,13 +40,13 @@ export class AddressComponent   implements OnInit {
   addAddress(): void {
     // Lógica para agregar una nueva dirección
     this.editBtn.emit(true);
-    this.addressEdit.emit();
+    this.addressEdit;
   }
 
   editAddress(address: any): void {
     // Lógica para editar una dirección específica
-    this.addressEdit.emit(address);
-    this.editBtn.emit(true);
+    this.address_edit = true;
+    this.addressEdit = address;
   }
 
   /**

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ArticlesService } from 'src/app/api/services/articles/articles.service';
 import { LoginService } from 'src/app/api/services/login/login.service';
 
@@ -14,23 +14,45 @@ export class MenuComponent {
   stadeBackGroundPopup: boolean=false;
   stateLogin: boolean=false;
   stateCard: boolean=false;
+  stadeSearch: boolean=false;
+
+  seachConten: string="";
+
   admin:boolean=false;
   amountItemCard:number=0;
 
   nosotrosViewState:boolean = false;
 
   constructor(private router: Router, private loginService: LoginService,
-    private articlesService: ArticlesService
+    private articlesService: ArticlesService,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
     this.validateRol();
     this.validateSecion(0);
+
+
+    this.amountItemCard = this.articlesService.getAmount();
     this.articlesService.amountCar.subscribe(
       amount =>{
         this.amountItemCard =amount;
       }
     )
+
+    this.route.paramMap.subscribe(params => {
+      const searchParams = params.get('data');
+
+      if(searchParams){
+        this.seachConten=searchParams;
+      }
+    });
+
+  }
+
+  test(response:any){
+    console.log(response)
+    console.log(this.seachConten);
   }
 
   validateSecion(trys:number){

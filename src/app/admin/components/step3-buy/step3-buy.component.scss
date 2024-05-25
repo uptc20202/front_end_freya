@@ -129,3 +129,33 @@ button:active,
 .newAddress{
   margin-top: 14px;
 }
+
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-left: 12px;
+
+  .header-button {
+    border: 1px solid black;
+    border-radius: 20px;
+    background-color: white;
+    font-family: 'Ubuntu', sans-serif;
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+
+button:hover {
+  background-color: lightgray; /* Color de fondo al pasar el cursor */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra al pasar el cursor */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transición suave */
+}
+
+button:active {
+  transform: scale(0.95); /* Reducir tamaño al hacer clic */
+  transition: transform 0.1s ease; /* Transición rápida */
+}
+

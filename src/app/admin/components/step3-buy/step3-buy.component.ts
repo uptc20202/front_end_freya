@@ -1,6 +1,7 @@
   import { Component, Input, OnInit } from '@angular/core';
   import { Route, Router } from '@angular/router';
   import { SalesService } from 'src/app/api/services/Sales/sales.service';
+import { AddressService } from 'src/app/api/services/address/address.service';
 import { ArticlesService } from 'src/app/api/services/articles/articles.service';
 import { LoginService } from 'src/app/api/services/login/login.service';
 
@@ -11,6 +12,7 @@ import { LoginService } from 'src/app/api/services/login/login.service';
   })
   export class Step3BuyComponent implements OnInit {
     addresses: any[] = [];
+    addressByEdit:any;
     selectedAddressIndex: number = -1;
 
     @Input() calculateSubtotal: string|number ="";
@@ -20,14 +22,20 @@ import { LoginService } from 'src/app/api/services/login/login.service';
 
     stadeLogin:boolean = true;
     userNoLogin: any;
+    stadeCreateAddress:boolean = false;
 
     constructor(private salesService: SalesService, private route: Router,
-      private loginService:LoginService,private articleService:ArticlesService) { }
+      private loginService:LoginService,private articleService:ArticlesService,
+       private addressService:AddressService) { }
 
     ngOnInit(): void {
 
       this.loginService.stadeLogin.subscribe( stade => this.stadeLogin = stade);
+      this.addresses = this.addressService.getAddressesStorage()
 
+      this.addressService.addresses.subscribe(addresses => this.addresses = addresses);
+
+      /*
       const user = localStorage.getItem('user');
       if(user){
         const userObj = JSON.parse(user);
@@ -40,7 +48,7 @@ import { LoginService } from 'src/app/api/services/login/login.service';
         } else {
           console.error('Error: shiping_address is not in the expected format.');
         }
-      }
+      }*/
     }
 
     selectAddress(index: number): void {

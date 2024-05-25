@@ -107,6 +107,10 @@ const routes: Routes = [
     component:SalesOrdersComponent
   },
   {
+    path: 'catalogue/search/:data',
+    component:CataloguePagesComponent
+  },
+  {
     path: 'test',
     component:ShopCarComponent
   }

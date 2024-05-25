@@ -41,7 +41,8 @@ export class ReportsAdminComponent implements OnInit{
         this.sales = response.ventasDia;
         this.salesQuantity = response.ventasDia[0]?.quantitySales;
         this.netSalesValue = response.ventasDia[0]?.totalValue;
-        this.soldProducts = response.ventasDia[0]?.sales;
+        //this.soldProducts = response.ventasDia[0]?.sales;
+        this.fillProducts(response.ventasDia[0]?.sales);
       },error =>{
         alert("Error al cargar ventas")
         console.error(error);
@@ -70,7 +71,8 @@ export class ReportsAdminComponent implements OnInit{
         this.sales = response.ventasSemana;
         this.salesQuantity = response.ventasSemana[0]?.quantitySales;
         this.netSalesValue = response.ventasSemana[0]?.totalValue;
-        this.soldProducts = response.ventasSemana[0]?.sales;
+        //this.soldProducts = response.ventasSemana[0]?.sales;
+        this.fillProducts(response.ventasSemana[0]?.sales);
       },error =>{
         alert("Error al cargar ventas")
         console.error(error);
@@ -82,7 +84,7 @@ export class ReportsAdminComponent implements OnInit{
     this.soldProducts = [];
 
         // Recorre cada arreglo en sales y concatena sus elementos en soldProducts
-        this.soldProducts = sales.reduce((accumulator: string | any[], currentArray: any) => {
+      this.soldProducts = sales.reduce((accumulator: string | any[], currentArray: any) => {
       return accumulator.concat(currentArray.articles);
     }, []);
 

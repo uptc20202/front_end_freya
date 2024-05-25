@@ -25,7 +25,11 @@
   </div>
 
   <div class="right">
-    <img class="btn_navbar" src="../../../assets/menu/Search.png" alt="Search">
+    <input *ngIf="stadeSearch" (ngModelChange)="routerNavigate('catalogue/search/'+$event+'/')" class="search" />
+
+    <img class="btn_navbar" src="../../../assets/menu/Search.png" alt="Search"
+    (click)="stadeSearch=!stadeSearch">
+
     <img class="btn_navbar" (click)="profileRoute()" (mouseenter)="onUserIconHover()" src="../../../assets/menu/user.png" alt="User">
     <div class="card-container">
       <img class="btn_navbar" (click)="stateCard = !stateCard" src="../../../assets/menu/Union.png" alt="Union">

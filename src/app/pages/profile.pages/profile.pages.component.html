@@ -17,18 +17,11 @@
     <app-profile *ngIf="profile"></app-profile>
 
     <app-address
+      *ngIf="address"
       (editBtn)="show('editAddress')"
       (addressEdit)="addressEdit=$event;
-
-      show('editAddress')" *ngIf="address">
+      show('editAddress')" >
     </app-address>
-    <app-edit-addres
-      (back)="show('address')"
-      [addressEdit]="addressEdit"
-      [id_user]="id_user"
-      (addressDeleted)="onAddressDeleted($event)"
-      *ngIf="address_edit">
-    </app-edit-addres>
 
     <app-sales-orders *ngIf="orders">
 

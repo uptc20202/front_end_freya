@@ -18,6 +18,7 @@ export class CataloguePagesComponent {
   typeOfAlert: string = "error";
 
   categories: any;
+  order:string= 'emply';
 
   constructor(private articleService: ArticlesService,
     private route: ActivatedRoute,
@@ -45,6 +46,7 @@ export class CataloguePagesComponent {
     this.route.paramMap.subscribe(params => {
       const gender = params.get('gender'); // Obtener el parámetro 'gender' de la URL
       const category = params.get('category');
+      const searchParams = params.get('data');
 
       // Llamar al método correspondiente del servicio dependiendo del valor de 'gender'
       if (gender && gender.toUpperCase() === 'MALE') {
@@ -53,11 +55,25 @@ export class CataloguePagesComponent {
         this.getArticlesByGender('F');
       }else if(category){
         this.getByCategory(category);
+      }else if(searchParams){
+        this.getByName(searchParams);
       }else{
         this.getAllArticles();
       }
     });
   }
+
+  getByName(name:string){
+    this.articleService.getArticlesByName(name).subscribe(
+      resolve => {
+        this.articles = resolve;
+      },
+      error =>{
+        console.error(error);
+      }
+    );
+  }
+
 
   getByCategory(category:string){
     this.articleService.getArticlesByCategoryName(category).subscribe(
@@ -104,5 +120,20 @@ export class CataloguePagesComponent {
 
   navigateRoute(path:string){
     this.router.navigate(['/catalogue/'+path]);
+  }
+
+  sortByPrice() {
+    if(this.order == 'emply'){
+      return;
+    }
+
+    this.articles.sort((a, b) => {
+      const priceA = a.retail_price;
+      const priceB = b.retail_price;
+      if(this.order == 'desc'){
+        return this.order == 'desc' ? priceB - priceA : priceA - priceB;
+      }
+      return this.order == 'asc' ? priceA - priceB : priceB - priceA;
+    });
   }
 }

@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { LoginService } from '../login/login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,14 @@ export class AddressService {
   private apiUrl = 'https://www.datos.gov.co/resource/xdk5-pm3f.json';
   private apiUserUrl = 'https://freya-backend.onrender.com/api/v1/users';
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {}
+  private _addresses: BehaviorSubject<[]> = new BehaviorSubject<[]>([]);
+
+  constructor(private http: HttpClient, private cookieService: CookieService,
+     private loginService:LoginService) {}
+
+  get addresses(){
+    return this._addresses.asObservable();
+  }
 
   getAllDepartamentos(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}`);
@@ -44,7 +52,9 @@ export class AddressService {
    * @param id_address - The ID of the address to be deleted.
    * @returns An Observable of the delete operation result.
    */
-  deleteAddress(id_user: string, idAddress: string): Observable<any> {
+  deleteAddress(temporal: string, idAddress: string): Observable<any> {
+    const id_user = this.loginService.getUserStorage()._id;
+
     const token = this.cookieService.get('token');
 
     const headers = new HttpHeaders({
@@ -57,7 +67,42 @@ export class AddressService {
     const body = {
       id_address: idAddress
     };
-
     return this.http.put<any>(url, body, { headers });
+  }
+
+
+  deleteAddressStorage(idAddress: string){
+    let user = this.loginService.getUserStorage();
+    let addresses = user.shiping_address;
+
+    addresses = addresses.filter((address:any )=> address._id != idAddress)
+
+    user.shiping_address = addresses;
+
+    this.loginService.saveUserStorage(user);
+
+    this._addresses.next(addresses);
+  }
+
+  addAddressStorage(address: any){
+    let user = this.loginService.getUserStorage();
+    let addresses = user.shiping_address;
+    addresses.push(address);
+
+    user.shiping_address = addresses;
+
+    this.loginService.saveUserStorage(user);
+
+    this._addresses.next(addresses);
+  }
+
+  setObservableAddresses(addAddress:any){
+    this._addresses.next(addAddress);
+  }
+
+  getAddressesStorage(){
+    const addresses =  this.loginService.getUserStorage().shiping_address;
+    this._addresses.next(addresses);
+    return addresses;
   }
 }

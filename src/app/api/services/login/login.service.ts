@@ -2,6 +2,7 @@ import { EventEmitter, Injectable, Output } from '@angular/core';
 import { BehaviorSubject, Observable, catchError, map, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service'; // Importa el servicio CookieService de ngx-cookie-service
+import { AddressService } from '../address/address.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class LoginService {
 
   private _stadeLogin: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient, private cookieService: CookieService) { } // Inyección de dependencias de HttpClient y CookieService
+  constructor(private http: HttpClient, private cookieService: CookieService,
+  ) { } // Inyección de dependencias de HttpClient y CookieService
 
 
   get stadeLogin(){
@@ -28,11 +30,12 @@ export class LoginService {
           const responseObject = JSON.parse(response);
           // Extrae el correo electrónico del objeto de respuesta y lo guarda en una variable local
           const user = responseObject.data;
-          localStorage.setItem('user', JSON.stringify(user)); // Guarda el correo electrónico en el almacenamiento local del navegador
+          this.saveUserStorage(user);
           const token = responseObject.tokenSession;
           this.saveTokenInCookie(token);
           resolve(true);
           this._stadeLogin.next(true);
+
         },
         (error) => {
           console.error('Error al iniciar sesión:', error);
@@ -41,6 +44,10 @@ export class LoginService {
       );
     });
 
+  }
+
+  saveUserStorage(user:any){
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
 
@@ -103,6 +110,14 @@ export class LoginService {
     });
 
     return this.http.post(url, { headers, responseType: 'text' })
+  }
+
+  getUserStorage(){
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      return JSON.parse(userData);
+    }
+    return {};
   }
 }
 

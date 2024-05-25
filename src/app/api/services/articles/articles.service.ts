@@ -84,6 +84,12 @@ export class ArticlesService {
     return this.http.get(url, { headers });
   }
 
+  getArticlesByName(name :string): Observable<any> {
+    const headers = new HttpHeaders();
+    const url = `${this.baseUrl}${"search?name_article="+name}`;
+    return this.http.get(url, { headers });
+  }
+
   get amountCar() {
     return this._amuntProducts.asObservable();
   }
@@ -101,6 +107,12 @@ export class ArticlesService {
     }else{
       return [];
     }
+  }
+
+  getAmount(){
+    const amount = this.getCard().length;
+    this._amuntProducts.next(amount);
+    return amount;
   }
 
 

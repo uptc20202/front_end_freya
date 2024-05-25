@@ -11,7 +11,7 @@ export class ProfilePagesComponent {
   @ViewChild(AddressComponent) addressComponent!: AddressComponent;
 
   address: boolean =false;
-  address_edit: boolean = false;
+
   profile: boolean= true;
   orders: boolean = false;
 
@@ -32,31 +32,23 @@ export class ProfilePagesComponent {
       case "profile":
         this.profile = true;
         this.address = false;
-        this.address_edit = false;
         this.orders = false;
         break;
-        case "address":
-          this.profile = false;
-          this.address = true;
-          this.address_edit = false;
-          this.orders = false;
-          break;
-        case "editAddress":
-          this.profile = false;
-          this.address = false;
-          this.address_edit = true;
-          this.orders = false;
-          break;
-          case "orders":
-            this.profile = false;
-            this.address = false;
-            this.address_edit = false;
-            this.orders = true;
-            break;
-        default:
-          this.profile = true;
-          this.address = false;
-          break;
+      case "address":
+        this.profile = false;
+        this.address = true;
+        this.orders = false;
+        break;
+      case "orders":
+        this.profile = false;
+        this.address = false;
+        this.orders = true;
+        break;
+      default:
+        this.profile = true;
+        this.address = false;
+        this.orders = false;
+        break;
     }
   }
 

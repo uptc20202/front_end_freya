@@ -1,7 +1,17 @@
 <div class="delivery-container">
   <div class="address-section" *ngIf="stadeLogin">
     <h2 class="address-title">ELIGE DIRECCIÓN DE ENTREGA</h2>
-    <div class="address-list">
+
+  <div class="header">
+    <button mat-button class="header-button right" (click)="stadeCreateAddress=true">Agregar dirección</button>
+  </div>
+
+  <div class="newAddress" *ngIf="stadeCreateAddress">
+    <app-edit-addres (back)="stadeCreateAddress=false;addressByEdit=null"
+    [addressEdit]="addressByEdit"></app-edit-addres>
+  </div>
+
+    <div class="address-list" >
       <div  *ngFor="let address of addresses; let i = index" class="address-item">
         <div class="verification-icon" (click)="selectAddress(i)">
           <img [src]="address.selected ? '../../../assets/shop/check_green.png' : '../../../assets/shop/uncheck_green.png'" alt="Verification Icon">
@@ -15,12 +25,14 @@
               <p class="text-address">Destinatario: {{ address.name_addressee }}, Teléfono: {{ address.number_phone }}</p>
             </div>
 
-            <button class="edit-button">Editar</button>
+            <button  (click)="addressByEdit=address;stadeCreateAddress=true"
+            class="edit-button">Editar</button>
           </div>
         </div>
 
       </div>
     </div>
+
   </div>
 
   <div *ngIf="!stadeLogin" class="address-section noLogin">
