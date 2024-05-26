@@ -49,6 +49,6 @@
 
   <div class="button-container">
     <button class="save-button" (click)="onSaveChanges()">GUARDAR</button>
-    <button *ngIf="addressEdit._id" (click)="onDeleteAddress()" class="delete-button">BORRAR DIRECCIÓN</button>
+    <button *ngIf="addressEdit?._id" (click)="onDeleteAddress()" class="delete-button">BORRAR DIRECCIÓN</button>
   </div>
 </div>

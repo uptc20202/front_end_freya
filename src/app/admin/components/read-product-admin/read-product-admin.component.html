@@ -1,7 +1,9 @@
+<app-pop-message [typeOfAlert]="typeOfAlert" [showSuccessMessage]="showSuccessMessage" [message]="messagePopAd"></app-pop-message>
+
 <div class="product-list" *ngIf="!stadeEdit">
   <div class="header">
     <h1 class="title">Productos</h1>
-    <button class="new-product-button" (click)="toEdit()" >Nuevo producto</button>
+    <button class="new-product-button" (click)="toEdit(false)" >Nuevo producto</button>
   </div>
 
   <table class="table">
@@ -38,9 +40,9 @@
         </td>
         <td>{{ article.name_article }}</td>
         <td>{{ getCategoryName(article.category) }}</td>
-        <td>{{ article.retail_price }}</td>
-        <td>{{ article.medium_price }}</td>
-        <td>{{ article.wholesale_price }}</td>
+        <td>{{ article.retail_price | currency:'COP':'symbol':'1.2-2'}}</td>
+        <td>{{ article.medium_price | currency:'COP':'symbol':'1.2-2'}}</td>
+        <td>{{ article.wholesale_price | currency:'COP':'symbol':'1.2-2'}}</td>
         <td>{{ getTotalQuantity(article.stock) }}</td>
         <td>
           <button class="bnts-products" (click)="routeProduct(article._id)" title="Ver">
@@ -67,4 +69,5 @@
   </table>
 </div>
 
-<app-add-product *ngIf="stadeEdit" [product]="editProduct" (back)="toEdit()"></app-add-product>
+<app-add-product *ngIf="stadeEdit" [product]="editProduct" (productCreate)="addProductList($event)"
+ (back)="toEdit($event);this.getAllArticles()"></app-add-product>

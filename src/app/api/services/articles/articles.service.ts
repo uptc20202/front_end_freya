@@ -54,6 +54,10 @@ export class ArticlesService {
     return this.http.get(url, { headers});
   }
 
+  getCategoriesByGender(){
+
+  }
+
   addArticle(articleData: any): Observable<any> {
     const token = this.cookieService.get('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });

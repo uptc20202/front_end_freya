@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ArticlesService } from 'src/app/api/services/articles/articles.service';
 import { CloudinaryService } from 'src/app/api/services/cloudinary/cloudinary.service';
+import { PopMessageComponent } from '../pop-message/pop-message.component';
 
 @Component({
   selector: 'app-add-product',
@@ -12,6 +13,7 @@ import { CloudinaryService } from 'src/app/api/services/cloudinary/cloudinary.se
 export class AddProductComponent  implements OnInit {
 
   @Output() back: EventEmitter<boolean> = new  EventEmitter<boolean>;
+  @Output() productCreate: EventEmitter<any> = new EventEmitter<any>;
   @Input() product: any = {
     category: '',
     images: [],
@@ -30,6 +32,12 @@ export class AddProductComponent  implements OnInit {
   uploadedImageUrls: string[] = [];
 
   categories: any[]  = [];
+
+  showSuccessMessage: boolean = false;
+  messagePopAd: string = "error";
+  typeOfAlert: string = "error";
+  @ViewChild(PopMessageComponent) popMessageComponent!: PopMessageComponent;
+
 
   constructor(private uploadService: CloudinaryService,
     private articleService: ArticlesService) { }
@@ -66,7 +74,7 @@ export class AddProductComponent  implements OnInit {
         };
         reader.readAsDataURL(file); // Convertir el archivo a una URL base64
       } else {
-        alert('Por favor, selecciona un archivo de imagen válido.');
+        this.noShowMessagePopAd('Por favor, selecciona un archivo de imagen válido.', 'error');
       }
     }
   }
@@ -162,15 +170,18 @@ export class AddProductComponent  implements OnInit {
       // Realizar la solicitud HTTP POST para crear el artículo
       this.articleService.addArticle(articleData).subscribe({
         next: (response: any) => {
-          alert('Artículo creado con éxito:');
+          this.productCreate.emit(response);
+          this.noShowMessagePopAd('Artículo creado con éxito:', 'check');
+
+          console.log('Eroor ra')
+          console.log(response)
+          this.back.emit(true);
         },
         error: (error: any) => {
-          alert('Error al crear el artículo:')
+          this.noShowMessagePopAd('Error al crear el artículo:', 'error');
           console.error('Error al crear el artículo:', error);
         }
       });
-
-      this.toBack();
 
       }).catch(error => {
         console.error('Error al subir imágenes:', error);
@@ -182,8 +193,9 @@ export class AddProductComponent  implements OnInit {
   updateProduct(_id: string,articleData: any){
     this.articleService.updateArticle(_id,articleData).subscribe(
       (response) => {
-        alert("Producto Actualizado");
-        this.toBack();
+        this.noShowMessagePopAd('Producto Actualizado', 'check');
+        this.back.emit(true);
+        //this.productCreate.emit(response);
       },
       (error) => {
         alert("Error en la edición del producto");
@@ -192,47 +204,89 @@ export class AddProductComponent  implements OnInit {
     );
   }
 
+  updateStockValues(): void {
+    if (this.product && this.product.stock) {
+      Object.keys(this.product.stock).forEach(size => {
+        if (this.product.stock[size] < 1 && this.product.stock[size]!=0) {
+
+          this.product.stock[size] = 1;
+        }
+        if(size == 'size'){
+          this.product.stock[size] = 0;
+        }
+      });
+    }
+  }
+
     /**
    * Verifica la completitud de la información del producto y procede con la creación del artículo.
    * @returns Un booleano que indica si el todos los campos fueron diligenciados (true) o no (false).
    */
-    validateData(): boolean {
-    if (!this.product.name_article || this.product.name_article.trim() === '') {
-      alert('Debes ingresar el nombre del artículo.');
-      return false;
-    }
+  validateData(): boolean {
+      this.updateStockValues();
 
-    if (!this.product.category) {
-      alert('Debes seleccionar una categoría.');
-      return false;
-    }
+      if (!this.product.name_article || this.product.name_article.trim() === '') {
+        this.noShowMessagePopAd('Debes ingresar el nombre del artículo.', 'error');
+        return false;
+      }
 
-    if (!this.product.gender) {
-      alert('Debes seleccionar un género.');
-      return false;
-    }
+      if (!this.product.category) {
+        this.noShowMessagePopAd('Debes seleccionar una categoría.', 'error');
+        return false;
+      }
 
-    if (this.product.images.length === 0) {
-      alert('Debes cargar al menos una imagen.');
-      return false;
-    }
+      if (!this.product.gender) {
+        this.noShowMessagePopAd('Debes seleccionar un género.', 'error');
+        return false;
+      }
 
-    const hasQuantity = Object.values(this.product.stock).some((qty: any) => Number(qty) > 0);
-    if (!hasQuantity) {
-      alert('Debes ingresar al menos una cantidad para una talla.');
-      return false;
-    }
+      if (this.product.images.length === 0) {
+        this.noShowMessagePopAd('Debes cargar al menos una imagen.', 'error');
+        return false;
+      }
 
-    if (this.product.retail_price <= 0) {
-      alert('Debes ingresar el precio de venta.');
-      return false;
-    }
+      const hasQuantity = Object.values(this.product.stock).some((qty: any) => Number(qty) > 0);
+      if (!hasQuantity) {
+        this.noShowMessagePopAd('Debes ingresar al menos una cantidad para una talla.', 'error');
+        return false;
+      }
 
-    return true;
+      if (this.product.retail_price <= 0 ||
+          this.product.wholesale_price <= 0 ||
+          this.product.medium_price <= 0 )
+      {
+        this.noShowMessagePopAd('Debes ingresar el precios de venta.', 'error');
+        return false;
+      }
+
+      if (this.product.retail_price <= 500 ||
+        this.product.wholesale_price <= 500 ||
+        this.product.medium_price <= 500 )
+      {
+        this.noShowMessagePopAd('Digite un precio con valor superior a $500', 'error');
+        return false;
+      }
+
+      if(this.product.retail_price > 5000000 ||
+        this.product.wholesale_price > 5000000 ||
+        this.product.medium_price > 5000000 )
+      {
+        this.noShowMessagePopAd('El precio excede el valor máximo', 'error');
+        return false;
+      }
+
+      return true;
   }
 
-  toBack(){
-    this.back.emit();
-  }
+  noShowMessagePopAd(message_err: string, typeOfAlert: 'check' | 'error'){
+    this.typeOfAlert = typeOfAlert;
+    this.popMessageComponent.typeOfAlert = typeOfAlert;
+    this.messagePopAd = message_err;
+    this.popMessageComponent.update();
+    this.showSuccessMessage = true;
+    setTimeout(() => {
+      this.showSuccessMessage = false;
+    }, 3000);
+ }
 
 }

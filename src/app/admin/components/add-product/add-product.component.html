@@ -1,10 +1,11 @@
+<app-pop-message [typeOfAlert]="typeOfAlert" [showSuccessMessage]="showSuccessMessage" [message]="messagePopAd"></app-pop-message>
 
 <div class="product-container">
 
   <div class="top-space">
     <h1 class="title">Productos</h1>
     <div class="actions">
-      <button class="action-button back" (click)="toBack()">Volver</button>
+      <button class="action-button back" (click)=" back.emit(false)">Volver</button>
       <button class="action-button save" (click)="createArticle()">Guardar</button>
     </div>
   </div>
@@ -36,8 +37,8 @@
 
         <div class="form-column">
 
-          <label>Código</label>
-          <input type="text" [(ngModel)]="product.code_article" />
+          <label hidden="true">Código</label>
+          <input hidden="true" type="text" [(ngModel)]="product.code_article" />
 
           <label>Nombre</label>
           <input type="text" [(ngModel)]="product.name_article" />

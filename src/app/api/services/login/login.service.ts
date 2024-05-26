@@ -101,7 +101,7 @@ export class LoginService {
 
   getUser(id:string){
 
-    const url = "http://localhost:5000/api/v1/users/" +id;
+    const url = "https://freya-backend.onrender.com/api/v1/users/" +id;
 
     const token = this.cookieService.get('token'); // Obtener el token del servicio de cookies
 
@@ -112,12 +112,41 @@ export class LoginService {
     return this.http.post(url, { headers, responseType: 'text' })
   }
 
-  getUserStorage(){
+  getUserStorage(): any{
     const userData = localStorage.getItem('user');
     if (userData) {
       return JSON.parse(userData);
     }
     return {};
+  }
+
+  validateRol(){
+    return 'admin' == this.getUserStorage().role;
+  }
+
+
+  changePass(old:string,newPass :string){
+    const url = 'https://freya-backend.onrender.com/api/v1/auth/changePassword/' + this.getUserStorage()._id;
+
+    const token = this.cookieService.get('token'); // Obtener el token del servicio de cookies
+
+    const headers = new HttpHeaders({
+      'Authorization': `${token}` // Incluir el token en los encabezados de la solicitud
+    });
+
+    const body ={
+      oldPassword:old,
+      newPassword:newPass
+    }
+
+    return this.http.put(url, body, { headers });
+  }
+
+  forgotPass(email:string){
+    const body = {
+
+    }
+    //return this.http.post();
   }
 }
 

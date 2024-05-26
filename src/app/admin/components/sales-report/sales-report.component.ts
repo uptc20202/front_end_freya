@@ -59,17 +59,20 @@ export class SalesReportComponent implements OnInit {
 
     const statusData = { statusSale: newStatus };
 
-    this.salesService.updateSaleStatus(this.selectedSale._id, statusData).subscribe(
-      response => {
-        alert('Venta actualizada')
-        console.log('Response:', response);
-        this.selectedSale.statusSale = newStatus;
-      },
-      error => {
-        console.error('Error:', error);
-        alert("Error al actualizar venta")
-      }
-    );
+    if(confirm('¿Confirma que desea actualizar la compra al estado '+newStatus+'?')){
+      this.salesService.updateSaleStatus(this.selectedSale._id, statusData).subscribe(
+        response => {
+          alert('Venta actualizada')
+          console.log('Response:', response);
+          this.selectedSale.statusSale = newStatus;
+        },
+        error => {
+          console.error('Error:', error);
+          alert("Error al actualizar venta")
+        }
+      );
+    }
+
   }
 
   toggleDropdown(): void {

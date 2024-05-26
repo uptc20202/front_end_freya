@@ -66,6 +66,9 @@ import { StoresAdminComponent } from './admin/components/stores-admin/stores-adm
 import { StoresComponent } from './admin/components/stores/stores.component';
 import { EditStoresComponent } from './admin/components/edit-stores/edit-stores.component';
 import { StoreViewUserComponent } from './admin/components/store-view-user/store-view-user.component';
+import { InfoCompanyComponent } from './admin/components/info-company/info-company.component';
+import { UpdatePassComponent } from './admin/components/update-pass/update-pass.component';
+import { ForgotPassComponent } from './admin/components/forgot-pass/forgot-pass.component';
 
 
 @NgModule({
@@ -129,6 +132,9 @@ import { StoreViewUserComponent } from './admin/components/store-view-user/store
     StoresComponent,
     EditStoresComponent,
     StoreViewUserComponent,
+    InfoCompanyComponent,
+    UpdatePassComponent,
+    ForgotPassComponent,
   ],
   imports: [
     BrowserModule,

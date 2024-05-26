@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { ArticlesService } from 'src/app/api/services/articles/articles.service';
+import { PopMessageComponent } from '../pop-message/pop-message.component';
 
 interface InputData {
   available: boolean;
@@ -16,6 +17,7 @@ interface InputData {
   stock: any[];
   updatedAt: string;
   wholesale_price: number;
+  medium_price: number;
   _id: string;
 }
 
@@ -48,6 +50,11 @@ export class ReadProductAdminComponent implements OnInit {
   filter: any = { code: '', name: '', category: '' };
   editProduct: any;
 
+  showSuccessMessage: boolean = false;
+  messagePopAd: string = "error";
+  typeOfAlert: string = "error";
+  @ViewChild(PopMessageComponent) popMessageComponent!: PopMessageComponent;
+
   categories: any[]  = [];
 
   constructor(private articleService: ArticlesService, private router: Router,
@@ -70,7 +77,7 @@ export class ReadProductAdminComponent implements OnInit {
 
       },
       error => {
-        console.error('Error al obtener las categorías', error);
+        this.noShowMessagePopAd('Error al obtener las categorías', 'error');
       }
     );
   }
@@ -92,6 +99,7 @@ export class ReadProductAdminComponent implements OnInit {
       images: string[];
       name_article: string;
       retail_price: number;
+      medium_price: number;
       stock: { size: string; quantity: number }[]; // Correctly specify the stock property as an array of objects with size and quantity
       updatedAt: string;
       wholesale_price: number;
@@ -106,7 +114,7 @@ export class ReadProductAdminComponent implements OnInit {
           description: '', // Puedes asignar aquí la descripción deseada si la propiedad existe en el objeto de entrada
           gender: input.gender,
           images: input.images,
-          medium_price: 1, // Aquí debes definir cómo se calcula el precio medio
+          medium_price: input.medium_price,
           name_article: input.name_article,
           retail_price: input.retail_price,
           wholesale_price: input.wholesale_price,
@@ -132,7 +140,7 @@ export class ReadProductAdminComponent implements OnInit {
         this.filteredArticles = this.articles;
       },
       (error) => {
-        console.error('Error al obtener los productos', error);
+        this.noShowMessagePopAd('Error al obtener los productos', 'error');
       }
     );
   }
@@ -146,7 +154,7 @@ export class ReadProductAdminComponent implements OnInit {
         }
       }
     );
-    console.log(this.articles[0])
+    console.log(this.articles[this.articles.length-1])
   }
 
   getTotalQuantity(stock: any[]): number {
@@ -175,19 +183,28 @@ export class ReadProductAdminComponent implements OnInit {
     if (confirm(`¿Estás seguro de que deseas eliminar el artículo "${article.name_article}"?`)) {
       this.articleService.deleteArticle(article._id).subscribe(
         (response: any) => {
-          console.log('Artículo eliminado correctamente', response);
+          this.noShowMessagePopAd('Artículo eliminado correctamente', 'check');
           // Actualizar la lista de artículos después de la eliminación
           this.articles = this.articles.filter(a => a._id !== article._id);
           this.applyFilter();
         },
         (error) => {
-          console.error('Error al eliminar el artículo', error);
+          this.noShowMessagePopAd('Error al eliminar el artículo', 'error');
         }
       );
     }
   }
 
-  toEdit() {
+  addProductList(product:any){
+    this.articles.push(product);
+    console.log("Add :",product)
+
+    if(product){
+      this.noShowMessagePopAd('Producto creado exitosamente', 'check');
+    }
+  }
+
+  toEdit(stade:boolean) {
     this.stadeEdit = !this.stadeEdit;
 
     this.editProduct = {
@@ -204,9 +221,25 @@ export class ReadProductAdminComponent implements OnInit {
       },
       description: ''
     };
+
+    if(stade){
+      this.noShowMessagePopAd('Lista de productos actualizada', 'check');
+    }
   }
 
   routeProduct(routerLink: string) {
     this.router.navigate(['/catalogue/product/'+routerLink]);
   }
+
+  noShowMessagePopAd(message_err: string, typeOfAlert: 'check' | 'error'){
+    this.typeOfAlert = typeOfAlert;
+    this.popMessageComponent.typeOfAlert = typeOfAlert;
+    this.messagePopAd = message_err;
+    this.popMessageComponent.update();
+    this.showSuccessMessage = true;
+    setTimeout(() => {
+      this.showSuccessMessage = false;
+    }, 3000);
+ }
+
 }

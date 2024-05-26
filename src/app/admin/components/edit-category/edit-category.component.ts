@@ -75,9 +75,6 @@ export class EditCategoryComponent implements OnInit {
     }
   }
 
-  goBack(): void {
-    this.back.emit(true);
-  }
 
   uploadImg(){
     return Promise.all([
@@ -208,7 +205,7 @@ export class EditCategoryComponent implements OnInit {
           next: (data) => {
             console.log('Categoría actualizada:', data);
             // Lógica adicional después de guardar la categoría, como navegar a otra página
-            this.goBack();
+            this.back.emit(true);
             //this.router.navigate(['/admin/products']);
           },
           error: (err) => console.error('Error actualizando categoría:', err)

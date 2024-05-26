@@ -139,7 +139,7 @@ import { PopMessageComponent } from '../pop-message/pop-message.component';
       if (!this.validateField('Contacto', this.contact, /^[0-9]{10}$/)) return false;
       if (!this.validateField('Fecha de Nacimiento', this.birthDate, /^\d{4}-\d{2}-\d{2}$/)) return false;
       if (!this.validateField('Apellido', this.lastName, /^[a-zA-Z\s]+$/)) return false;
-      if (!this.validateField('Genero', this.gender, /^(Male|Female|Other)$/i)) return false;
+      if (!this.validateField('Genero', this.gender, /^(M|F|O)$/i)) return false;
       if (!this.validateField('Correo', this.email, /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)) return false;
 
       return true;

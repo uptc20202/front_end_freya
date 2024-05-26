@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ArticlesService } from 'src/app/api/services/articles/articles.service';
 import { CategoryService } from 'src/app/api/services/catergory/category.service';
+import { PopMessageComponent } from '../pop-message/pop-message.component';
 
 @Component({
   selector: 'app-category-list',
@@ -14,6 +15,12 @@ export class CategoryListComponent implements OnInit {
   editCategory: string= "";
   categories: any[] = [];
 
+  showSuccessMessage: boolean = false;
+  messagePopAd: string = "error";
+  typeOfAlert: string = "error";
+  @ViewChild(PopMessageComponent) popMessageComponent!: PopMessageComponent;
+
+
   constructor(private articlesService: ArticlesService, private categoryService: CategoryService) { }
 
   ngOnInit(): void {
@@ -26,13 +33,18 @@ export class CategoryListComponent implements OnInit {
         this.categories = data;
       },
       (error) => {
-        console.error('Error al obtener las categorías:', error);
+        this.noShowMessagePopAd('Error al obtener las categorías:', 'error');
       }
     );
   }
 
-  toEdit() {
+  toEdit(stade:boolean) {
     this.stadeEdit = !this.stadeEdit;
+
+    if(stade){
+      this.noShowMessagePopAd('Lista actualizada con éxito', 'check');
+    }
+
   }
 
   toEditCategory(category: any): void {
@@ -52,5 +64,16 @@ export class CategoryListComponent implements OnInit {
       );
     }
   }
+
+  noShowMessagePopAd(message_err: string, typeOfAlert: 'check' | 'error'){
+    this.typeOfAlert = typeOfAlert;
+    this.popMessageComponent.typeOfAlert = typeOfAlert;
+    this.messagePopAd = message_err;
+    this.popMessageComponent.update();
+    this.showSuccessMessage = true;
+    setTimeout(() => {
+      this.showSuccessMessage = false;
+    }, 3000);
+ }
 
 }

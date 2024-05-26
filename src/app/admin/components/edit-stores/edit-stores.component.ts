@@ -1,7 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { AddressService } from 'src/app/api/services/address/address.service';
 import { CloudinaryService } from 'src/app/api/services/cloudinary/cloudinary.service';
 import { StoresService } from 'src/app/api/services/stores/stores.service';
+import { PopMessageComponent } from '../pop-message/pop-message.component';
 
 @Component({
   selector: 'app-edit-stores',
@@ -27,16 +29,24 @@ export class EditStoresComponent implements OnInit {
   isEditMode: boolean = false;
   isCreateMode: boolean = false;
 
+  departamentosAlmacenados: Set<string> = new Set<string>();
+  departamentos: any[] = [];
+  municipios: any[] = [];
+
+  showSuccessMessage: boolean = false;
+  messagePopAd: string = "error";
+  typeOfAlert: string = "error";
+  @ViewChild(PopMessageComponent) popMessageComponent!: PopMessageComponent;
+
   constructor(private storeService: StoresService, private router: Router,
-    private uploadService: CloudinaryService
+    private uploadService: CloudinaryService,private addressService:AddressService
   ) { }
 
   ngOnInit(): void {
+    this.getDepartamentos();
     this.isViewMode = this.mode === 'view';
     this.isEditMode = this.mode === 'edit';
     this.isCreateMode = this.mode === 'create';
-    console.log("Esto de editar... ",this.isEditMode)
-    console.log("Esto de id... ",this.storeId)
     if (this.storeId && (this.isViewMode || this.isEditMode)) {
       this.getStoreById();
     }
@@ -45,7 +55,7 @@ export class EditStoresComponent implements OnInit {
   getStoreById(): void {
     this.storeService.getStoreById(this.storeId).subscribe({
       next: (data) => {this.store = data; console.log(data) },
-      error: (err) => console.error('Error retrieving store:', err)
+      error: (err) => this.noShowMessagePopAd('Error al obtener tienda', 'error')
     });
   }
 
@@ -71,22 +81,25 @@ export class EditStoresComponent implements OnInit {
         };
         reader.readAsDataURL(file); // Convertir el archivo a una URL base64
       } else {
-        alert('Por favor, selecciona un archivo de imagen válido.');
+        this.noShowMessagePopAd('Por favor, selecciona un archivo de imagen válido.', 'error');
       }
     }
   }
 
   saveChanges(): void {
+    if (!this.validateFields()) {
+      return;
+    }
 
     this.upload().then(() => {
 
     this.storeService.updateStore(this.store).subscribe({
       next: (data) => {
-        console.log('Store updated:', data);
+        this.noShowMessagePopAd('Tienda actualizada con éxito', 'check');
         this.storeUpdated.emit(data);
-        this.router.navigate(['/stores']);
+        this.router.navigate(['admin/stores']);
       },
-      error: (err) => console.error('Error updating store:', err)
+      error: (err) => this.noShowMessagePopAd('Error al actualizar la tienda', 'error')
     });
 
     });
@@ -97,16 +110,20 @@ export class EditStoresComponent implements OnInit {
   }
 
   saveStore(): void {
+    if (!this.validateFields()) {
+      return;
+    }
+
     this.store.images = [];
 
     this.upload().then(() => {
 
       this.storeService.createStore(this.store).subscribe({
         next: (data) => {
-          console.log('Store created:', data);
+          this.noShowMessagePopAd('Tienda creada con éxito', 'check');
           this.storeUpdated.emit(data);
         },
-        error: (err) => console.error('Error creating store:', err)
+        error: (err) => this.noShowMessagePopAd('Error al crear tienda', 'error')
       });
 
     });
@@ -119,7 +136,8 @@ export class EditStoresComponent implements OnInit {
 
     return new Promise<boolean>((resolve, reject) => {
       if (this.uploadedImageUrls.length === 0) {
-        reject('No hay imágenes para subir.');
+        console.log('No hay imágenes para subir.');
+        resolve(false);
         return;
       }
 
@@ -150,6 +168,7 @@ export class EditStoresComponent implements OnInit {
             },
             error: (e: any) => {
               console.log(e);
+              this.noShowMessagePopAd('Error en el cargue de imagenes', 'error');
               innerReject('Error al subir imagen');
             }
           });
@@ -167,5 +186,66 @@ export class EditStoresComponent implements OnInit {
     });
   }
 
+  onDepartamentoSelected(departamento: any): void {
+    this.addressService.getMunicipiosByDepartamento(departamento).subscribe(
+      (data) => {
+        this.municipios = data.map((item) => item.municipio);
+      },
+      (error) => {
+        this.noShowMessagePopAd(`Error al obtener municipios para ${departamento}:`, 'error');
+      }
+    );
+  }
 
+  getDepartamentos(): void {
+    this.addressService.getAllDepartamentos().subscribe(
+      (data) => {
+        data.forEach((item) => {
+          const departamento = item.departamento;
+          if (!this.departamentosAlmacenados.has(departamento)) {
+            this.departamentosAlmacenados.add(departamento); // Agregar departamento al conjunto de almacenados
+            this.departamentos.push(departamento); // Agregar departamento a la lista para mostrar en el select
+          }
+        });
+      },
+      (error) => {
+        this.noShowMessagePopAd('Error al obtener departamentos:', 'error');
+      }
+    );
+  }
+
+  noShowMessagePopAd(message_err: string, typeOfAlert: 'check' | 'error'){
+    this.typeOfAlert = typeOfAlert;
+    this.popMessageComponent.typeOfAlert = typeOfAlert;
+    this.messagePopAd = message_err;
+    this.popMessageComponent.update();
+    this.showSuccessMessage = true;
+    setTimeout(() => {
+      this.showSuccessMessage = false;
+    }, 3000);
+ }
+
+ validateFields(): boolean {
+    if (!this.store.name_store) {
+      this.noShowMessagePopAd('Digite el nombre de la tienda.', 'error');
+      return false;
+    }
+    if (!this.store.address) {
+      this.noShowMessagePopAd('La dirección es obligatoria.', 'error');
+      return false;
+    }
+    if (!this.store.department) {
+      this.noShowMessagePopAd('El departamento es obligatorio.', 'error');
+      return false;
+    }
+    if (!this.store.city) {
+      this.noShowMessagePopAd('La ciudad es obligatoria.', 'error');
+      return false;
+    }
+    return true;
+  }
+
+  viewImage(url: string): void {
+    window.open(url, '_blank');
+  }
 }

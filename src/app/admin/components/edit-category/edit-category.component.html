@@ -3,7 +3,7 @@
 <div class="category-editor">
 
   <div class="options">
-    <button class="back" (click)="goBack()">Volver</button>
+    <button class="back" (click)="this.back.emit(false);">Volver</button>
     <button class="save" (click)="updateCategory()">Guardar</button>
   </div>
   <div class="header">

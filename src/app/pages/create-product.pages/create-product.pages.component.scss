@@ -1,6 +1,7 @@
 /* Estilos para los botones */
 .create_space{
   display: flex;
+    flex-direction: column;
 }
 
 .button {
@@ -26,7 +27,8 @@
 .options {
   margin-top: 20px;
   display: block;
-  width: 10%;
+  width: 300px;
+  display: flex;
 }
 
 .edit{

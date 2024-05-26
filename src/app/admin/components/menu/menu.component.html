@@ -25,7 +25,7 @@
   </div>
 
   <div class="right">
-    <input *ngIf="stadeSearch" (ngModelChange)="routerNavigate('catalogue/search/'+$event+'/')" class="search" />
+    <input *ngIf="stadeSearch" [(ngModel)]="seachConten" (ngModelChange)="routerNavigate('catalogue/search/'+$event+'/')" class="search" />
 
     <img class="btn_navbar" src="../../../assets/menu/Search.png" alt="Search"
     (click)="stadeSearch=!stadeSearch">
@@ -44,7 +44,7 @@
   <button class="btn_aut" *ngIf="showNoLoginOptions" (click)="showLoginPopup()" >Inicia Sesión</button>
   <button class="btn_aut" *ngIf="showNoLoginOptions" (click)="showRegisterPopup()">Regístrate</button>
   <button class="btn_aut" *ngIf="!showNoLoginOptions" (click)="profileRoute()">Mi perfil</button>
-  <button class="btn_aut" *ngIf="!showNoLoginOptions" (click)="routerNavigate('/orders')">Mis Pedidos</button>
+  <button class="btn_aut" *ngIf="!showNoLoginOptions&&!admin" (click)="routerNavigate('/orders')">Mis Pedidos</button>
   <button class="btn_aut" *ngIf="!showNoLoginOptions" (click)="logout(); showNoLoginOptions=true" >Cerrar sesión</button>
 </div>
 
@@ -60,7 +60,7 @@
   <div class="banner-img" [style.background-image]="'url(../../../assets/menu/nosotros1.png)'"></div>
   <div class="banner-img" [style.background-image]="'url(../../../assets/menu/nosotros2.png)'"></div>
   <div class="txt-banner">
-    <p> ¿ Quiénes somos ?</p>
+    <p (click)="routerNavigate('/who-are-we')"> ¿ Quiénes somos ?</p>
     <p (click)="routerNavigate('/jobs')"> Trabaja con nosotros</p>
   </div>
 </div>

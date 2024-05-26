@@ -51,7 +51,6 @@ export class MenuComponent {
   }
 
   test(response:any){
-    console.log(response)
     console.log(this.seachConten);
   }
 
@@ -85,12 +84,7 @@ export class MenuComponent {
   }
 
   validateRol(){
-    const userJson = localStorage.getItem('user');
-
-    if (userJson) {
-      const user = JSON.parse(userJson);
-      this.admin = user.role == 'admin';
-    }
+    this.admin = this.loginService.validateRol();
   }
 
   showRegisterPopup() {
@@ -156,6 +150,7 @@ export class MenuComponent {
   }
 
   routerNavigate(path:string){
+    console.log(path)
     this.router.navigate([path]);
   }
 

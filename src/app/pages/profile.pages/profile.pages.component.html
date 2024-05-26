@@ -7,7 +7,7 @@
       <li (click)="show('profile')">Perfil</li>
       <li (click)="show('address')">Direcciones</li>
       <li (click)="show('orders')">Pedidos</li>
-      <li>Contraseña</li>
+      <li (click)="show('changePass')">Contraseña</li>
     </ul>
   </div>
 
@@ -26,5 +26,8 @@
     <app-sales-orders *ngIf="orders">
 
     </app-sales-orders>
+
+    <app-update-pass *ngIf="changePass"></app-update-pass>
+
   </div>
 </div>

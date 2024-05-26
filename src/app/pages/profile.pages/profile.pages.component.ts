@@ -14,6 +14,7 @@ export class ProfilePagesComponent {
 
   profile: boolean= true;
   orders: boolean = false;
+  changePass: boolean = false;
 
   addressEdit: any;
   id_user: string = "";
@@ -33,21 +34,31 @@ export class ProfilePagesComponent {
         this.profile = true;
         this.address = false;
         this.orders = false;
+        this.changePass = false;
         break;
       case "address":
         this.profile = false;
         this.address = true;
         this.orders = false;
+        this.changePass = false;
         break;
       case "orders":
         this.profile = false;
         this.address = false;
         this.orders = true;
+        this.changePass = false;
+        break;
+      case 'changePass':
+        this.profile = false;
+        this.address = false;
+        this.orders = false;
+        this.changePass = true;
         break;
       default:
         this.profile = true;
         this.address = false;
         this.orders = false;
+        this.changePass = false;
         break;
     }
   }

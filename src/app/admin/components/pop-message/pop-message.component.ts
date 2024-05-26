@@ -24,12 +24,12 @@ export class PopMessageComponent implements OnInit{
 
   update(){
     switch(this.typeOfAlert){
-      case "error":
+      case 'error':
         this.borderColor = "#F8C1C0";
         this.textColor = "#F45B69";
         this.link = "../../../assets/popMessage/error.png"
         break;
-      case "check":
+      case 'check':
         this.borderColor = "#C0F8E3";
         this.textColor = "#000000";
         this.link = "../../../assets/popMessage/check.png"

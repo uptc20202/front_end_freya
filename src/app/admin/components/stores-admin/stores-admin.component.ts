@@ -1,6 +1,7 @@
 import { state } from '@angular/animations';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { StoresService } from 'src/app/api/services/stores/stores.service';
+import { PopMessageComponent } from '../pop-message/pop-message.component';
 
 @Component({
   selector: 'app-stores-admin',
@@ -14,6 +15,11 @@ export class StoresAdminComponent {
   selectStore:any;
   modeView: 'view' | 'edit' | 'create' = 'view';
 
+  showSuccessMessage: boolean = false;
+  messagePopAd: string = "error";
+  typeOfAlert: string = "error";
+  @ViewChild(PopMessageComponent) popMessageComponent!: PopMessageComponent;
+
   constructor(private storesService: StoresService) { }
 
   ngOnInit(): void {
@@ -23,7 +29,12 @@ export class StoresAdminComponent {
   loadStores() {
     this.storesService.getStores().subscribe((data: any) => {
       this.stores = data;
+
     });
+  }
+
+  msjCreateStore(){
+    this.noShowMessagePopAd('La tienda se ha guardado correctamente.', 'check');
   }
 
   createStore() {
@@ -61,5 +72,16 @@ export class StoresAdminComponent {
     }
 
   }
+
+  noShowMessagePopAd(message_err: string, typeOfAlert: 'check' | 'error'){
+    this.typeOfAlert = typeOfAlert;
+    this.popMessageComponent.typeOfAlert = typeOfAlert;
+    this.messagePopAd = message_err;
+    this.popMessageComponent.update();
+    this.showSuccessMessage = true;
+    setTimeout(() => {
+      this.showSuccessMessage = false;
+    }, 3000);
+ }
 
 }

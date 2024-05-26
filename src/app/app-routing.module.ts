@@ -26,6 +26,9 @@ import { MenuComponent } from './admin/components/menu/menu.component';
 import { StoresAdminComponent } from './admin/components/stores-admin/stores-admin.component';
 import { StoresAdminPagesComponent } from './pages/stores-admin.pages/stores-admin.pages.component';
 import { StoreViewUserComponent } from './admin/components/store-view-user/store-view-user.component';
+import { InfoCompanyComponent } from './admin/components/info-company/info-company.component';
+import { UpdatePassComponent } from './admin/components/update-pass/update-pass.component';
+import { ForgotPassComponent } from './admin/components/forgot-pass/forgot-pass.component';
 
 const routes: Routes = [
   {
@@ -121,8 +124,16 @@ const routes: Routes = [
     component:StoreViewUserComponent
   },
   {
+    path: 'who-are-we',
+    component:InfoCompanyComponent
+  },
+  {
+    path: 'forgot-password',
+    component:ForgotPassComponent
+  },
+  {
     path: 'test',
-    component:ShopCarComponent
+    component:UpdatePassComponent
   }
 ];
 
