@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArticlesService } from 'src/app/api/services/articles/articles.service';
+import { PopMessageComponent } from '../pop-message/pop-message.component';
 
 @Component({
   selector: 'app-product-description',
@@ -11,6 +12,11 @@ export class ProductDescriptionComponent {
   test(){
     console.log(this.product)
   }
+
+  showSuccessMessage: boolean = false;
+  messagePopAd: string = "error";
+  typeOfAlert: string = "error";
+  @ViewChild(PopMessageComponent) popMessageComponent!: PopMessageComponent;
 
   @Input() productId: string | null;
   product: any;
@@ -48,7 +54,7 @@ export class ProductDescriptionComponent {
 
   addToCart(): void {
     if (!this.selectedSize) {
-      alert('Por favor selecciona una talla.');
+      this.noShowMessagePopAd('Por favor selecciona una talla.', 'error');
       return;
     }
 
@@ -58,7 +64,7 @@ export class ProductDescriptionComponent {
     this.selectedSize = '';
     this.quantity = 1;
 
-    alert('Producto agregado al carrito.');
+    this.noShowMessagePopAd('Producto agregado al carrito.', 'check');
   }
 
 /**
@@ -84,5 +90,22 @@ export class ProductDescriptionComponent {
     }
   }
 
+  alert(){
+    this.noShowMessagePopAd('Productos agregados al carrito', 'check');
+  }
 
+  viewImage(): void {
+    //window.open(this.product., '_blank');
+  }
+
+  noShowMessagePopAd(message_err: string, typeOfAlert: 'check' | 'error'){
+    this.typeOfAlert = typeOfAlert;
+    this.popMessageComponent.typeOfAlert = typeOfAlert;
+    this.messagePopAd = message_err;
+    this.popMessageComponent.update();
+    this.showSuccessMessage = true;
+    setTimeout(() => {
+      this.showSuccessMessage = false;
+    }, 3000);
+ }
 }

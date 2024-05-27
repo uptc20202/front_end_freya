@@ -143,10 +143,14 @@ export class LoginService {
   }
 
   forgotPass(email:string){
-    const body = {
+    const url = 'https://freya-backend.onrender.com/api/v1/auth/passLogin';
 
+    const body = {
+      email : email
     }
-    //return this.http.post();
+
+    const headers = new HttpHeaders()
+    return this.http.post(url, body,{headers});
   }
 }
 

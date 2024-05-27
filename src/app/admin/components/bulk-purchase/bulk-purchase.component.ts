@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ArticlesService } from 'src/app/api/services/articles/articles.service';
 
 @Component({
   selector: 'app-bulk-purchase',
@@ -14,6 +15,7 @@ export class BulkPurchaseComponent  implements OnInit {
   @Input() productId: string = "";
 
   @Output() edit: EventEmitter<boolean> = new EventEmitter<boolean>;
+  @Output() back: EventEmitter<boolean> = new EventEmitter<boolean>;
 
   sizeQuantities: { [key: string]: number } = {};
 
@@ -25,6 +27,8 @@ export class BulkPurchaseComponent  implements OnInit {
     this.sizes.forEach(size => this.sizeQuantities[size] = 0);
     this.calculatePrices();
   }
+
+  constructor(private articleService:ArticlesService){}
 
   increaseSize(size: string) {
     this.sizeQuantities[size]++;
@@ -107,13 +111,15 @@ export class BulkPurchaseComponent  implements OnInit {
             console.log("Item a agregar en el carro: ",newItem)
           }
 
+          this.articleService.setCard(cartItems)
           // Guardar el carrito actualizado en el localStorage
-          localStorage.setItem('cart', JSON.stringify(cartItems));
+          //localStorage.setItem('cart', JSON.stringify(cartItems));
 
           // Reiniciar valores
           console.log("Estado final de tallas: ",this.sizeQuantities[sizes.size]);
           this.sizeQuantities[sizes.size] = 0;
-
+          this.back.emit(true);
+          this.edit.emit(true);
         }
 
       }

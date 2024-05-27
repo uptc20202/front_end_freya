@@ -70,6 +70,7 @@ import { InfoCompanyComponent } from './admin/components/info-company/info-compa
 import { UpdatePassComponent } from './admin/components/update-pass/update-pass.component';
 import { ForgotPassComponent } from './admin/components/forgot-pass/forgot-pass.component';
 import { FinishBuyNoLoginComponent } from './admin/components/finish-buy-no-login/finish-buy-no-login.component';
+import { RecoberypassComponent } from './admin/components/recoberypass/recoberypass.component';
 
 
 @NgModule({
@@ -137,6 +138,7 @@ import { FinishBuyNoLoginComponent } from './admin/components/finish-buy-no-logi
     UpdatePassComponent,
     ForgotPassComponent,
     FinishBuyNoLoginComponent,
+    RecoberypassComponent,
   ],
   imports: [
     BrowserModule,

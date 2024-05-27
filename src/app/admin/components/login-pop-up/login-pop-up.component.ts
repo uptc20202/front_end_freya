@@ -22,12 +22,18 @@ export class LoginPopUpComponent {
   messagePopAd: string = "error";
   typeOfAlert: string = "error";
 
+
+
   constructor(private registerService: RegisterService
     ,private loginService: LoginService,private router: Router) {}
 
   loginBtnClick(): void {
     // Llamar a la función onLogin con los valores de username y password
     this.onLogin(this.email, this.password);
+  }
+
+  navigate(path:string){
+    this.router.navigate([path])
   }
 
   registerBtnClick() {

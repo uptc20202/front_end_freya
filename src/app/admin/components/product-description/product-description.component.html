@@ -1,7 +1,10 @@
+<app-pop-message [typeOfAlert]="typeOfAlert" [showSuccessMessage]="showSuccessMessage" [message]="messagePopAd"></app-pop-message>
+
 <div class="bulk">
   <app-bulk-purchase
   *ngIf="edit"
   (edit)="edit = false"
+  (back)="alert()"
   [price1To6]="product.retail_price"
   [price7To19]="product.medium_price"
   [price20OrMore]="product.wholesale_price"
@@ -52,7 +55,7 @@
       <div class="size">
         <div class="size-space">
           <p>Talla: {{ product.size }}</p>
-          <span class="size-guide">Guía de tallas</span>
+          <span class="size-guide" >Guía de tallas</span>
         </div>
 
         <div class="size-buttons">

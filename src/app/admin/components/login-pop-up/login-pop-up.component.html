@@ -13,7 +13,7 @@
     <div class="input-group">
       <h3 class="input-title">Contraseña</h3>
       <input type="password" class="input-field" placeholder="Ingrese su contraseña" [(ngModel)]="password" (ngModelChange)="setPassword($event)">
-      <a *ngIf="showLoginBtn" href="#" class="forgot-password">Olvidé mi contraseña</a>
+      <a *ngIf="showLoginBtn"  class="forgot-password" (click)="navigate('forgot-password')">Olvidé mi contraseña</a>
     </div>
 
     <button *ngIf="showLoginBtn" (click)="loginBtnClick()" class="login-button">INGRESAR</button>

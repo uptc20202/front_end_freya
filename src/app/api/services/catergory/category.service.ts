@@ -87,4 +87,8 @@ export class CategoryService {
 
     return this.http.get(this.baseUrl, { headers});
   }
+
+  getCategorySizeGuide(id:string){
+    this.getCategoryById(id)
+  }
 }

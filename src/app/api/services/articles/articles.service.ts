@@ -159,4 +159,9 @@ export class ArticlesService {
     this._amuntProducts.next(0);
   }
 
+  setCard(cartItems: any){
+    localStorage.setItem('cart', JSON.stringify(cartItems));
+    this._amuntProducts.next(cartItems)
+  }
+
 }
