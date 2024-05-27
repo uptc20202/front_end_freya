@@ -29,6 +29,7 @@ import { StoreViewUserComponent } from './admin/components/store-view-user/store
 import { InfoCompanyComponent } from './admin/components/info-company/info-company.component';
 import { UpdatePassComponent } from './admin/components/update-pass/update-pass.component';
 import { ForgotPassComponent } from './admin/components/forgot-pass/forgot-pass.component';
+import { FinishBuyNoLoginComponent } from './admin/components/finish-buy-no-login/finish-buy-no-login.component';
 
 const routes: Routes = [
   {
@@ -130,6 +131,10 @@ const routes: Routes = [
   {
     path: 'forgot-password',
     component:ForgotPassComponent
+  },
+  {
+    path: 'nologin/sale/:idsale',
+    component:FinishBuyNoLoginComponent
   },
   {
     path: 'test',

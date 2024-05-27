@@ -24,16 +24,16 @@
 
             <td class="product-column">
               <img class="product-image" [src]="item.product?.images[0]" alt="{{ item.product?.name_article }}" class="product-image">
-              <p>{{ item.product?.name_article + " "+ item.size}}</p>
+              <p>{{ item.product?.name_article + " "+ item?.size}}</p>
             </td>
 
-            <td class="price">{{ item.product.retail_price | currency:'COP':'symbol':'1.0-0' }}</td>
+            <td class="price">{{ item.product?.retail_price | currency:'COP':'symbol':'1.0-0' }}</td>
             <td class="quantity">
               <button (click)="decreaseQuantity(item)">-</button>
               <span>{{ item.quantity }}</span>
               <button (click)="increaseQuantity(item)">+</button>
             </td>
-            <td class="total">{{ item.product.retail_price * item.quantity | currency:'COP':'symbol':'1.0-0' }}</td>
+            <td class="total">{{ item.product?.retail_price * item?.quantity | currency:'COP':'symbol':'1.0-0' }}</td>
             <td>
               <button class="delete-button" (click)="removeItem(item)">
                 <img src="../../../assets/shop/trash.png" alt="Trash Icon">

@@ -96,13 +96,15 @@ export class EditAddresComponent implements OnInit {
   }
 
   getAddressShop(){
+    console.log('Se envio Address: ',this.nuevaDireccion);
     this.address.emit(this.nuevaDireccion);
     this.noShowMessagePopAd("Dirección Guardada con éxito", "check");
   }
 
   onSaveChanges(): void {
 
-    if(this.addressEdit || !this.validateFields()){
+    if(this.addressEdit && !this.validateFields()){
+      console.log("no hay")
       this.editAddres();
       this.back.emit(true);
       return;
@@ -119,7 +121,10 @@ export class EditAddresComponent implements OnInit {
       (response) => {
         console.log('Dirección creada exitosamente:', response);
         //this.user.shiping_address = response.usuario.shiping_address;
-        this.ubicacionService.addAddressStorage(this.nuevaDireccion);
+        console.log(response.usuario.shiping_address)
+        this.ubicacionService.setObservableAddresses(response.usuario.shiping_address)
+        //this.ubicacionService.addAddressStorage(this.nuevaDireccion);
+        //this.address.emit(response);
         this.back.emit(true);
       },
       (error) => {

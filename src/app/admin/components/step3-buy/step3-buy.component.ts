@@ -31,9 +31,13 @@ import { LoginService } from 'src/app/api/services/login/login.service';
     ngOnInit(): void {
 
       this.loginService.stadeLogin.subscribe( stade => this.stadeLogin = stade);
-      this.addresses = this.addressService.getAddressesStorage()
 
-      this.addressService.addresses.subscribe(addresses => this.addresses = addresses);
+      if(this.stadeLogin){
+        this.addresses = this.addressService.getAddressesStorage()
+
+        this.addressService.addresses.subscribe(addresses => this.addresses = addresses);
+      }
+
 
       /*
       const user = localStorage.getItem('user');
@@ -94,7 +98,11 @@ import { LoginService } from 'src/app/api/services/login/login.service';
           console.log('Sale created successfully:', response);
           const saleId = response.newSale._id;
           this.redirectToWhatsApp(saleId);
-          this.route.navigate(['/sale/'+saleId]);
+          if(this.stadeLogin){
+            this.route.navigate(['/sale/'+saleId]);
+          }else{
+            this.route.navigate(['/sale/nologin/'+saleId]);
+          }
         }, error => {
           console.error('Error creating sale:', error);
         });
