@@ -57,9 +57,10 @@ export class CategoryListComponent implements OnInit {
       this.categoryService.deleteCategory(category._id).subscribe(
         (resolve) => {
           this.categories = this.categories.filter(categoryFilter => categoryFilter._id != category._id)
+          this.noShowMessagePopAd('Categoría Eliminada Exitosamente', 'check');
         },
         (error) => {
-          this.noShowMessagePopAd('"Error al eliminar categoria', 'error');
+          this.noShowMessagePopAd('"Error al eliminar categoría', 'error');
         }
       );
     }
