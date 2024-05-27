@@ -150,7 +150,6 @@ export class MenuComponent {
   }
 
   routerNavigate(path:string){
-    console.log(path)
     this.router.navigate([path]);
   }
 

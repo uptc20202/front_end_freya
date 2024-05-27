@@ -61,15 +61,11 @@ export class BulkPurchaseComponent  implements OnInit {
   validateStock(){
     this.sizes.forEach(
       size => {
-        console.log("Paso por talla: "+size.size+" con cantidad: "+this.sizeQuantities[size.size]);
         if(this.sizeQuantities[size.size] > size.quantity){
-          console.log("Seleccion mayor a inventario");
           this.sizeQuantities[size.size] =  size.quantity;
         }else if(this.sizeQuantities[size.size]<0){
-          console.log("Seleccion con valor negativo");
           this.sizeQuantities[size.size] * -1;
         }else if(!this.sizeQuantities[size.size]){
-          console.log("NO HAY SELECCIÓN");
           this.sizeQuantities[size.size] = 0;
         }
         console.log("")
@@ -82,20 +78,13 @@ export class BulkPurchaseComponent  implements OnInit {
 
   addToCart(): void {
     let cartItems = JSON.parse(localStorage.getItem('cart') || '[]');
-
-    console.log("Estado de tallas: ", this.sizes)
-    console.log("Estado de selecciones: ",this.sizeQuantities)
-    // Verificar si el producto con la misma talla ya está en el carrito}
+// Verificar si el producto con la misma talla ya está en el carrito}
     this.sizes.forEach(
       sizes =>{
 
         if(this.sizeQuantities[sizes.size]> 0){
-          console.log("Cantidad de tallas: ",this.sizeQuantities[sizes.size]);
-          console.log("Talla o key: ",sizes.size)
-
           const itemIndex = this.productInCartIndex(
             this.productId, sizes.size, cartItems);
-          console.log("Indeex producto en carro: ",itemIndex)
           if (itemIndex !== -1) {
             // Si el producto con la misma talla ya está en el carrito, actualizar la cantidad
             cartItems[itemIndex].quantity += this.quantity;
@@ -108,7 +97,7 @@ export class BulkPurchaseComponent  implements OnInit {
               quantity: this.sizeQuantities[sizes.size]
             };
             cartItems.push(newItem);
-            console.log("Item a agregar en el carro: ",newItem)
+
           }
 
           this.articleService.setCard(cartItems)
@@ -116,7 +105,7 @@ export class BulkPurchaseComponent  implements OnInit {
           //localStorage.setItem('cart', JSON.stringify(cartItems));
 
           // Reiniciar valores
-          console.log("Estado final de tallas: ",this.sizeQuantities[sizes.size]);
+
           this.sizeQuantities[sizes.size] = 0;
           this.back.emit(true);
           this.edit.emit(true);

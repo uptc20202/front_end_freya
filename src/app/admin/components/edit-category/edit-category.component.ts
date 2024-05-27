@@ -145,7 +145,6 @@ export class EditCategoryComponent implements OnInit {
 
         });
       }else{
-        console.log('Imagen ya es URL')
         resolve(img);
       }
 
@@ -201,10 +200,8 @@ export class EditCategoryComponent implements OnInit {
     this.uploadImg().then(resolve =>{
 
       if (this.categoryId) {
-        console.log(this.categoryId)
         this.categoryService.updateCategory(this.categoryId, this.category).subscribe({
           next: (data) => {
-            console.log('Categoría actualizada:', data);
             // Lógica adicional después de guardar la categoría, como navegar a otra página
             this.back.emit(true);
             //this.router.navigate(['/admin/products']);

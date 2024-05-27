@@ -18,8 +18,6 @@ export class ForgotPassComponent {
 
   recoverPassword() {
     if (this.isValidEmail) {
-      // Aquí va la lógica para recuperar la contraseña, por ejemplo, llamando a un servicio.
-      console.log('Correo enviado a:', this.email);
 
       // Resetear el campo de correo electrónico después de enviar el correo de recuperación
       this.email = '';

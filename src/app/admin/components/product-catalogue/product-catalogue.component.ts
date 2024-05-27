@@ -17,7 +17,6 @@ export class ProductCatalogueComponent {
   constructor(private router: Router){}
 
   routeProduct() {
-    console.log(this.routerLink)
     this.router.navigate(['/catalogue/product/'+this.routerLink]);
   }
 

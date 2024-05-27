@@ -136,7 +136,6 @@ export class EditStoresComponent implements OnInit {
 
     return new Promise<boolean>((resolve, reject) => {
       if (this.uploadedImageUrls.length === 0) {
-        console.log('No hay imágenes para subir.');
         resolve(false);
         return;
       }

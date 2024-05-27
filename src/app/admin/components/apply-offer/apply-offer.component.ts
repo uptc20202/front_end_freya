@@ -73,8 +73,6 @@ export class ApplyOfferComponent implements OnInit{
       ubication: this.job.ubication
     };
 
-    console.log(cvUser);
-
     this.jobService.applyJob(cvUser).subscribe(
       response => {
         alert('¡Solicitud enviada con éxito!');

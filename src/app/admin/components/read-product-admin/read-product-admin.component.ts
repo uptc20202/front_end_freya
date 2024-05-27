@@ -154,7 +154,7 @@ export class ReadProductAdminComponent implements OnInit {
         }
       }
     );
-    console.log(this.articles[this.articles.length-1])
+
   }
 
   getTotalQuantity(stock: any[]): number {

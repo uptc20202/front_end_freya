@@ -96,7 +96,6 @@ export class EditAddresComponent implements OnInit {
   }
 
   getAddressShop(){
-    console.log('Se envio Address: ',this.nuevaDireccion);
     this.address.emit(this.nuevaDireccion);
     this.noShowMessagePopAd("Dirección Guardada con éxito", "check");
   }
@@ -104,7 +103,6 @@ export class EditAddresComponent implements OnInit {
   onSaveChanges(): void {
 
     if(this.addressEdit && !this.validateFields()){
-      console.log("no hay")
       this.editAddres();
       this.back.emit(true);
       return;
@@ -119,9 +117,6 @@ export class EditAddresComponent implements OnInit {
 
     this.ubicacionService.createAddress(this.userId, this.nuevaDireccion).subscribe(
       (response) => {
-        console.log('Dirección creada exitosamente:', response);
-        //this.user.shiping_address = response.usuario.shiping_address;
-        console.log(response.usuario.shiping_address)
         this.ubicacionService.setObservableAddresses(response.usuario.shiping_address)
         //this.ubicacionService.addAddressStorage(this.nuevaDireccion);
         //this.address.emit(response);
@@ -137,8 +132,6 @@ export class EditAddresComponent implements OnInit {
   editAddres(){
     this.ubicacionService.updateAddress(this.userId, this.addressEdit).subscribe(
       (response) => {
-        console.log('Dirección actualizada exitosamente:', response);
-        // Actualizar los datos del usuario en el almacenamiento local si es necesario
         this.user.shiping_address = response.usuario.shiping_address;
         localStorage.setItem('user', JSON.stringify(this.user));
       },
@@ -153,8 +146,6 @@ export class EditAddresComponent implements OnInit {
    */
   onDeleteAddress(): void {
     if (!this.addressEdit || !this.addressEdit._id) {
-      console.log('No hay dirección seleccionada para eliminar.');
-      console.log(this.addressEdit._id)
       return;
     }
 
@@ -162,8 +153,6 @@ export class EditAddresComponent implements OnInit {
 
     this.ubicacionService.deleteAddress(this.id_user, this.addressEdit._id).subscribe(
       (response) => {
-        console.log('Dirección eliminada exitosamente:', response);
-        // Eliminar la dirección del usuario en el almacenamiento local si es necesario
         this.ubicacionService.deleteAddressStorage(this.addressEdit._id);
         this.addressDeleted.emit(this.addressEdit._id);
         this.back.emit(true);
@@ -176,8 +165,6 @@ export class EditAddresComponent implements OnInit {
   }
 
   validateFields(): boolean{
-    console.log("Direccion "+this.nuevaDireccion);
-    console.log(this.nuevaDireccion);
 
     if (this.nuevaDireccion.address=="" || !this.nuevaDireccion.municipality || this.nuevaDireccion.neighborhood=="" || this.nuevaDireccion.name_addressee=="" || this.nuevaDireccion.number_phone=="") {
       this.noShowMessagePopAd("Por favor, complete todos los campos antes de guardar.", "error");

@@ -172,9 +172,6 @@ export class AddProductComponent  implements OnInit {
         next: (response: any) => {
           this.productCreate.emit(response);
           this.noShowMessagePopAd('Artículo creado con éxito:', 'check');
-
-          console.log('Eroor ra')
-          console.log(response)
           this.back.emit(true);
         },
         error: (error: any) => {
