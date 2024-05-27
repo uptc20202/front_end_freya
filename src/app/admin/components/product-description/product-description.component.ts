@@ -2,6 +2,8 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArticlesService } from 'src/app/api/services/articles/articles.service';
 import { PopMessageComponent } from '../pop-message/pop-message.component';
+import { CategoryService } from 'src/app/api/services/catergory/category.service';
+import { image } from '@cloudinary/url-gen/qualifiers/source';
 
 @Component({
   selector: 'app-product-description',
@@ -16,6 +18,7 @@ export class ProductDescriptionComponent {
   showSuccessMessage: boolean = false;
   messagePopAd: string = "error";
   typeOfAlert: string = "error";
+  guideSizes:string[] =['',''];
   @ViewChild(PopMessageComponent) popMessageComponent!: PopMessageComponent;
 
   @Input() productId: string | null;
@@ -33,7 +36,7 @@ export class ProductDescriptionComponent {
   }
 
   constructor(private articlesService: ArticlesService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute, private categoryService:CategoryService) {
     // Datos de ejemplo para un producto
     this.productId = null;
     this.product = null;
@@ -44,6 +47,7 @@ export class ProductDescriptionComponent {
       this.articlesService.getArticleById(id).subscribe(
         (data: any) => {
           this.product = data; // Asignar los detalles del producto recuperados del servicio
+          this.getGuideSize();
         },
         (error) => {
           console.error('Error al obtener detalles del producto:', error);
@@ -95,7 +99,24 @@ export class ProductDescriptionComponent {
   }
 
   viewImage(): void {
-    //window.open(this.product., '_blank');
+    if(this.product.gender=='F'){
+      if(this.guideSizes[0]){
+        window.open(this.guideSizes[0], '_blank');
+      }
+
+    }else if(this.product.gender=='M'){
+      if(this.guideSizes[1]){
+        window.open(this.guideSizes[1], '_blank');
+      }
+    }else{
+      if(this.guideSizes[0]){
+        window.open(this.guideSizes[0], '_blank');
+      }
+      if(this.guideSizes[1]){
+        window.open(this.guideSizes[1], '_blank');
+      }
+    }
+
   }
 
   noShowMessagePopAd(message_err: string, typeOfAlert: 'check' | 'error'){
@@ -107,5 +128,16 @@ export class ProductDescriptionComponent {
     setTimeout(() => {
       this.showSuccessMessage = false;
     }, 3000);
+ }
+
+
+ getGuideSize(){
+  const idcategory = this.product.category;
+
+  this.categoryService.getCategoryById(idcategory)
+    .subscribe(resolve =>{
+      this.guideSizes[0]= resolve.url_size_guide_fem;
+      this.guideSizes[0]= resolve.url_size_guide_male}
+    );
  }
 }
