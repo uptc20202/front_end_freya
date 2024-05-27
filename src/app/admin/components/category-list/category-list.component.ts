@@ -59,7 +59,7 @@ export class CategoryListComponent implements OnInit {
           this.categories = this.categories.filter(categoryFilter => categoryFilter._id != category._id)
         },
         (error) => {
-          alert("Error al eliminar categoria");
+          this.noShowMessagePopAd('"Error al eliminar categoria', 'error');
         }
       );
     }
