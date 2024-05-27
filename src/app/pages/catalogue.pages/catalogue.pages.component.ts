@@ -17,7 +17,7 @@ export class CataloguePagesComponent {
   messagePopAd: string = "error";
   typeOfAlert: string = "error";
 
-  categories: any;
+  categories: any[] = [];
   order:string= 'emply';
 
   constructor(private articleService: ArticlesService,
@@ -27,16 +27,23 @@ export class CataloguePagesComponent {
   ) { }
 
   ngOnInit(): void {
-    this.getCategories();
-
-    console.log(this.categories)
+    //this.getCategories();
     this.fillProducts();
   }
 
-  getCategories(){
+  getCategories(gender:string){
     this.categoryService.getCategories().subscribe(
       resolve =>{
+
         this.categories = resolve;
+        console.log(this.categories)
+        if(gender=='M'){
+          console.log(this.categories.filter(category => category.gender == 'M' ))
+          this.categories = this.categories.filter(category => category.gender == 'M' );
+        }else if(gender=='F'){
+          this.categories = this.categories.filter((category: any)=> category.gender == 'F' );
+        }
+        console.log(this.categories)
       },error=>{
          console.error(error);
       });
@@ -51,14 +58,19 @@ export class CataloguePagesComponent {
       // Llamar al método correspondiente del servicio dependiendo del valor de 'gender'
       if (gender && gender.toUpperCase() === 'MALE') {
         this.getArticlesByGender('M');
+        this.getCategories('M');
       } else if (gender && gender.toUpperCase() === 'FEMALE') {
         this.getArticlesByGender('F');
+        this.getCategories('F');
       }else if(category){
+        this.getCategories('O');
         this.getByCategory(category);
       }else if(searchParams){
         this.getByName(searchParams);
+        this.getCategories('O');
       }else{
         this.getAllArticles();
+        this.getCategories('O');
       }
     });
   }

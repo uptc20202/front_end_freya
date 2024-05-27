@@ -2,7 +2,7 @@
   <div class="row">
     <!-- Barra lateral con búsqueda y lista de ventas -->
     <div class="col-md-3">
-      <input type="text" class="form-control mb-3" placeholder="Buscar venta...">
+      <input type="text" class="form-control mb-3" placeholder="Buscar venta..." [(ngModel)]="searchTxt" (ngModelChange)="filterSales()">
       <div *ngFor="let sale of sales" (click)="onSelectSale(sale)" class="btn btn-primary mb-2">
         <p> Venta REF {{ sale._id.substring(0, 6) }} </p>
       </div>

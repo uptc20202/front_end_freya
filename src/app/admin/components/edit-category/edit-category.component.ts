@@ -199,7 +199,7 @@ export class EditCategoryComponent implements OnInit {
     }
 
     this.uploadImg().then(resolve =>{
-      console.log("Termino")
+
       if (this.categoryId) {
         console.log(this.categoryId)
         this.categoryService.updateCategory(this.categoryId, this.category).subscribe({

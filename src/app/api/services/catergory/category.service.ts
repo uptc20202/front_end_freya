@@ -59,6 +59,7 @@ export class CategoryService {
     const token = this.cookieService.get('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     const url = `${this.baseUrl}/${categoryId}`;
+    console.log(category);
     return this.http.put<any>(url, category, { headers });
   }
 
@@ -91,4 +92,6 @@ export class CategoryService {
   getCategorySizeGuide(id:string){
     this.getCategoryById(id)
   }
+
+
 }

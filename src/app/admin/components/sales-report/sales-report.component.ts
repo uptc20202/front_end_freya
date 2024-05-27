@@ -9,8 +9,10 @@ import { ArticlesService } from 'src/app/api/services/articles/articles.service'
 })
 export class SalesReportComponent implements OnInit {
   sales: any[] = [];
+  salesBackUp: any[] = [];
   selectedSale: any;
   userEmail: string = "";
+  searchTxt: string = '';
 
   dropdownVisible: boolean = false;
 
@@ -21,11 +23,17 @@ export class SalesReportComponent implements OnInit {
   test(){
     console.log(this.selectedSale)
   }
+
   constructor(private salesService: SalesService, private articlesService: ArticlesService) { }
 
   ngOnInit(): void {
+    this.getSales();
+  }
+
+  getSales(){
     this.salesService.getSales().subscribe((data: any[]) => {
       this.sales = data;
+      this.salesBackUp = data;
     });
   }
 
@@ -77,5 +85,10 @@ export class SalesReportComponent implements OnInit {
 
   toggleDropdown(): void {
     this.dropdownVisible = !this.dropdownVisible;
+  }
+
+  filterSales(){
+    console.log(this.searchTxt)
+    this.sales = this.salesBackUp.filter(sale => sale._id.substring(0, 6).includes(this.searchTxt) )
   }
 }
