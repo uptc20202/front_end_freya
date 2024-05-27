@@ -17,6 +17,15 @@
         <input id="name_category" placeholder="Nombre de categoria" [(ngModel)]="category.name_category" type="text">
       </div>
 
+      <div class="field-group">
+        <label class="field-title">Género</label>
+        <select [(ngModel)]="category.gender" class="input-field">
+          <option value="M">Hombre</option>
+          <option value="F">Mujer</option>
+          <option value="O">Otro</option>
+        </select>
+      </div>
+
       <div>
         <label for="description_category">Descripción:</label>
       <textarea id="description_category" placeholder="Descripción..." [(ngModel)]="category.description_category"></textarea>

@@ -18,6 +18,7 @@ export class EditCategoryComponent implements OnInit {
 
   category: any= {
     name_category: '',
+    gender: 'U',
     description_category: '',
     url_icon: this.urlImageUpload,
     url_image: this.urlImageUpload,
