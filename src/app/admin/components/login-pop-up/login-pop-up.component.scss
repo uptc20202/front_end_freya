@@ -48,6 +48,7 @@
   display: block;
   margin-top: 5px;
   word-wrap: break-word; /* Permite que el texto se ajuste dentro del contenedor */
+  cursor: pointer;
 }
 
 .login-button {
@@ -59,6 +60,10 @@
   font-size: 16px;
   cursor: pointer;
   border: none;
+}
+
+.forgot{
+  cursor: pointer;
 }
 
 .login-button:hover{

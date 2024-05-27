@@ -48,8 +48,8 @@
   <button class="btn_aut" *ngIf="!showNoLoginOptions" (click)="logout(); showNoLoginOptions=true" >Cerrar sesión</button>
 </div>
 
-<app-login-pop-up [showLoginBtn]="true" *ngIf="stadeLoginPopup"></app-login-pop-up>
-<app-login-pop-up title="REGISTRARSE" [showRegisterBtn]="true" *ngIf="stadeRegisterPopup"></app-login-pop-up>
+<app-login-pop-up [showLoginBtn]="true" *ngIf="stadeLoginPopup" (back)="stadeLoginPopup=false;stadeBackGroundPopup=false"></app-login-pop-up>
+<app-login-pop-up title="REGISTRARSE" [showRegisterBtn]="true" (back)="stadeRegisterPopup=false" *ngIf="stadeRegisterPopup"></app-login-pop-up>
 <div (click)="noStadeLoginPopup()" class="background-overlay" *ngIf="stadeBackGroundPopup"></div>
 
 <div class="card_show" *ngIf="stateCard" (mouseleave)="stateCard=false">

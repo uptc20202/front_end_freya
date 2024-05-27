@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/api/services/login/login.service';
 import { RegisterService } from 'src/app/api/services/register/register.service';
@@ -22,7 +22,7 @@ export class LoginPopUpComponent {
   messagePopAd: string = "error";
   typeOfAlert: string = "error";
 
-
+  @Output() back: EventEmitter<boolean> = new EventEmitter<boolean>;
 
   constructor(private registerService: RegisterService
     ,private loginService: LoginService,private router: Router) {}
@@ -33,7 +33,9 @@ export class LoginPopUpComponent {
   }
 
   navigate(path:string){
-    this.router.navigate([path])
+    this.back.emit(false);
+    this.router.navigate([path]);
+
   }
 
   registerBtnClick() {
